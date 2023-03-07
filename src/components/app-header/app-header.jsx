@@ -1,5 +1,4 @@
-import React from "react";
-import stylesHeader from "./app-header.module.css";
+import styles from "./app-header.module.css";
 import {
   BurgerIcon,
   ListIcon,
@@ -10,20 +9,20 @@ import {
 export const AppHeader = () => {
   return (
     <header
-      className={`text text_type_main-default pt-4 pb-4 ${stylesHeader.header}`}
+      className={`text text_type_main-default pt-4 pb-4 ${styles.header}`}
     >
-      <div className={stylesHeader.container}>
-        <nav className={stylesHeader.nav}>
-          <ul className={stylesHeader.list}>
+      <div className={styles.container}>
+        <nav className={styles.nav}>
+          <ul className={styles.list}>
             <li>
-              <a className={stylesHeader.link_active} href="/">
+              <a className={styles.link_active} href="/">
                 <BurgerIcon type="primary" />
                 <span>Конструктор</span>
               </a>
             </li>
 
             <li>
-              <a className={stylesHeader.link} href="/">
+              <a className={styles.link} href="/">
                 <ListIcon type="secondary" />
                 <span>Лента заказов</span>
               </a>
@@ -31,11 +30,11 @@ export const AppHeader = () => {
           </ul>
         </nav>
 
-        <a className={stylesHeader.logo} href="/">
+        <a className={styles.logo} href="/">
           <Logo />
         </a>
 
-        <a className={stylesHeader.link} href="/">
+        <a className={styles.link} href="/">
           <ProfileIcon type="secondary" />
           <span>Личный кабинет</span>
         </a>
