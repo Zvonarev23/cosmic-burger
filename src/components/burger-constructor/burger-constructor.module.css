@@ -1,0 +1,13 @@
+.container {
+  max-width: 600px;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  gap: 41px;
+}
