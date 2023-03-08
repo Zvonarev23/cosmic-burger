@@ -2,10 +2,6 @@
   display: flex;
 }
 
-.container {
-  max-width: 600px;
-}
-
 .wrapper {
   max-height: 700px;
   overflow-y: scroll;

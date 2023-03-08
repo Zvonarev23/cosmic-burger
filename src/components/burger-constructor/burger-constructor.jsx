@@ -12,32 +12,29 @@ export const BurgerConstructor = (props) => {
   };
 
   const costOfBuns = 2510;
-
   const totalCost = filterBunsFromOrderList(props.orderList, "bun")
     .map((item) => item.price)
     .reduce((sum, price) => sum + price, costOfBuns);
 
   return (
-    <section>
-      <div className={styles.container}>
-        <OrderDetails
-          orderDetailsList={filterBunsFromOrderList(props.orderList, "bun")}
-        />
+    <div className={styles.container}>
+      <OrderDetails
+        orderDetailsList={filterBunsFromOrderList(props.orderList, "bun")}
+      />
 
-        <div className={styles.submit}>
-          <div className="price">
-            <span className="text text_type_digits-medium mr-2">
-              {totalCost}
-            </span>
-            <CurrencyIcon />
-          </div>
-
-          <Button htmlType="button" type="primary" size="large">
-            Оформить заказ
-          </Button>
+      <div className={`${styles.submit} pr-4`}>
+        <div className="price">
+          <span className="text text_type_digits-medium total mr-2">
+            {totalCost}
+          </span>
+          <CurrencyIcon />
         </div>
+
+        <Button htmlType="button" type="primary" size="large">
+          Оформить заказ
+        </Button>
       </div>
-    </section>
+    </div>
   );
 };
 

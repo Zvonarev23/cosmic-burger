@@ -12,7 +12,7 @@ export const BurgerIngredients = (props) => {
   };
 
   return (
-    <section className={`pt-10 ${styles.container}`}>
+    <div className="pt-10">
       <h1 className={`text text_type_main-large mb-5`}>Соберите бургер</h1>
 
       <div className={`${styles.tabs} mb-10`}>
@@ -58,7 +58,7 @@ export const BurgerIngredients = (props) => {
           )}
         />
       </div>
-    </section>
+    </div>
   );
 };
 
