@@ -1,0 +1,8 @@
+.tabs {
+  display: flex;
+}
+
+.wrapper {
+  max-height: 700px;
+  overflow-y: scroll;
+}
