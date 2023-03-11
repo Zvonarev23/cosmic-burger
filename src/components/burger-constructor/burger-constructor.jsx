@@ -5,22 +5,30 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
+import { useMemo } from "react";
 
 export const BurgerConstructor = (props) => {
-  const filterBunsFromOrderList = (arr, type) => {
-    return arr.filter((item) => item.type !== type);
-  };
+  const orderListWithoutBuns = useMemo(() => {
+    return props.orderList.filter((item) => item.type !== "bun");
+  }, [props.orderList]);
 
-  const costOfBuns = 2510;
-  const totalCost = filterBunsFromOrderList(props.orderList, "bun")
-    .map((item) => item.price)
-    .reduce((sum, price) => sum + price, costOfBuns);
+  const costOfBuns = useMemo(() => {
+    const constOfOneBun = props.orderList.find(
+      (item) => item.name === "Краторная булка N-200i"
+    ).price;
+
+    return constOfOneBun * 2;
+  }, [props.orderList]);
+
+  const totalCost = useMemo(() => {
+    return orderListWithoutBuns
+      .map((item) => item.price)
+      .reduce((sum, price) => sum + price, costOfBuns);
+  }, [props.orderList, costOfBuns]);
 
   return (
     <div className={styles.container}>
-      <OrderDetails
-        orderDetailsList={filterBunsFromOrderList(props.orderList, "bun")}
-      />
+      <OrderDetails orderDetailsList={orderListWithoutBuns} />
 
       <div className={`${styles.submit} pr-4`}>
         <div className="price">
