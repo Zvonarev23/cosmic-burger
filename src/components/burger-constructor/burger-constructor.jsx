@@ -1,4 +1,5 @@
 import { OrderDetails } from "./order-details/order-details.jsx";
+import { commonPropTypes } from "../../utils/commonPropTypes.js";
 import {
   Button,
   CurrencyIcon,
@@ -46,21 +47,6 @@ export const BurgerConstructor = (props) => {
   );
 };
 
-const burgerConstructorPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
-
 BurgerConstructor.propTypes = {
-  orderList: PropTypes.arrayOf(burgerConstructorPropTypes).isRequired,
+  orderList: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };

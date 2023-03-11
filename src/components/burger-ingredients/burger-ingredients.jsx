@@ -1,4 +1,5 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { commonPropTypes } from "../../utils/commonPropTypes.js";
 import { useMemo, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
@@ -52,21 +53,6 @@ export const BurgerIngredients = (props) => {
   );
 };
 
-const burgerIngredientsPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
-
 BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.arrayOf(burgerIngredientsPropTypes).isRequired,
+  ingredientsList: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };

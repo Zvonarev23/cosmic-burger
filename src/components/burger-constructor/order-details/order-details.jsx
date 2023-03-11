@@ -62,5 +62,6 @@ const orderDetailsTypePropTypes = PropTypes.shape({
 });
 
 OrderDetails.propTypes = {
-  orderDetailsList: PropTypes.arrayOf(orderDetailsTypePropTypes).isRequired,
+  orderDetailsList: PropTypes.arrayOf(orderDetailsTypePropTypes.isRequired)
+    .isRequired,
 };
