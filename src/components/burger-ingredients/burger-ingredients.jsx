@@ -5,20 +5,20 @@ import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
 import PropTypes from "prop-types";
 
-export const BurgerIngredients = (props) => {
+export const BurgerIngredients = ({ ingredientsList }) => {
   const [current, setCurrent] = useState("Булки");
 
   const buns = useMemo(() => {
-    return props.ingredientsList.filter((item) => item.type === "bun");
-  }, [props.ingredientsList]);
+    return ingredientsList.filter((item) => item.type === "bun");
+  }, [ingredientsList]);
 
   const sauces = useMemo(() => {
-    return props.ingredientsList.filter((item) => item.type === "sauce");
-  }, [props.ingredientsList]);
+    return ingredientsList.filter((item) => item.type === "sauce");
+  }, [ingredientsList]);
 
   const mains = useMemo(() => {
-    return props.ingredientsList.filter((item) => item.type === "main");
-  }, [props.ingredientsList]);
+    return ingredientsList.filter((item) => item.type === "main");
+  }, [ingredientsList]);
 
   return (
     <div className="pt-10">

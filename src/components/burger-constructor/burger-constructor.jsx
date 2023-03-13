@@ -8,24 +8,24 @@ import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
 import { useMemo } from "react";
 
-export const BurgerConstructor = (props) => {
+export const BurgerConstructor = ({ orderList }) => {
   const orderListWithoutBuns = useMemo(() => {
-    return props.orderList.filter((item) => item.type !== "bun");
-  }, [props.orderList]);
+    return orderList.filter((item) => item.type !== "bun");
+  }, [orderList]);
 
   const costOfBuns = useMemo(() => {
-    const constOfOneBun = props.orderList.find(
+    const constOfOneBun = orderList.find(
       (item) => item.name === "Краторная булка N-200i"
     ).price;
 
     return constOfOneBun * 2;
-  }, [props.orderList]);
+  }, [orderList]);
 
   const totalCost = useMemo(() => {
     return orderListWithoutBuns
       .map((item) => item.price)
       .reduce((sum, price) => sum + price, costOfBuns);
-  }, [props.orderList, costOfBuns]);
+  }, [orderList, costOfBuns]);
 
   return (
     <div className={styles.container}>

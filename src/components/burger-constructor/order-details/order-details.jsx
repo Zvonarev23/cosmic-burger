@@ -5,7 +5,7 @@ import {
 import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
 
-export const OrderDetails = (props) => {
+export const OrderDetails = ({ orderDetailsList }) => {
   return (
     <ul className={`${styles.order} mb-10`}>
       <li className="pl-4">
@@ -19,7 +19,7 @@ export const OrderDetails = (props) => {
       </li>
       <li>
         <ul className={`${styles.wrapper} custom-scroll pt-4 pb-4 pr-2`}>
-          {props.orderDetailsList.map((item) => {
+          {orderDetailsList.map((item) => {
             return (
               <li className={styles.item} key={item._id}>
                 <DragIcon type="primary" />

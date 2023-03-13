@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import styles from "./ingredients-group.module.css";
 import { commonPropTypes } from "../../../utils/commonPropTypes.js";
 
-export const IngrediensGroup = (props) => {
+export const IngrediensGroup = ({ ingredientsType, type }) => {
   return (
     <div className="mb-10">
-      <h2 className="text text_type_main-medium mb-6">{props.type}</h2>
+      <h2 className="text text_type_main-medium mb-6">{type}</h2>
 
       <ul className={`${styles.list} pl-4 pr-4`}>
-        {props.ingredientsType.map((item) => {
+        {ingredientsType.map((item) => {
           return (
             <IngredientItem
               image={item.image}
