@@ -3,9 +3,9 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import styles from "./order-details.module.css";
+import styles from "./selected-ingredients.module.css";
 
-export const OrderDetails = ({ orderDetailsList }) => {
+export const SelectedIngredients = ({ orderDetailsList }) => {
   return (
     <ul className={`${styles.order} mb-10`}>
       <li className="pl-4">
@@ -46,7 +46,7 @@ export const OrderDetails = ({ orderDetailsList }) => {
   );
 };
 
-const orderDetailsTypePropTypes = PropTypes.shape({
+const selectedIngredientsTypePropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
@@ -61,7 +61,8 @@ const orderDetailsTypePropTypes = PropTypes.shape({
   __v: PropTypes.number,
 });
 
-OrderDetails.propTypes = {
-  orderDetailsList: PropTypes.arrayOf(orderDetailsTypePropTypes.isRequired)
-    .isRequired,
+SelectedIngredients.propTypes = {
+  orderDetailsList: PropTypes.arrayOf(
+    selectedIngredientsTypePropTypes.isRequired
+  ).isRequired,
 };

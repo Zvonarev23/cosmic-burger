@@ -1,4 +1,4 @@
-import { OrderDetails } from "./order-details/order-details.jsx";
+import { SelectedIngredients } from "./selected-ingredients/selected-ingredients.jsx";
 import { commonPropTypes } from "../../utils/commonPropTypes.js";
 import {
   Button,
@@ -29,7 +29,7 @@ export const BurgerConstructor = ({ orderList }) => {
 
   return (
     <div className={styles.container}>
-      <OrderDetails orderDetailsList={orderListWithoutBuns} />
+      <SelectedIngredients orderDetailsList={orderListWithoutBuns} />
 
       <div className={`${styles.submit} pr-4`}>
         <div className="price">
