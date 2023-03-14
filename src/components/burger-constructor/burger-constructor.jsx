@@ -6,9 +6,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { Modal } from "../modal/modal.jsx";
+import { OrderDetails } from "./order-details/order-details.jsx";
 
 export const BurgerConstructor = ({ orderList }) => {
+  const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
+
+  const createOrder = useCallback(() => {
+    setIsOpenOrderDetails(true);
+  });
+
+  const closeOrderDetails = useCallback(() => {
+    setIsOpenOrderDetails(false);
+  });
+
   const orderListWithoutBuns = useMemo(() => {
     return orderList.filter((item) => item.type !== "bun");
   }, [orderList]);
@@ -39,10 +51,20 @@ export const BurgerConstructor = ({ orderList }) => {
           <CurrencyIcon />
         </div>
 
-        <Button htmlType="button" type="primary" size="large">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={createOrder}
+        >
           Оформить заказ
         </Button>
       </div>
+      {isOpenOrderDetails && (
+        <Modal onClose={closeOrderDetails}>
+          <OrderDetails />
+        </Modal>
+      )}
     </div>
   );
 };
