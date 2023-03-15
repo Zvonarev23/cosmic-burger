@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import styles from "./ingredients-group.module.css";
 import { commonPropTypes } from "../../../utils/commonPropTypes.js";
 
-export const IngrediensGroup = ({ ingredientsType, type }) => {
+export const IngrediensGroup = ({
+  ingredientsType,
+  type,
+  openIngredientDetails,
+}) => {
   return (
     <div className="mb-10">
       <h2 className="text text_type_main-medium mb-6">{type}</h2>
@@ -12,10 +16,9 @@ export const IngrediensGroup = ({ ingredientsType, type }) => {
         {ingredientsType.map((item) => {
           return (
             <IngredientItem
-              image={item.image}
-              name={item.name}
-              price={item.price}
+              item={item}
               key={item._id}
+              openIngredientDetails={openIngredientDetails}
             />
           );
         })}
@@ -27,4 +30,5 @@ export const IngrediensGroup = ({ ingredientsType, type }) => {
 IngrediensGroup.propTypes = {
   ingredientsType: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
   type: PropTypes.string.isRequired,
+  openIngredientDetails: PropTypes.func.isRequired,
 };

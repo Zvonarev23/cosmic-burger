@@ -15,10 +15,10 @@ export const Modal = ({ children, onClose }) => {
       }
     };
 
-    document.addEventListener("keypress", handleModalOverlay);
+    document.addEventListener("keydown", handleModalOverlay);
 
     return () => {
-      document.removeEventListener("keypress", handleModalOverlay);
+      document.removeEventListener("keydown", handleModalOverlay);
     };
   }, []);
 

@@ -6,20 +6,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
 
 export const BurgerConstructor = ({ orderList }) => {
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
 
-  const createOrder = useCallback(() => {
+  const createOrder = () => {
     setIsOpenOrderDetails(true);
-  });
+  };
 
-  const closeOrderDetails = useCallback(() => {
+  const closeOrderDetails = () => {
     setIsOpenOrderDetails(false);
-  });
+  };
 
   const orderListWithoutBuns = useMemo(() => {
     return orderList.filter((item) => item.type !== "bun");

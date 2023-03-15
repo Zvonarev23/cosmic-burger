@@ -3,6 +3,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { commonPropTypes } from "../../../utils/commonPropTypes";
 import styles from "./selected-ingredients.module.css";
 
 export const SelectedIngredients = ({ orderDetailsList }) => {
@@ -46,23 +47,6 @@ export const SelectedIngredients = ({ orderDetailsList }) => {
   );
 };
 
-const selectedIngredientsTypePropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
-
 SelectedIngredients.propTypes = {
-  orderDetailsList: PropTypes.arrayOf(
-    selectedIngredientsTypePropTypes.isRequired
-  ).isRequired,
+  orderDetailsList: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };
