@@ -9,16 +9,16 @@ const modalRoot = document.getElementById("root-modals");
 
 export const Modal = ({ children, onClose }) => {
   useEffect(() => {
-    const handleModalOverlay = (e) => {
+    const handleEscape = (e) => {
       if (e.key === "Escape") {
         onClose();
       }
     };
 
-    document.addEventListener("keydown", handleModalOverlay);
+    document.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.removeEventListener("keydown", handleModalOverlay);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, []);
 
