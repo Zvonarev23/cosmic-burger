@@ -48,16 +48,12 @@ export const BurgerIngredients = ({ ingredientsList }) => {
     });
   };
 
-  const buns = useMemo(() => {
-    return ingredientsList.filter((item) => item.type === "bun");
-  }, [ingredientsList]);
+  const [buns, sauces, mains] = useMemo(() => {
+    const buns = ingredientsList.filter((item) => item.type === "bun");
+    const mains = ingredientsList.filter((item) => item.type === "main");
+    const sauces = ingredientsList.filter((item) => item.type === "sauce");
 
-  const sauces = useMemo(() => {
-    return ingredientsList.filter((item) => item.type === "sauce");
-  }, [ingredientsList]);
-
-  const mains = useMemo(() => {
-    return ingredientsList.filter((item) => item.type === "main");
+    return [buns, mains, sauces];
   }, [ingredientsList]);
 
   return (
