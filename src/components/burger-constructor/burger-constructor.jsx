@@ -34,9 +34,10 @@ export const BurgerConstructor = ({ orderList }) => {
   }, [orderList]);
 
   const totalCost = useMemo(() => {
-    return orderListWithoutBuns
-      .map((item) => item.price)
-      .reduce((sum, price) => sum + price, costOfBuns);
+    return orderListWithoutBuns.reduce(
+      (sum, item) => sum + item.price,
+      costOfBuns
+    );
   }, [orderList, costOfBuns]);
 
   return (
