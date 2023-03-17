@@ -10,7 +10,7 @@ const modalRoot = document.getElementById("root-modals");
 export const Modal = ({ children, onClose }) => {
   useEffect(() => {
     const handleModalOverlay = (e) => {
-      if (e.keyCode === 27) {
+      if (e.key === "Escape") {
         onClose();
       }
     };
