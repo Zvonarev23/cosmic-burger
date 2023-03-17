@@ -1,8 +1,9 @@
-import { SelectedIngredients } from "./selected-ingredients/selected-ingredients.jsx";
 import { commonPropTypes } from "../../utils/commonPropTypes.js";
 import {
   Button,
   CurrencyIcon,
+  DragIcon,
+  ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
@@ -21,28 +22,57 @@ export const BurgerConstructor = ({ orderList }) => {
     setIsOpenOrderDetails(false);
   };
 
-  const orderListWithoutBuns = useMemo(() => {
-    return orderList.filter((item) => item.type !== "bun");
+  const bun = useMemo(() => {
+    return orderList.find((item) => item.type === "bun");
   }, [orderList]);
 
-  const costOfBuns = useMemo(() => {
-    const constOfOneBun = orderList.find(
-      (item) => item.name === "Краторная булка N-200i"
-    ).price;
-
-    return constOfOneBun * 2;
+  const orderListWithoutBuns = useMemo(() => {
+    return orderList.filter((item) => item.type !== "bun");
   }, [orderList]);
 
   const totalCost = useMemo(() => {
     return orderListWithoutBuns.reduce(
       (sum, item) => sum + item.price,
-      costOfBuns
+      bun.price * 2
     );
-  }, [orderList, costOfBuns]);
+  }, [orderList]);
 
   return (
     <div className={styles.container}>
-      <SelectedIngredients orderDetailsList={orderListWithoutBuns} />
+      <div className={`${styles.order} mb-10`}>
+        <div className="pl-4">
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        </div>
+        <ul className={`${styles.wrapper} custom-scroll pt-4 pb-4 pr-2`}>
+          {orderListWithoutBuns.map((item) => {
+            return (
+              <li className={styles.item} key={item._id}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  text={item.name}
+                  thumbnail={item.image}
+                  price={item.price}
+                />
+              </li>
+            );
+          })}
+        </ul>
+        <div className="pl-4">
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        </div>
+      </div>
 
       <div className={`${styles.submit} pr-4`}>
         <div className="price">

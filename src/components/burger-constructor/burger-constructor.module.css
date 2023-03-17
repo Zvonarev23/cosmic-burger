@@ -10,3 +10,24 @@
   align-items: center;
   gap: 41px;
 }
+
+.order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wrapper {
+  max-height: 494px;
+  overflow-y: scroll;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 16px;
+}
