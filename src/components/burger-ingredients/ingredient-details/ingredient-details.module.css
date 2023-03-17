@@ -6,6 +6,12 @@
   width: 718px;
 }
 
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .heading {
   align-self: start;
 }

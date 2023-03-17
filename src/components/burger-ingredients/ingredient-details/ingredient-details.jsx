@@ -8,13 +8,17 @@ export const IngredientDetails = ({ ingredient }) => {
         Детали ингредиента
       </h2>
 
-      <img
-        src={ingredient.image_large}
-        alt={ingredient.name}
-        className={styles.image}
-      />
+      <figure className={`${styles.figure} mb-8`}>
+        <img
+          src={ingredient.image_large}
+          alt={ingredient.name}
+          className={styles.image}
+        />
 
-      <p className="text text_type_main-medium mb-8">{ingredient.name}</p>
+        <figcaption className="text text_type_main-medium">
+          {ingredient.name}
+        </figcaption>
+      </figure>
 
       <ul className={styles.list}>
         <li className={styles.item}>
