@@ -6,7 +6,7 @@ import { INGREDIENTS_URL } from "../../utils/const";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState(null);
   const [isError, setIsError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -28,7 +28,7 @@ function App() {
       <Main>
         {isError && <h2>Ошибка: {isError.message}</h2>}
         {!isLoaded && <h2>Загрузка...</h2>}
-        {isLoaded && !isError && ingredients.length !== 0 && (
+        {isLoaded && !isError && ingredients && (
           <>
             <BurgerIngredients ingredientsList={ingredients.data} />
             <BurgerConstructor orderList={ingredients.data} />
