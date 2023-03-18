@@ -12,12 +12,19 @@ function App() {
 
   useEffect(() => {
     fetch(INGREDIENTS_URL)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Что-то пошло не так... Статус: " + response.status);
+        } else {
+          return response.json();
+        }
+      })
       .then((result) => {
         setIsLoaded(true);
         setIngredients(result);
       })
       .catch((error) => {
+        setIsLoaded(true);
         setIsError(error);
       });
   }, []);
