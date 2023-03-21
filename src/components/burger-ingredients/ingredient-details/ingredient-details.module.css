@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 40px;
+  width: 718px;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  align-self: start;
+}
+
+.image {
+  margin-bottom: 16px;
+  width: 480px;
+  height: 240px;
+}
+
+.list {
+  display: flex;
+  gap: 40px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.name {
+  display: block;
+}
