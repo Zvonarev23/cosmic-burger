@@ -1,17 +1,17 @@
-import { commonPropTypes } from "../../utils/commonPropTypes.js";
 import {
   Button,
   CurrencyIcon,
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
+import { IngredientsContext } from "../../services/ingredientsContext.js";
 
-export const BurgerConstructor = ({ orderList }) => {
+export const BurgerConstructor = () => {
+  const { ingredients } = useContext(IngredientsContext);
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
 
   const createOrder = () => {
@@ -23,19 +23,19 @@ export const BurgerConstructor = ({ orderList }) => {
   };
 
   const bun = useMemo(() => {
-    return orderList.find((item) => item.type === "bun");
-  }, [orderList]);
+    return ingredients.find((item) => item.type === "bun");
+  }, [ingredients]);
 
   const orderListWithoutBuns = useMemo(() => {
-    return orderList.filter((item) => item.type !== "bun");
-  }, [orderList]);
+    return ingredients.filter((item) => item.type !== "bun");
+  }, [ingredients]);
 
   const totalCost = useMemo(() => {
     return orderListWithoutBuns.reduce(
       (sum, item) => sum + item.price,
       bun.price * 2
     );
-  }, [orderList]);
+  }, [ingredients]);
 
   return (
     <div className={styles.container}>
@@ -98,8 +98,4 @@ export const BurgerConstructor = ({ orderList }) => {
       )}
     </div>
   );
-};
-
-BurgerConstructor.propTypes = {
-  orderList: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };

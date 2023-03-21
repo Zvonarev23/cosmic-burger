@@ -4,6 +4,7 @@ import { BurgerConstructor } from "../burger-constructor/burger-constructor.jsx"
 import { Main } from "../main/main.jsx";
 import { INGREDIENTS_URL } from "../../utils/const";
 import { useEffect, useState } from "react";
+import { IngredientsContext } from "../../services/ingredientsContext.js";
 
 function App() {
   const [ingredients, setIngredients] = useState(null);
@@ -21,7 +22,7 @@ function App() {
       })
       .then((result) => {
         setIsLoaded(true);
-        setIngredients(result);
+        setIngredients(result.data);
       })
       .catch((error) => {
         setIsLoaded(true);
@@ -36,10 +37,10 @@ function App() {
         {isError && <h2>Ошибка: {isError.message}</h2>}
         {!isLoaded && <h2>Загрузка...</h2>}
         {isLoaded && !isError && ingredients && (
-          <>
-            <BurgerIngredients ingredientsList={ingredients.data} />
-            <BurgerConstructor orderList={ingredients.data} />
-          </>
+          <IngredientsContext.Provider value={{ ingredients }}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </IngredientsContext.Provider>
         )}
       </Main>
     </div>

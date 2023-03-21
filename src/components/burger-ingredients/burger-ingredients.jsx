@@ -1,13 +1,13 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { commonPropTypes } from "../../utils/commonPropTypes.js";
-import { useMemo, useRef, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
-import PropTypes from "prop-types";
 import { Modal } from "../modal/modal.jsx";
 import { IngredientDetails } from "./ingredient-details/ingredient-details.jsx";
+import { IngredientsContext } from "../../services/ingredientsContext";
 
-export const BurgerIngredients = ({ ingredientsList }) => {
+export const BurgerIngredients = () => {
+  const { ingredients } = useContext(IngredientsContext);
   const [current, setCurrent] = useState("bun");
   const [ingredientDetails, setIngredientDetails] = useState({
     currentIngredient: null,
@@ -49,12 +49,12 @@ export const BurgerIngredients = ({ ingredientsList }) => {
   };
 
   const [buns, sauces, mains] = useMemo(() => {
-    const buns = ingredientsList.filter((item) => item.type === "bun");
-    const mains = ingredientsList.filter((item) => item.type === "main");
-    const sauces = ingredientsList.filter((item) => item.type === "sauce");
+    const buns = ingredients.filter((item) => item.type === "bun");
+    const mains = ingredients.filter((item) => item.type === "main");
+    const sauces = ingredients.filter((item) => item.type === "sauce");
 
     return [buns, mains, sauces];
-  }, [ingredientsList]);
+  }, [ingredients]);
 
   return (
     <div className="pt-10">
@@ -111,8 +111,4 @@ export const BurgerIngredients = ({ ingredientsList }) => {
       )}
     </div>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };
