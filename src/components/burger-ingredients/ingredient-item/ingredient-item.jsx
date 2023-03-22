@@ -3,11 +3,16 @@ import PropTypes from "prop-types";
 import styles from "./ingredient-item.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { commonPropTypes } from "../../../utils/commonPropTypes";
+import { OrderContext } from "../../../services/orderContext";
+import { useContext } from "react";
 
 export const IngredientItem = ({ item, openIngredientDetails }) => {
+  const { orderDispatcher } = useContext(OrderContext);
+
   const handleCurrentIngredients = (e) => {
     if (e.currentTarget) {
       openIngredientDetails(item);
+      orderDispatcher({ type: "add", payload: item });
     }
   };
 

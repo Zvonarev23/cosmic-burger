@@ -9,9 +9,11 @@ import { useContext, useMemo, useState } from "react";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
 import { IngredientsContext } from "../../services/ingredientsContext.js";
+import { OrderContext } from "../../services/orderContext";
 
 export const BurgerConstructor = () => {
   const { ingredients } = useContext(IngredientsContext);
+  const { orderState } = useContext(OrderContext);
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
 
   const createOrder = () => {
@@ -40,17 +42,19 @@ export const BurgerConstructor = () => {
   return (
     <div className={styles.container}>
       <div className={`${styles.order} mb-10`}>
-        <div className="pl-4">
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
+        {orderState.bun && (
+          <div className="pl-4">
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${orderState.bun.name} (верх)`}
+              price={orderState.bun.price}
+              thumbnail={orderState.bun.image}
+            />
+          </div>
+        )}
         <ul className={`${styles.wrapper} custom-scroll pt-4 pb-4 pr-2`}>
-          {orderListWithoutBuns.map((item) => {
+          {orderState.ingredients.map((item) => {
             return (
               <li className={styles.item} key={item._id}>
                 <DragIcon type="primary" />
@@ -63,15 +67,17 @@ export const BurgerConstructor = () => {
             );
           })}
         </ul>
-        <div className="pl-4">
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
+        {orderState.bun && (
+          <div className="pl-4">
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${orderState.bun.name} (верх)`}
+              price={orderState.bun.price}
+              thumbnail={orderState.bun.image}
+            />
+          </div>
+        )}
       </div>
 
       <div className={`${styles.submit} pr-4`}>
