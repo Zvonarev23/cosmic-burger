@@ -13,7 +13,6 @@ const orderInitialState = {
 };
 
 const reducer = (state, action) => {
-  console.log(action.payload.type);
   switch (action.type) {
     case "add":
       if (action.payload.type === "bun") {

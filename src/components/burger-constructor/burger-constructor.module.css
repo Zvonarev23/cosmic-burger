@@ -2,12 +2,12 @@
   padding-top: 100px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 }
 
 .submit {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 41px;
 }
 
@@ -24,8 +24,14 @@
 }
 
 .wrapper {
+  padding: 16px 16px 16px 0;
+}
+
+.wrapper_scroll {
+  padding: 16px 8px 16px 0;
   max-height: 494px;
   overflow-y: scroll;
+  composes: custom-scroll from global;
 }
 
 .item:not(:last-child) {

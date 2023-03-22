@@ -8,11 +8,9 @@ import styles from "./burger-constructor.module.css";
 import { useContext, useMemo, useState } from "react";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
-import { IngredientsContext } from "../../services/ingredientsContext.js";
 import { OrderContext } from "../../services/orderContext";
 
 export const BurgerConstructor = () => {
-  const { ingredients } = useContext(IngredientsContext);
   const { orderState } = useContext(OrderContext);
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
 
@@ -24,20 +22,16 @@ export const BurgerConstructor = () => {
     setIsOpenOrderDetails(false);
   };
 
-  const bun = useMemo(() => {
-    return ingredients.find((item) => item.type === "bun");
-  }, [ingredients]);
-
-  const orderListWithoutBuns = useMemo(() => {
-    return ingredients.filter((item) => item.type !== "bun");
-  }, [ingredients]);
-
   const totalCost = useMemo(() => {
-    return orderListWithoutBuns.reduce(
-      (sum, item) => sum + item.price,
-      bun.price * 2
-    );
-  }, [ingredients]);
+    if (orderState.bun) {
+      return orderState.ingredients.reduce(
+        (sum, item) => sum + item.price,
+        orderState.bun.price * 2
+      );
+    } else {
+      return orderState.ingredients.reduce((sum, item) => sum + item.price, 0);
+    }
+  }, [orderState]);
 
   return (
     <div className={styles.container}>
@@ -53,26 +47,36 @@ export const BurgerConstructor = () => {
             />
           </div>
         )}
-        <ul className={`${styles.wrapper} custom-scroll pt-4 pb-4 pr-2`}>
-          {orderState.ingredients.map((item) => {
-            return (
-              <li className={styles.item} key={item._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  thumbnail={item.image}
-                  price={item.price}
-                />
-              </li>
-            );
-          })}
-        </ul>
+        {orderState.ingredients.length !== 0 || orderState.bun ? (
+          <ul
+            className={
+              orderState.ingredients.length > 5
+                ? styles.wrapper_scroll
+                : styles.wrapper
+            }
+          >
+            {orderState.ingredients.map((item) => {
+              return (
+                <li className={styles.item} key={item._id}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    text={item.name}
+                    thumbnail={item.image}
+                    price={item.price}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <h2 className="text text_type_main-medium">Пусто</h2>
+        )}
         {orderState.bun && (
           <div className="pl-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${orderState.bun.name} (верх)`}
+              text={`${orderState.bun.name} (низ)`}
               price={orderState.bun.price}
               thumbnail={orderState.bun.image}
             />
