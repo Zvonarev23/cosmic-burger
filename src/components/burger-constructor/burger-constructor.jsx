@@ -94,6 +94,7 @@ export const BurgerConstructor = () => {
         </div>
 
         <Button
+          disabled={orderState.bun ? false : true}
           htmlType="button"
           type="primary"
           size="large"
