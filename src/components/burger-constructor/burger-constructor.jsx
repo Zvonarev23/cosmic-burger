@@ -103,7 +103,7 @@ export const BurgerConstructor = () => {
       </div>
       {isOpenOrderDetails && (
         <Modal onClose={closeOrderDetails}>
-          <OrderDetails />
+          <OrderDetails setIsOpenOrderDetails={setIsOpenOrderDetails} />
         </Modal>
       )}
     </div>
