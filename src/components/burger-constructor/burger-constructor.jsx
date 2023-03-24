@@ -9,6 +9,7 @@ import { useContext, useMemo, useState } from "react";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
 import { OrderContext } from "../../services/order-context";
+import { v4 as uuidv4 } from "uuid";
 
 export const BurgerConstructor = () => {
   const { orderState } = useContext(OrderContext);
@@ -57,7 +58,7 @@ export const BurgerConstructor = () => {
           >
             {orderState.ingredients.map((item) => {
               return (
-                <li className={styles.item} key={item._id}>
+                <li className={styles.item} key={uuidv4()}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     text={item.name}
