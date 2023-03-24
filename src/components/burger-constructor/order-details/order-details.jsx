@@ -1,8 +1,9 @@
 import orderCreatedImage from "../../../images/order-created.svg";
 import styles from "./order-details.module.css";
-import { OrderContext } from "../../../services/orderContext";
+import { OrderContext } from "../../../services/order-context";
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { sendOrder } from "../../../utils/request-to-api";
 
 export const OrderDetails = ({ setIsOpenOrderDetails }) => {
   const { orderState } = useContext(OrderContext);
@@ -19,20 +20,7 @@ export const OrderDetails = ({ setIsOpenOrderDetails }) => {
   const order = { ingredients: [bunId, ...ingredientsId, bunId] };
 
   useEffect(() => {
-    fetch("https://norma.nomoreparties.space/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return Promise.reject(res.status);
-        } else {
-          return res.json();
-        }
-      })
+    sendOrder(order)
       .then((data) => {
         setSendOrderState({
           ...sendOrderState,

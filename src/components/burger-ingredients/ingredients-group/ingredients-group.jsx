@@ -1,7 +1,7 @@
 import { IngredientItem } from "../ingredient-item/ingredient-item.jsx";
 import PropTypes from "prop-types";
 import styles from "./ingredients-group.module.css";
-import { commonPropTypes } from "../../../utils/commonPropTypes.js";
+import { commonPropTypes } from "../../../utils/common-proptypes.js";
 
 export const IngrediensGroup = ({
   ingredientsType,

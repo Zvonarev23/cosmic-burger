@@ -4,7 +4,7 @@ import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
 import { Modal } from "../modal/modal.jsx";
 import { IngredientDetails } from "./ingredient-details/ingredient-details.jsx";
-import { IngredientsContext } from "../../services/ingredientsContext";
+import { IngredientsContext } from "../../services/ingredients-context";
 
 export const BurgerIngredients = () => {
   const { ingredients } = useContext(IngredientsContext);

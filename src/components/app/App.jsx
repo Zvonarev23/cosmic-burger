@@ -2,10 +2,10 @@ import { AppHeader } from "../app-header/app-header.jsx";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients.jsx";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor.jsx";
 import { Main } from "../main/main.jsx";
-import { INGREDIENTS_URL } from "../../utils/const";
+import { getIngredients } from "../../utils/request-to-api.js";
 import { useEffect, useReducer, useState } from "react";
-import { IngredientsContext } from "../../services/ingredientsContext.js";
-import { OrderContext } from "../../services/orderContext.js";
+import { IngredientsContext } from "../../services/ingredients-context.js";
+import { OrderContext } from "../../services/order-context.js";
 
 const orderInitialState = {
   bun: null,
@@ -38,14 +38,7 @@ function App() {
   const [orderState, orderDispatcher] = useReducer(reducer, orderInitialState);
 
   useEffect(() => {
-    fetch(INGREDIENTS_URL)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Что-то пошло не так... Статус: " + response.status);
-        } else {
-          return response.json();
-        }
-      })
+    getIngredients()
       .then((result) => {
         setIsLoaded(true);
         setIngredients(result.data);
