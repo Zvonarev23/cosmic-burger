@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
+import { commonPropTypes } from "../../../utils/common-proptypes";
 
 export const IngredientDetails = ({ ingredient }) => {
   return (
@@ -75,18 +76,5 @@ export const IngredientDetails = ({ ingredient }) => {
 };
 
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  }).isRequired,
+  ingredient: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };
