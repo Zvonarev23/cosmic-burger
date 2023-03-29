@@ -40,13 +40,12 @@ function App() {
   useEffect(() => {
     getIngredients()
       .then((result) => {
-        setIsLoaded(true);
         setIngredients(result.data);
       })
       .catch((error) => {
-        setIsLoaded(true);
         setIsError(error);
-      });
+      })
+      .finally(setIsLoaded(true));
   }, []);
 
   return (
