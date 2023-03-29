@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 import { commonPropTypes } from "../../../utils/common-proptypes";
 
@@ -76,5 +75,5 @@ export const IngredientDetails = ({ ingredient }) => {
 };
 
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
+  ingredient: commonPropTypes.isRequired,
 };

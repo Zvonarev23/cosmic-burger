@@ -14,7 +14,7 @@ export const getIngredients = () => {
 };
 
 export const sendOrder = (order) => {
-  return request("/order", {
+  return request("/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
