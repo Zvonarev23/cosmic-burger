@@ -35,7 +35,7 @@ export const OrderDetails = ({ setIsOpenOrderDetails }) => {
           isLoaded: true,
         });
       })
-      .finally(setIsOpenOrderDetails(true));
+      .finally(() => setIsOpenOrderDetails(true));
   }, []);
 
   return (

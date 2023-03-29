@@ -45,7 +45,7 @@ function App() {
       .catch((error) => {
         setIsError(error);
       })
-      .finally(setIsLoaded(true));
+      .finally(() => setIsLoaded(true));
   }, []);
 
   return (
