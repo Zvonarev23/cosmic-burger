@@ -1,12 +1,8 @@
 const API_URL = "https://norma.nomoreparties.space/api";
+import { checkResponse } from "./check-response";
 
 const request = (endpoint, options) => {
-  return fetch(`${API_URL}${endpoint}`, options).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    throw new Error(res.status);
-  });
+  return fetch(`${API_URL}${endpoint}`, options).then(checkResponse);
 };
 
 export const getIngredients = () => {

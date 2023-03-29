@@ -33,17 +33,17 @@ const reducer = (state, action) => {
 
 function App() {
   const [ingredients, setIngredients] = useState(null);
-  const [isError, setIsError] = useState(null);
+  const [isError, setIsError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [orderState, orderDispatcher] = useReducer(reducer, orderInitialState);
 
   useEffect(() => {
     getIngredients()
-      .then((result) => {
-        setIngredients(result.data);
+      .then((data) => {
+        setIngredients(data.data);
       })
-      .catch((error) => {
-        setIsError(error);
+      .catch(() => {
+        setIsError(true);
       })
       .finally(() => setIsLoaded(true));
   }, []);
@@ -52,7 +52,7 @@ function App() {
     <div className="App">
       <AppHeader />
       <Main>
-        {isError && <h2>Ошибка: {isError.message}</h2>}
+        {isError && <h2>Возникла непредвиденная ошибка</h2>}
         {!isLoaded && <h2>Загрузка...</h2>}
         {isLoaded && !isError && ingredients && (
           <IngredientsContext.Provider value={{ ingredients }}>
