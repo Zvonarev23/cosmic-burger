@@ -5,14 +5,14 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
-import { OrderContext } from "../../services/order-context";
 import { v4 as uuidv4 } from "uuid";
 
 export const BurgerConstructor = () => {
-  const { orderState } = useContext(OrderContext);
+  const orderIngredients = useSelector((state) => state.burgerConstructor);
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
 
   const createOrder = () => {
@@ -24,39 +24,42 @@ export const BurgerConstructor = () => {
   };
 
   const totalCost = useMemo(() => {
-    if (orderState.bun) {
-      return orderState.ingredients.reduce(
+    if (orderIngredients.bun) {
+      return orderIngredients.ingredients.reduce(
         (sum, item) => sum + item.price,
-        orderState.bun.price * 2
+        orderIngredients.bun.price * 2
       );
     } else {
-      return orderState.ingredients.reduce((sum, item) => sum + item.price, 0);
+      return orderIngredients.ingredients.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
     }
-  }, [orderState]);
+  }, [orderIngredients]);
 
   return (
     <div className={styles.container}>
       <div className={`${styles.order} mb-10`}>
-        {orderState.bun && (
+        {orderIngredients.bun && (
           <div className="pl-4">
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={`${orderState.bun.name} (верх)`}
-              price={orderState.bun.price}
-              thumbnail={orderState.bun.image}
+              text={`${orderIngredients.bun.name} (верх)`}
+              price={orderIngredients.bun.price}
+              thumbnail={orderIngredients.bun.image}
             />
           </div>
         )}
-        {orderState.ingredients.length !== 0 || orderState.bun ? (
+        {orderIngredients.ingredients.length !== 0 || orderIngredients.bun ? (
           <ul
             className={
-              orderState.ingredients.length > 5
+              orderIngredients.ingredients.length > 5
                 ? styles.wrapper_scroll
                 : styles.wrapper
             }
           >
-            {orderState.ingredients.map((item) => {
+            {orderIngredients.ingredients.map((item) => {
               return (
                 <li className={styles.item} key={uuidv4()}>
                   <DragIcon type="primary" />
@@ -72,14 +75,14 @@ export const BurgerConstructor = () => {
         ) : (
           <h2 className="text text_type_main-medium">Пусто</h2>
         )}
-        {orderState.bun && (
+        {orderIngredients.bun && (
           <div className="pl-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${orderState.bun.name} (низ)`}
-              price={orderState.bun.price}
-              thumbnail={orderState.bun.image}
+              text={`${orderIngredients.bun.name} (низ)`}
+              price={orderIngredients.bun.price}
+              thumbnail={orderIngredients.bun.image}
             />
           </div>
         )}
@@ -94,7 +97,7 @@ export const BurgerConstructor = () => {
         </div>
 
         <Button
-          disabled={orderState.bun ? false : true}
+          disabled={orderIngredients.bun ? false : true}
           htmlType="button"
           type="primary"
           size="large"

@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import styles from "./ingredient-details.module.css";
-import { commonPropTypes } from "../../../utils/common-proptypes";
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = () => {
+  const ingredient = useSelector((state) => state.ingredientDetails.ingredient);
+
   return (
     <div className={styles.container}>
       <h2 className={`${styles.heading} text text_type_main-large`}>
@@ -72,8 +74,4 @@ export const IngredientDetails = ({ ingredient }) => {
       </ul>
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: commonPropTypes.isRequired,
 };

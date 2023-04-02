@@ -1,18 +1,27 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useContext, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
 import { Modal } from "../modal/modal.jsx";
 import { IngredientDetails } from "./ingredient-details/ingredient-details.jsx";
-import { IngredientsContext } from "../../services/ingredients-context";
+import { loadIngredients } from "../../services/actions/burger-ingredients";
+import { resetIngredientDetails } from "../../services/actions/ingredient-details";
 
 export const BurgerIngredients = () => {
-  const { ingredients } = useContext(IngredientsContext);
+  const { isLoading, isError, ingredients } = useSelector(
+    (state) => state.ingredients
+  );
+  const ingredientDetailsData = useSelector(
+    (state) => state.ingredientDetails.ingredient
+  );
   const [current, setCurrent] = useState("bun");
-  const [ingredientDetails, setIngredientDetails] = useState({
-    currentIngredient: null,
-    isOpenIngredientDetails: false,
-  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadIngredients());
+  }, []);
 
   const tabBunRef = useRef(null);
   const tabSauceRef = useRef(null);
@@ -34,18 +43,8 @@ export const BurgerIngredients = () => {
     }
   };
 
-  const openIngredientDetails = (item) => {
-    setIngredientDetails({
-      currentIngredient: item,
-      isOpenIngredientDetails: true,
-    });
-  };
-
   const closeIngredientDetails = () => {
-    setIngredientDetails({
-      ...ingredientDetails,
-      isOpenIngredientDetails: false,
-    });
+    dispatch(resetIngredientDetails());
   };
 
   const [buns, sauces, mains] = useMemo(() => {
@@ -55,6 +54,14 @@ export const BurgerIngredients = () => {
 
     return [buns, mains, sauces];
   }, [ingredients]);
+
+  if (isLoading) {
+    return <h1>Загрузка...</h1>;
+  }
+
+  if (!isLoading && isError) {
+    return <h1>Непредвиденная ошибка</h1>;
+  }
 
   return (
     <div className="pt-10">
@@ -80,33 +87,21 @@ export const BurgerIngredients = () => {
       <div className={`${styles.wrapper} custom-scroll`}>
         <ul>
           <li ref={tabBunRef}>
-            <IngrediensGroup
-              type="Булки"
-              openIngredientDetails={openIngredientDetails}
-              ingredientsType={buns}
-            />
+            <IngrediensGroup type="Булки" ingredientsType={buns} />
           </li>
 
           <li ref={tabSauceRef}>
-            <IngrediensGroup
-              type="Соусы"
-              openIngredientDetails={openIngredientDetails}
-              ingredientsType={sauces}
-            />
+            <IngrediensGroup type="Соусы" ingredientsType={sauces} />
           </li>
 
           <li ref={tabMainRef}>
-            <IngrediensGroup
-              type="Начинки"
-              openIngredientDetails={openIngredientDetails}
-              ingredientsType={mains}
-            />
+            <IngrediensGroup type="Начинки" ingredientsType={mains} />
           </li>
         </ul>
       </div>
-      {ingredientDetails.isOpenIngredientDetails && (
+      {ingredientDetailsData && (
         <Modal onClose={closeIngredientDetails}>
-          <IngredientDetails ingredient={ingredientDetails.currentIngredient} />
+          <IngredientDetails />
         </Modal>
       )}
     </div>

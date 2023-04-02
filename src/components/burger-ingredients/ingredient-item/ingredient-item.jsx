@@ -1,18 +1,18 @@
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import styles from "./ingredient-item.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { commonPropTypes } from "../../../utils/common-proptypes";
-import { OrderContext } from "../../../services/order-context";
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
+import { setIngredientsDetails } from "../../../services/actions/ingredient-details";
+import { addIngredient } from "../../../services/actions/burger-constructor";
 
-export const IngredientItem = ({ item, openIngredientDetails }) => {
-  const { orderDispatcher } = useContext(OrderContext);
+export const IngredientItem = ({ item }) => {
+  const dispatch = useDispatch();
 
   const handleCurrentIngredients = (e) => {
     if (e.currentTarget) {
-      openIngredientDetails(item);
-      orderDispatcher({ type: "add", payload: item });
+      dispatch(setIngredientsDetails(item));
+      dispatch(addIngredient(item));
     }
   };
 
@@ -36,5 +36,4 @@ export const IngredientItem = ({ item, openIngredientDetails }) => {
 
 IngredientItem.propTypes = {
   item: commonPropTypes.isRequired,
-  openIngredientDetails: PropTypes.func.isRequired,
 };
