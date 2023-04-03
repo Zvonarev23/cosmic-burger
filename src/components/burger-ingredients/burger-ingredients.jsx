@@ -23,9 +23,37 @@ export const BurgerIngredients = () => {
     dispatch(loadIngredients());
   }, []);
 
+  const rootRef = useRef(null);
   const tabBunRef = useRef(null);
   const tabSauceRef = useRef(null);
   const tabMainRef = useRef(null);
+
+  const handleScroll = () => {
+    const bunsLocation = Math.abs(
+      rootRef.current.getBoundingClientRect().top -
+        tabBunRef.current.getBoundingClientRect().top
+    );
+    const saucesLocation = Math.abs(
+      rootRef.current.getBoundingClientRect().top -
+        tabSauceRef.current.getBoundingClientRect().top
+    );
+    const mainsLocation = Math.abs(
+      rootRef.current.getBoundingClientRect().top -
+        tabMainRef.current.getBoundingClientRect().top
+    );
+
+    const currentLocation = Math.min(
+      bunsLocation,
+      saucesLocation,
+      mainsLocation
+    );
+
+    bunsLocation === currentLocation
+      ? setCurrent("bun")
+      : saucesLocation === currentLocation
+      ? setCurrent("sauce")
+      : setCurrent("main");
+  };
 
   const selectCategory = (category) => {
     setCurrent(category);
@@ -52,7 +80,7 @@ export const BurgerIngredients = () => {
     const mains = ingredients.filter((item) => item.type === "main");
     const sauces = ingredients.filter((item) => item.type === "sauce");
 
-    return [buns, mains, sauces];
+    return [buns, sauces, mains];
   }, [ingredients]);
 
   if (isLoading) {
@@ -84,7 +112,11 @@ export const BurgerIngredients = () => {
         </Tab>
       </div>
 
-      <div className={`${styles.wrapper} custom-scroll`}>
+      <div
+        ref={rootRef}
+        onScroll={handleScroll}
+        className={`${styles.wrapper} custom-scroll`}
+      >
         <ul>
           <li ref={tabBunRef}>
             <IngrediensGroup type="Булки" ingredientsType={buns} />
