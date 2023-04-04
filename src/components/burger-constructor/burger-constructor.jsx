@@ -40,8 +40,8 @@ export const BurgerConstructor = () => {
   return (
     <div className={styles.container}>
       <div className={`${styles.order} mb-10`}>
-        {orderIngredients.bun && (
-          <div className="pl-4">
+        {orderIngredients.bun ? (
+          <div className="pl-4 mb-4">
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -50,8 +50,14 @@ export const BurgerConstructor = () => {
               thumbnail={orderIngredients.bun.image}
             />
           </div>
+        ) : (
+          <div
+            className={`${styles.placeholder_top} mb-4 text text_type_main-default`}
+          >
+            <span>Выберите булку</span>
+          </div>
         )}
-        {orderIngredients.ingredients.length !== 0 || orderIngredients.bun ? (
+        {orderIngredients.ingredients.length !== 0 ? (
           <ul
             className={
               orderIngredients.ingredients.length > 5
@@ -73,9 +79,13 @@ export const BurgerConstructor = () => {
             })}
           </ul>
         ) : (
-          <h2 className="text text_type_main-medium">Пусто</h2>
+          <div
+            className={`${styles.placeholder_middle} mb-4 text text_type_main-default`}
+          >
+            <span>Выберите начинку</span>
+          </div>
         )}
-        {orderIngredients.bun && (
+        {orderIngredients.bun ? (
           <div className="pl-4">
             <ConstructorElement
               type="bottom"
@@ -84,6 +94,12 @@ export const BurgerConstructor = () => {
               price={orderIngredients.bun.price}
               thumbnail={orderIngredients.bun.image}
             />
+          </div>
+        ) : (
+          <div
+            className={`${styles.placeholder_bottom} text text_type_main-default`}
+          >
+            <span>Выберите булку</span>
           </div>
         )}
       </div>

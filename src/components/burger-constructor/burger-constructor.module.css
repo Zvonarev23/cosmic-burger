@@ -24,11 +24,13 @@
 }
 
 .wrapper {
-  padding: 16px 16px 16px 0;
+  padding-right: 12px;
+  margin-bottom: 16px;
 }
 
 .wrapper_scroll {
-  padding: 16px 8px 16px 0;
+  padding-right: 8px;
+  margin-bottom: 16px;
   max-height: 494px;
   overflow-y: scroll;
   composes: custom-scroll from global;
@@ -36,4 +38,27 @@
 
 .item:not(:last-child) {
   margin-bottom: 16px;
+}
+
+.placeholder_top {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 536px;
+  min-height: 80px;
+  border-radius: var(--top-constructor-item-border-radius);
+  background-color: var(--background-element);
+  color: #f2f2f3;
+}
+
+.placeholder_bottom {
+  composes: placeholder_top;
+  border-radius: var(--bottom-constructor-item-border-radius);
+}
+
+.placeholder_middle {
+  composes: placeholder_top;
+  border-radius: var(--common-border-radius-s);
 }
