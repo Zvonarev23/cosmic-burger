@@ -14,18 +14,16 @@
 .order {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-end;
 }
 
 .wrapper {
-  padding-right: 12px;
   margin-bottom: 16px;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
 }
 
 .wrapper_scroll {
@@ -34,10 +32,6 @@
   max-height: 494px;
   overflow-y: scroll;
   composes: custom-scroll from global;
-}
-
-.item:not(:last-child) {
-  margin-bottom: 16px;
 }
 
 .placeholder_top {
@@ -59,6 +53,7 @@
 }
 
 .placeholder_middle {
+  align-self: flex-end;
   composes: placeholder_top;
   border-radius: var(--common-border-radius-s);
 }

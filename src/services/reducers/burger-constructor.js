@@ -1,6 +1,7 @@
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
+  SET_BUNS,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -10,27 +11,22 @@ const initialState = {
 
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_BUNS:
+      return {
+        ...state,
+        bun: { ...action.payload },
+      };
     case ADD_INGREDIENT:
-      if (action.payload.type === "bun") {
-        return {
-          ...state,
-          bun: { ...action.payload },
-        };
-      } else {
-        return {
-          ...state,
-          ingredients: [...state.ingredients, action.payload],
-        };
-      }
-
+      return {
+        ...state,
+        ingredients: [...state.ingredients, action.payload],
+      };
     case DELETE_INGREDIENT:
       return {
         ...state,
-        ingredients: [
-          state.ingredients.filter(
-            (ingredient) => ingredient.key !== action.payload.key
-          ),
-        ],
+        ingredients: [...state.ingredients].filter(
+          (ingredient) => ingredient.id !== action.payload
+        ),
       };
 
     default:

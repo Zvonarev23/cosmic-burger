@@ -1,19 +1,32 @@
 import {
   Button,
   CurrencyIcon,
-  DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal.jsx";
 import { OrderDetails } from "./order-details/order-details.jsx";
-import { v4 as uuidv4 } from "uuid";
+import { useDrop } from "react-dnd";
+import {
+  addIngredient,
+  setBuns,
+} from "../../services/actions/burger-constructor";
+import { BurgerConstructorItem } from "./burger-constructor/burger-constructor-item";
 
 export const BurgerConstructor = () => {
   const orderIngredients = useSelector((state) => state.burgerConstructor);
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
+  const dispatch = useDispatch();
+  const [, dropIngredientsRef] = useDrop({
+    accept: "ingredients",
+    drop(item) {
+      item.type === "bun"
+        ? dispatch(setBuns(item))
+        : dispatch(addIngredient(item));
+    },
+  });
 
   const createOrder = () => {
     setIsOpenOrderDetails(true);
@@ -39,9 +52,9 @@ export const BurgerConstructor = () => {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.order} mb-10`}>
+      <div ref={dropIngredientsRef} className={`${styles.order} mb-10`}>
         {orderIngredients.bun ? (
-          <div className="pl-4 mb-4">
+          <div className="mb-4 pr-4">
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -52,41 +65,34 @@ export const BurgerConstructor = () => {
           </div>
         ) : (
           <div
-            className={`${styles.placeholder_top} mb-4 text text_type_main-default`}
+            className={`${styles.placeholder_top} mr-4 mb-4 text text_type_main-default`}
           >
             <span>Выберите булку</span>
           </div>
         )}
-        {orderIngredients.ingredients.length !== 0 ? (
-          <ul
-            className={
-              orderIngredients.ingredients.length > 5
-                ? styles.wrapper_scroll
-                : styles.wrapper
-            }
-          >
-            {orderIngredients.ingredients.map((item) => {
-              return (
-                <li className={styles.item} key={uuidv4()}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={item.name}
-                    thumbnail={item.image}
-                    price={item.price}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <div
-            className={`${styles.placeholder_middle} mb-4 text text_type_main-default`}
-          >
-            <span>Выберите начинку</span>
-          </div>
-        )}
+
+        <ul
+          className={
+            orderIngredients.ingredients.length > 5
+              ? styles.wrapper_scroll
+              : styles.wrapper
+          }
+        >
+          {orderIngredients.ingredients.length !== 0 ? (
+            orderIngredients.ingredients.map((item) => {
+              return <BurgerConstructorItem key={item.id} item={item} />;
+            })
+          ) : (
+            <li
+              className={`${styles.placeholder_middle} text text_type_main-default`}
+            >
+              <span>Выберите начинку</span>
+            </li>
+          )}
+        </ul>
+
         {orderIngredients.bun ? (
-          <div className="pl-4">
+          <div className="pr-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}
@@ -97,14 +103,14 @@ export const BurgerConstructor = () => {
           </div>
         ) : (
           <div
-            className={`${styles.placeholder_bottom} text text_type_main-default`}
+            className={`${styles.placeholder_bottom} mr-4 text text_type_main-default`}
           >
             <span>Выберите булку</span>
           </div>
         )}
       </div>
 
-      <div className={`${styles.submit} pr-4`}>
+      <div className={`${styles.submit} mr-4`}>
         <div className="price">
           <span className="text text_type_digits-medium total mr-2">
             {totalCost}

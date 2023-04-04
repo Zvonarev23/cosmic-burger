@@ -4,20 +4,36 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { commonPropTypes } from "../../../utils/common-proptypes";
 import { useDispatch } from "react-redux";
 import { setIngredientsDetails } from "../../../services/actions/ingredient-details";
-import { addIngredient } from "../../../services/actions/burger-constructor";
+import {
+  addIngredient,
+  setBuns,
+} from "../../../services/actions/burger-constructor";
+import { useDrag } from "react-dnd";
 
 export const IngredientItem = ({ item }) => {
+  const [{ opacity }, dragRef] = useDrag({
+    type: "ingredients",
+    item: item,
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
+  });
+
   const dispatch = useDispatch();
 
   const handleCurrentIngredients = (e) => {
     if (e.currentTarget) {
       dispatch(setIngredientsDetails(item));
-      dispatch(addIngredient(item));
+      item.type === "bun"
+        ? dispatch(setBuns(item))
+        : dispatch(addIngredient(item));
     }
   };
 
   return (
     <li
+      style={{ opacity }}
+      ref={dragRef}
       className={styles.card}
       role={"menuitem"}
       onClick={handleCurrentIngredients}
