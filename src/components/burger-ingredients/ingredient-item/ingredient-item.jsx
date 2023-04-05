@@ -2,15 +2,20 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { commonPropTypes } from "../../../utils/common-proptypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIngredientsDetails } from "../../../services/actions/ingredient-details";
 import {
   addIngredient,
   setBuns,
 } from "../../../services/actions/burger-constructor";
 import { useDrag } from "react-dnd";
+import { useMemo } from "react";
 
 export const IngredientItem = ({ item }) => {
+  const constructorIngredients = useSelector(
+    (state) => state.burgerConstructor
+  );
+
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
     item: item,
@@ -20,6 +25,24 @@ export const IngredientItem = ({ item }) => {
   });
 
   const dispatch = useDispatch();
+
+  const counterIngredients = useMemo(() => {
+    const { bun, ingredients } = constructorIngredients;
+    let allIngredients = [];
+
+    if (bun) {
+      allIngredients = [...ingredients, bun, bun];
+    } else {
+      allIngredients = ingredients;
+    }
+
+    const counter = allIngredients.reduce(
+      (acc, ingredient) => (ingredient._id === item._id ? acc + 1 : acc),
+      0
+    );
+
+    return counter;
+  }, [constructorIngredients]);
 
   const handleCurrentIngredients = (e) => {
     if (e.currentTarget) {
@@ -39,7 +62,9 @@ export const IngredientItem = ({ item }) => {
       onClick={handleCurrentIngredients}
       onKeyDown={handleCurrentIngredients}
     >
-      <Counter count={1} size="default" />
+      {counterIngredients > 0 && (
+        <Counter count={counterIngredients} size="default" />
+      )}
       <img className="mb-1" src={item.image} alt={item.name} />
       <div className={`${styles.price} mb-1`}>
         <span className="text text_type_digits-default mr-2">{item.price}</span>
