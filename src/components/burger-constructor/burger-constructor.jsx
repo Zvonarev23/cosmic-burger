@@ -16,9 +16,12 @@ import {
 import { BurgerConstructorItem } from "./burger-constructor/burger-constructor-item";
 
 export const BurgerConstructor = () => {
-  const orderIngredients = useSelector((state) => state.burgerConstructor);
+  const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
+
   const dispatch = useDispatch();
+
   const [, dropIngredientsRef] = useDrop({
     accept: "ingredients",
     drop(item) {
@@ -37,30 +40,25 @@ export const BurgerConstructor = () => {
   };
 
   const totalCost = useMemo(() => {
-    if (orderIngredients.bun) {
-      return orderIngredients.ingredients.reduce(
-        (sum, item) => sum + item.price,
-        orderIngredients.bun.price * 2
-      );
-    } else {
-      return orderIngredients.ingredients.reduce(
-        (sum, item) => sum + item.price,
-        0
-      );
-    }
-  }, [orderIngredients]);
+    const costOfBuns = bun ? bun.price * 2 : 0;
+
+    return ingredients.reduce(
+      (sum, ingredient) => sum + ingredient.price,
+      costOfBuns
+    );
+  }, [bun, ingredients]);
 
   return (
     <div className={styles.container}>
       <div ref={dropIngredientsRef} className={`${styles.order} mb-10`}>
-        {orderIngredients.bun ? (
+        {bun ? (
           <div className="mb-4 pr-4">
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={`${orderIngredients.bun.name} (верх)`}
-              price={orderIngredients.bun.price}
-              thumbnail={orderIngredients.bun.image}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image}
             />
           </div>
         ) : (
@@ -73,13 +71,11 @@ export const BurgerConstructor = () => {
 
         <ul
           className={
-            orderIngredients.ingredients.length > 5
-              ? styles.wrapper_scroll
-              : styles.wrapper
+            ingredients.length > 5 ? styles.wrapper_scroll : styles.wrapper
           }
         >
-          {orderIngredients.ingredients.length !== 0 ? (
-            orderIngredients.ingredients.map((item, index) => {
+          {ingredients.length !== 0 ? (
+            ingredients.map((item, index) => {
               return (
                 <BurgerConstructorItem
                   key={item.id}
@@ -97,14 +93,14 @@ export const BurgerConstructor = () => {
           )}
         </ul>
 
-        {orderIngredients.bun ? (
+        {bun ? (
           <div className="pr-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${orderIngredients.bun.name} (низ)`}
-              price={orderIngredients.bun.price}
-              thumbnail={orderIngredients.bun.image}
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image}
             />
           </div>
         ) : (
@@ -125,7 +121,7 @@ export const BurgerConstructor = () => {
         </div>
 
         <Button
-          disabled={orderIngredients.bun ? false : true}
+          disabled={bun ? false : true}
           htmlType="button"
           type="primary"
           size="large"
