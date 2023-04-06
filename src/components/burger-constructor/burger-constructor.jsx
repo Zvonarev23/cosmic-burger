@@ -79,8 +79,14 @@ export const BurgerConstructor = () => {
           }
         >
           {orderIngredients.ingredients.length !== 0 ? (
-            orderIngredients.ingredients.map((item) => {
-              return <BurgerConstructorItem key={item.id} item={item} />;
+            orderIngredients.ingredients.map((item, index) => {
+              return (
+                <BurgerConstructorItem
+                  key={item.id}
+                  item={item}
+                  index={index}
+                />
+              );
             })
           ) : (
             <li

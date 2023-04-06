@@ -2,6 +2,7 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   SET_BUNS,
+  SORT_INGREDIENTS,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -27,6 +28,11 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ingredients: [...state.ingredients].filter(
           (ingredient) => ingredient.id !== action.payload
         ),
+      };
+    case SORT_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [...action.payload],
       };
 
     default:

@@ -8,7 +8,7 @@ import {
   addIngredient,
   setBuns,
 } from "../../../services/actions/burger-constructor";
-import { useDrag } from "react-dnd";
+import { DragPreviewImage, useDrag } from "react-dnd";
 import { useMemo } from "react";
 
 export const IngredientItem = ({ item }) => {
@@ -16,7 +16,7 @@ export const IngredientItem = ({ item }) => {
     (state) => state.burgerConstructor
   );
 
-  const [{ opacity }, dragRef] = useDrag({
+  const [{ opacity }, dragRef, preview] = useDrag({
     type: "ingredients",
     item: item,
     collect: (monitor) => ({
@@ -54,24 +54,29 @@ export const IngredientItem = ({ item }) => {
   };
 
   return (
-    <li
-      style={{ opacity }}
-      ref={dragRef}
-      className={styles.card}
-      role={"menuitem"}
-      onClick={handleCurrentIngredients}
-      onKeyDown={handleCurrentIngredients}
-    >
-      {counterIngredients > 0 && (
-        <Counter count={counterIngredients} size="default" />
-      )}
-      <img className="mb-1" src={item.image} alt={item.name} />
-      <div className={`${styles.price} mb-1`}>
-        <span className="text text_type_digits-default mr-2">{item.price}</span>
-        <CurrencyIcon />
-      </div>
-      <p className="text text_type_main-default">{item.name}</p>
-    </li>
+    <>
+      <DragPreviewImage connect={preview} src={item.image} />
+      <li
+        style={{ opacity }}
+        ref={dragRef}
+        className={styles.card}
+        role={"menuitem"}
+        onClick={handleCurrentIngredients}
+        onKeyDown={handleCurrentIngredients}
+      >
+        {counterIngredients > 0 && (
+          <Counter count={counterIngredients} size="default" />
+        )}
+        <img className="mb-1" src={item.image} alt={item.name} />
+        <div className={`${styles.price} mb-1`}>
+          <span className="text text_type_digits-default mr-2">
+            {item.price}
+          </span>
+          <CurrencyIcon />
+        </div>
+        <p className="text text_type_main-default">{item.name}</p>
+      </li>
+    </>
   );
 };
 
