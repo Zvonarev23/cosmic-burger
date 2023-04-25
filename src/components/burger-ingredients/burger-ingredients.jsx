@@ -1,22 +1,59 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { commonPropTypes } from "../../utils/commonPropTypes.js";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
-import PropTypes from "prop-types";
 import { Modal } from "../modal/modal.jsx";
 import { IngredientDetails } from "./ingredient-details/ingredient-details.jsx";
+import { loadIngredients } from "../../services/actions/burger-ingredients";
+import { resetIngredientDetails } from "../../services/actions/ingredient-details";
 
-export const BurgerIngredients = ({ ingredientsList }) => {
+export const BurgerIngredients = () => {
+  const { isLoading, isError, ingredients } = useSelector(
+    (state) => state.ingredients
+  );
+  const ingredientDetailsData = useSelector(
+    (state) => state.ingredientDetails.ingredient
+  );
   const [current, setCurrent] = useState("bun");
-  const [ingredientDetails, setIngredientDetails] = useState({
-    currentIngredient: null,
-    isOpenIngredientDetails: false,
-  });
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadIngredients());
+  }, []);
+
+  const rootRef = useRef(null);
   const tabBunRef = useRef(null);
   const tabSauceRef = useRef(null);
   const tabMainRef = useRef(null);
+
+  const handleScroll = () => {
+    const bunsLocation = Math.abs(
+      rootRef.current.getBoundingClientRect().top -
+        tabBunRef.current.getBoundingClientRect().top
+    );
+    const saucesLocation = Math.abs(
+      rootRef.current.getBoundingClientRect().top -
+        tabSauceRef.current.getBoundingClientRect().top
+    );
+    const mainsLocation = Math.abs(
+      rootRef.current.getBoundingClientRect().top -
+        tabMainRef.current.getBoundingClientRect().top
+    );
+
+    const currentLocation = Math.min(
+      bunsLocation,
+      saucesLocation,
+      mainsLocation
+    );
+
+    bunsLocation === currentLocation
+      ? setCurrent("bun")
+      : saucesLocation === currentLocation
+      ? setCurrent("sauce")
+      : setCurrent("main");
+  };
 
   const selectCategory = (category) => {
     setCurrent(category);
@@ -34,27 +71,25 @@ export const BurgerIngredients = ({ ingredientsList }) => {
     }
   };
 
-  const openIngredientDetails = (item) => {
-    setIngredientDetails({
-      currentIngredient: item,
-      isOpenIngredientDetails: true,
-    });
-  };
-
   const closeIngredientDetails = () => {
-    setIngredientDetails({
-      ...ingredientDetails,
-      isOpenIngredientDetails: false,
-    });
+    dispatch(resetIngredientDetails());
   };
 
   const [buns, sauces, mains] = useMemo(() => {
-    const buns = ingredientsList.filter((item) => item.type === "bun");
-    const mains = ingredientsList.filter((item) => item.type === "main");
-    const sauces = ingredientsList.filter((item) => item.type === "sauce");
+    const buns = ingredients.filter((item) => item.type === "bun");
+    const mains = ingredients.filter((item) => item.type === "main");
+    const sauces = ingredients.filter((item) => item.type === "sauce");
 
-    return [buns, mains, sauces];
-  }, [ingredientsList]);
+    return [buns, sauces, mains];
+  }, [ingredients]);
+
+  if (isLoading) {
+    return <h1>Загрузка...</h1>;
+  }
+
+  if (!isLoading && isError) {
+    return <h1>Непредвиденная ошибка</h1>;
+  }
 
   return (
     <div className="pt-10">
@@ -77,42 +112,30 @@ export const BurgerIngredients = ({ ingredientsList }) => {
         </Tab>
       </div>
 
-      <div className={`${styles.wrapper} custom-scroll`}>
+      <div
+        ref={rootRef}
+        onScroll={handleScroll}
+        className={`${styles.wrapper} custom-scroll`}
+      >
         <ul>
           <li ref={tabBunRef}>
-            <IngrediensGroup
-              type="Булки"
-              openIngredientDetails={openIngredientDetails}
-              ingredientsType={buns}
-            />
+            <IngrediensGroup type="Булки" ingredientsType={buns} />
           </li>
 
           <li ref={tabSauceRef}>
-            <IngrediensGroup
-              type="Соусы"
-              openIngredientDetails={openIngredientDetails}
-              ingredientsType={sauces}
-            />
+            <IngrediensGroup type="Соусы" ingredientsType={sauces} />
           </li>
 
           <li ref={tabMainRef}>
-            <IngrediensGroup
-              type="Начинки"
-              openIngredientDetails={openIngredientDetails}
-              ingredientsType={mains}
-            />
+            <IngrediensGroup type="Начинки" ingredientsType={mains} />
           </li>
         </ul>
       </div>
-      {ingredientDetails.isOpenIngredientDetails && (
+      {ingredientDetailsData && (
         <Modal onClose={closeIngredientDetails}>
-          <IngredientDetails ingredient={ingredientDetails.currentIngredient} />
+          <IngredientDetails />
         </Modal>
       )}
     </div>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.arrayOf(commonPropTypes.isRequired).isRequired,
 };
