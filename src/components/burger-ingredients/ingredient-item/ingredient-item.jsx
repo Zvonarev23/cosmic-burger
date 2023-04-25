@@ -4,10 +4,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { commonPropTypes } from "../../../utils/common-proptypes";
 import { useDispatch, useSelector } from "react-redux";
 import { setIngredientsDetails } from "../../../services/actions/ingredient-details";
-import {
-  addIngredient,
-  setBuns,
-} from "../../../services/actions/burger-constructor";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { useMemo } from "react";
 
@@ -47,9 +43,6 @@ export const IngredientItem = ({ item }) => {
   const handleCurrentIngredients = (e) => {
     if (e.currentTarget) {
       dispatch(setIngredientsDetails(item));
-      item.type === "bun"
-        ? dispatch(setBuns(item))
-        : dispatch(addIngredient(item));
     }
   };
 
