@@ -1,6 +1,5 @@
 import {
   Input,
-  EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,17 +9,12 @@ import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
 
-export const RegisterPage = () => {
+export const ForgotPasswordPage = () => {
   const [nameInputValue, setNameInputValue] = useState("");
-  const [emailInputValue, setEmailInputValue] = useState("");
   const [passwordInputValue, setPasswordInputValue] = useState("");
 
   const handleNameInputValue = (e) => {
     setNameInputValue(e.target.value);
-  };
-
-  const handleEmailInputValue = (e) => {
-    setEmailInputValue(e.target.value);
   };
 
   const handlePasswordInputValue = (e) => {
@@ -30,29 +24,28 @@ export const RegisterPage = () => {
   return (
     <Form>
       <FormContent>
-        <h2 className="text_type_main-medium">Регистрация</h2>
-
-        <Input
-          onChange={handleNameInputValue}
-          value={nameInputValue}
-          placeholder={"Имя"}
-        />
-
-        <EmailInput onChange={handleEmailInputValue} value={emailInputValue} />
+        <h2 className="text_type_main-medium">Восстановление пароля</h2>
 
         <PasswordInput
           onChange={handlePasswordInputValue}
           value={passwordInputValue}
+          placeholder={"Введите новый пароль"}
+        />
+
+        <Input
+          onChange={handleNameInputValue}
+          value={nameInputValue}
+          placeholder={"Введите код из письма"}
         />
 
         <Button type="primary" htmlType="button">
-          Зарегистрироваться
+          Сохранить
         </Button>
       </FormContent>
 
       <FormSuggestion>
         <span className="text_type_main-default text_color_inactive mr-2">
-          Уже зарегистрированы?
+          Вспомнили пароль?
         </span>
         <Link to="/login" className="text_type_main-default text_color_accent">
           Войти
