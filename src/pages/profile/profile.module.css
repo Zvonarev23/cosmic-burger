@@ -1,0 +1,29 @@
+.layout {
+  max-width: 1200px;
+  padding-top: 120px;
+  margin: 0 auto;
+  display: flex;
+  gap: 60px;
+}
+
+.menu_container {
+  max-width: 320px;
+}
+
+.menu {
+  margin-bottom: 80px;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 45px;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.description {
+  opacity: 0.4;
+}
