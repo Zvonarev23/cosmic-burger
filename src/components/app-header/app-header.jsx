@@ -12,8 +12,6 @@ export const AppHeader = () => {
   const isHomePage = useMatch("/");
   const isOrderFeed = useMatch("/order-feed");
 
-  console.log(matchHome);
-
   return (
     <header
       className={`text text_type_main-default pt-4 pb-4 ${styles.header}`}
