@@ -5,8 +5,15 @@ import {
   ProfileIcon,
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink, useMatch } from "react-router-dom";
 
 export const AppHeader = () => {
+  const isProfilePage = useMatch("/profile");
+  const isHomePage = useMatch("/");
+  const isOrderFeed = useMatch("/order-feed");
+
+  console.log(matchHome);
+
   return (
     <header
       className={`text text_type_main-default pt-4 pb-4 ${styles.header}`}
@@ -15,29 +22,44 @@ export const AppHeader = () => {
         <nav className={styles.nav}>
           <ul className={styles.list}>
             <li>
-              <a className={styles.link_active} href="/">
-                <BurgerIcon type="primary" />
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? `${styles.link_active}` : `${styles.link}`
+                }
+              >
+                <BurgerIcon type={isHomePage ? "primary" : "secondary"} />
                 <span>Конструктор</span>
-              </a>
+              </NavLink>
             </li>
 
             <li>
-              <a className={styles.link} href="/">
-                <ListIcon type="secondary" />
+              <NavLink
+                to="/order-feed"
+                className={({ isActive }) =>
+                  isActive ? `${styles.link_active}` : `${styles.link}`
+                }
+              >
+                <ListIcon type={isOrderFeed ? "primary" : "secondary"} />
                 <span>Лента заказов</span>
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
 
-        <a className={styles.logo} href="/">
+        <NavLink to="/" className={styles.logo}>
           <Logo />
-        </a>
+        </NavLink>
 
-        <a className={styles.link} href="/">
-          <ProfileIcon type="secondary" />
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            isActive ? `${styles.link_active}` : `${styles.link}`
+          }
+        >
+          <ProfileIcon type={isProfilePage ? "primary" : "secondary"} />
           <span>Личный кабинет</span>
-        </a>
+        </NavLink>
       </div>
     </header>
   );
