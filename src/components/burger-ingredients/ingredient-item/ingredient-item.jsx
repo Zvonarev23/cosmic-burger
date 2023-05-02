@@ -2,10 +2,10 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { commonPropTypes } from "../../../utils/common-proptypes";
-import { useDispatch, useSelector } from "react-redux";
-import { setIngredientsDetails } from "../../../services/actions/ingredient-details";
+import { useSelector } from "react-redux";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export const IngredientItem = ({ item }) => {
   const constructorIngredients = useSelector(
@@ -20,7 +20,7 @@ export const IngredientItem = ({ item }) => {
     }),
   });
 
-  const dispatch = useDispatch();
+  let location = useLocation();
 
   const counterIngredients = useMemo(() => {
     const { bun, ingredients } = constructorIngredients;
@@ -40,34 +40,27 @@ export const IngredientItem = ({ item }) => {
     return counter;
   }, [constructorIngredients]);
 
-  const handleCurrentIngredients = (e) => {
-    if (e.currentTarget) {
-      dispatch(setIngredientsDetails(item));
-    }
-  };
-
   return (
     <>
       <DragPreviewImage connect={preview} src={item.image} />
-      <li
-        style={{ opacity }}
-        ref={dragRef}
-        className={styles.card}
-        role={"menuitem"}
-        onClick={handleCurrentIngredients}
-        onKeyDown={handleCurrentIngredients}
-      >
-        {counterIngredients > 0 && (
-          <Counter count={counterIngredients} size="default" />
-        )}
-        <img className="mb-1" src={item.image} alt={item.name} />
-        <div className={`${styles.price} mb-1`}>
-          <span className="text text_type_digits-default mr-2">
-            {item.price}
-          </span>
-          <CurrencyIcon />
-        </div>
-        <p className="text text_type_main-default">{item.name}</p>
+      <li style={{ opacity }} ref={dragRef} className={styles.card}>
+        <Link
+          className={styles.link}
+          to={`/ingredient/${item._id}`}
+          state={{ backgroundLocation: location }}
+        >
+          {counterIngredients > 0 && (
+            <Counter count={counterIngredients} size="default" />
+          )}
+          <img className="mb-1" src={item.image} alt={item.name} />
+          <div className={`${styles.price} mb-1`}>
+            <span className="text text_type_digits-default mr-2">
+              {item.price}
+            </span>
+            <CurrencyIcon />
+          </div>
+          <p className="text text_type_main-default">{item.name}</p>
+        </Link>
       </li>
     </>
   );

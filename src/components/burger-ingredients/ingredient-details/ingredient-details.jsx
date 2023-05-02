@@ -1,12 +1,17 @@
-import { useSelector } from "react-redux";
 import styles from "./ingredient-details.module.css";
+import { commonPropTypes } from "../../../utils/common-proptypes.js";
+import PropTypes from "prop-types";
 
-export const IngredientDetails = () => {
-  const ingredient = useSelector((state) => state.ingredientDetails.ingredient);
-
+export const IngredientDetails = ({ ingredient, heading }) => {
   return (
     <div className={styles.container}>
-      <h2 className={`${styles.heading} text text_type_main-large`}>
+      <h2
+        className={
+          heading === "start"
+            ? `${styles.heading_start}`
+            : `${styles.heading_center}`
+        }
+      >
         Детали ингредиента
       </h2>
 
@@ -74,4 +79,9 @@ export const IngredientDetails = () => {
       </ul>
     </div>
   );
+};
+
+IngredientDetails.propTypes = {
+  ingredient: commonPropTypes.isRequired,
+  heading: PropTypes.string.isRequired,
 };

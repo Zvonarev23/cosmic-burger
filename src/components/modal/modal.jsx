@@ -4,10 +4,17 @@ import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import styles from "./modal.module.css";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const modalRoot = document.getElementById("root-modals");
 
-export const Modal = ({ children, onClose }) => {
+export const Modal = ({ children, onCloseModal }) => {
+  const navigate = useNavigate();
+
+  const onClose = () => {
+    onCloseModal ? onCloseModal() : navigate(-1);
+  };
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -38,6 +45,6 @@ export const Modal = ({ children, onClose }) => {
 };
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onCloseModal: PropTypes.func,
   children: PropTypes.node.isRequired,
 };
