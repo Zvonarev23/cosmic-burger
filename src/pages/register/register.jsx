@@ -9,43 +9,44 @@ import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
+import { requestSignUp } from "../../services/actions/user.js";
+import { useDispatch } from "react-redux";
 
 export const RegisterPage = () => {
-  const [nameInputValue, setNameInputValue] = useState("");
-  const [emailInputValue, setEmailInputValue] = useState("");
-  const [passwordInputValue, setPasswordInputValue] = useState("");
+  const [form, setValue] = useState({ name: "", email: "", password: "" });
 
-  const handleNameInputValue = (e) => {
-    setNameInputValue(e.target.value);
+  const handleChange = (e) => {
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleEmailInputValue = (e) => {
-    setEmailInputValue(e.target.value);
-  };
+  const dispatch = useDispatch();
 
-  const handlePasswordInputValue = (e) => {
-    setPasswordInputValue(e.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(requestSignUp(form));
   };
 
   return (
-    <Form>
+    <Form handleSubmit={handleSubmit}>
       <FormContent>
         <h2 className="text_type_main-medium">Регистрация</h2>
 
         <Input
-          onChange={handleNameInputValue}
-          value={nameInputValue}
-          placeholder={"Имя"}
+          onChange={handleChange}
+          value={form.name}
+          placeholder="Имя"
+          name="name"
         />
 
-        <EmailInput onChange={handleEmailInputValue} value={emailInputValue} />
+        <EmailInput onChange={handleChange} value={form.email} name="email" />
 
         <PasswordInput
-          onChange={handlePasswordInputValue}
-          value={passwordInputValue}
+          onChange={handleChange}
+          value={form.password}
+          name="password"
         />
 
-        <Button type="primary" htmlType="button">
+        <Button type="primary" htmlType="submit">
           Зарегистрироваться
         </Button>
       </FormContent>

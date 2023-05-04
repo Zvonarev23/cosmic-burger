@@ -8,29 +8,37 @@ import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
+import { requestSignIn } from "../../services/actions/user.js";
+import { useDispatch } from "react-redux";
 
 export const LoginPage = () => {
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const [form, setValue] = useState({ email: "", password: "" });
 
-  const handleEmailValue = (e) => {
-    setEmailValue(e.target.value);
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(requestSignIn(form));
   };
 
-  const handlePasswordValue = (e) => {
-    setPasswordValue(e.target.value);
+  const handleChange = (e) => {
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
-    <Form>
+    <Form handleSubmit={handleSubmit}>
       <FormContent>
         <h2 className="text_type_main-medium">Вход</h2>
 
-        <EmailInput onChange={handleEmailValue} value={emailValue} />
+        <EmailInput onChange={handleChange} value={form.email} name="email" />
 
-        <PasswordInput onChange={handlePasswordValue} value={passwordValue} />
+        <PasswordInput
+          onChange={handleChange}
+          value={form.password}
+          name="password"
+        />
 
-        <Button type="primary" htmlType="button">
+        <Button type="primary" htmlType="submit">
           Войти
         </Button>
       </FormContent>
