@@ -16,6 +16,7 @@ import { IngredientDetailsPage } from "../../pages/ingredient-details/ingredient
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../../services/actions/user.js";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route.jsx";
 
 function App() {
   let location = useLocation();
@@ -33,12 +34,21 @@ function App() {
       <AppHeader />
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={<OnlyUnAuth component={<LoginPage />} />}
+        />
+        <Route
+          path="/register"
+          element={<OnlyUnAuth component={<RegisterPage />} />}
+        />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/order-feed" element={<OrderFeedPage />} />
-        <Route path="/profile" element={<ProfilePage />}>
+        <Route
+          path="/profile"
+          element={<OnlyAuth component={<ProfilePage />} />}
+        >
           <Route index element={<UserProfile />} />
           <Route path="orders" element={<Orders />} />
         </Route>

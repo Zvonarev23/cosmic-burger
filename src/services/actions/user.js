@@ -87,18 +87,16 @@ export const requestGetUser = () => (dispatch) => {
         type: GET_USER_FAILED,
         payload: error,
       });
-      console.log(error);
     });
 };
 
 export const checkUserAuth = () => (dispatch) => {
   if (localStorage.getItem("accessToken")) {
     dispatch(requestGetUser())
-      .catch((error) => {
+      .catch(() => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         dispatch(setUser(null));
-        console.log(error);
       })
       .finally(() => {
         dispatch(setAuthChecked(true));
