@@ -6,6 +6,10 @@ import {
   SIGN_IN_REQUEST,
   SIGN_IN_FAILED,
   SET_AUTH_CHECKED,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
+  SET_USER,
 } from "../actions/user";
 
 const initialState = {
@@ -18,6 +22,9 @@ const initialState = {
 
   signInError: null,
   signInRequest: false,
+
+  getUserError: null,
+  getUserRequest: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -64,10 +71,38 @@ export const userReducer = (state = initialState, action) => {
       };
     }
 
+    case GET_USER_REQUEST:
+      return {
+        ...state,
+        getUserRequest: true,
+      };
+
+    case GET_USER_SUCCESS:
+      return {
+        ...state,
+        getUserRequest: false,
+        user: action.payload,
+      };
+
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        getUserError: action.payload,
+        getUserRequest: false,
+      };
+    }
+
     case SET_AUTH_CHECKED: {
       return {
         ...state,
         isAuthChecked: action.payload,
+      };
+    }
+
+    case SET_USER: {
+      return {
+        ...state,
+        user: action.payload,
       };
     }
 
