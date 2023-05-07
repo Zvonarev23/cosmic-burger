@@ -14,6 +14,12 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILED,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILED,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
   SET_AUTH_CHECKED,
   SET_USER,
 } from "../actions/user";
@@ -37,10 +43,18 @@ const initialState = {
 
   updateUserError: null,
   updateUserRequest: false,
+
+  forgotPasswordError: null,
+  forgotPasswordRequest: false,
+
+  resetPasswordError: null,
+  resetPasswordRequest: false,
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    // регистрация
+
     case SIGN_UP_REQUEST:
       return {
         ...state,
@@ -60,6 +74,8 @@ export const userReducer = (state = initialState, action) => {
         signUpError: action.payload,
         signUpRequest: false,
       };
+
+    // авторизация
 
     case SIGN_IN_REQUEST:
       return {
@@ -81,6 +97,8 @@ export const userReducer = (state = initialState, action) => {
         signInRequest: false,
       };
 
+    // выход в систему
+
     case SIGN_OUT_REQUEST:
       return {
         ...state,
@@ -100,6 +118,8 @@ export const userReducer = (state = initialState, action) => {
         signOutError: action.payload,
         signOutRequest: false,
       };
+
+    // получить данные пользователя
 
     case GET_USER_REQUEST:
       return {
@@ -121,6 +141,8 @@ export const userReducer = (state = initialState, action) => {
         getUserRequest: false,
       };
 
+    // изменить данные пользователя
+
     case UPDATE_USER_REQUEST:
       return {
         ...state,
@@ -139,6 +161,48 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         updateUserError: action.payload,
         updateUserRequest: false,
+      };
+
+    // запрос на восстановление пароля
+
+    case FORGOT_PASSWORD_REQUEST:
+      return {
+        ...state,
+        forgotPasswordRequest: true,
+      };
+
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        forgotPasswordRequest: false,
+      };
+
+    case FORGOT_PASSWORD_FAILED:
+      return {
+        ...state,
+        forgotPasswordError: action.payload,
+        forgotPasswordRequest: false,
+      };
+
+    // смена пароля
+
+    case RESET_PASSWORD_REQUEST:
+      return {
+        ...state,
+        resetPasswordRequest: true,
+      };
+
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        resetPasswordRequest: false,
+      };
+
+    case RESET_PASSWORD_FAILED:
+      return {
+        ...state,
+        resetPasswordError: action.payload,
+        resetPasswordRequest: false,
       };
 
     case SET_AUTH_CHECKED:

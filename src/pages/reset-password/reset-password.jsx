@@ -4,20 +4,29 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
+import { useDispatch } from "react-redux";
+import { requestResetPassword } from "../../services/actions/user.js";
 
 export const ResetPasswordPage = () => {
-  const [form, setValue] = useState({ password: "", code: "" });
+  const [form, setValue] = useState({ password: "", token: "" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(requestResetPassword(form)).then(navigate("/login"));
+  };
+
   return (
-    <Form>
+    <Form handleSubmit={handleSubmit}>
       <FormContent>
         <h2 className="text_type_main-medium">Восстановление пароля</h2>
 
@@ -30,12 +39,12 @@ export const ResetPasswordPage = () => {
 
         <Input
           onChange={handleChange}
-          value={form.code}
+          value={form.token}
           placeholder={"Введите код из письма"}
-          name="code"
+          name="token"
         />
 
-        <Button type="primary" htmlType="button">
+        <Button type="primary" htmlType="submit">
           Сохранить
         </Button>
       </FormContent>

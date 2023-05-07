@@ -105,3 +105,23 @@ export const updateUser = (name, email) => {
     body: JSON.stringify({ name, email }),
   });
 };
+
+export const forgotPassword = (email) => {
+  return request("/password-reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+};
+
+export const resetPassword = ({ password, token }) => {
+  return request("/password-reset/reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password, token }),
+  });
+};

@@ -42,8 +42,14 @@ function App() {
           path="/register"
           element={<OnlyUnAuth component={<RegisterPage />} />}
         />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route
+          path="/forgot-password"
+          element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+        />
+        <Route
+          path="/reset-password"
+          element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+        />
         <Route path="/order-feed" element={<OrderFeedPage />} />
         <Route
           path="/profile"

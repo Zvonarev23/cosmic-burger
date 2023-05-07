@@ -1,5 +1,7 @@
 import {
+  forgotPassword,
   getUser,
+  resetPassword,
   signIn,
   signOut,
   signUp,
@@ -25,6 +27,14 @@ export const GET_USER_FAILED = "GET_USER_FAILED";
 export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
+
+export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
+export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
+export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
+
+export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 
@@ -143,6 +153,30 @@ export const requestUpdateUser = (name, email) => (dispatch) => {
         payload: error,
       });
     });
+};
+
+export const requestForgotPassword = (email) => (dispatch) => {
+  dispatch({
+    type: FORGOT_PASSWORD_REQUEST,
+  });
+
+  return forgotPassword(email)
+    .then(() => dispatch({ type: FORGOT_PASSWORD_SUCCESS }))
+    .catch((error) =>
+      dispatch({ type: FORGOT_PASSWORD_FAILED, payload: error })
+    );
+};
+
+export const requestResetPassword = (password, token) => (dispatch) => {
+  dispatch({
+    type: RESET_PASSWORD_REQUEST,
+  });
+
+  return resetPassword(password, token)
+    .then(() => dispatch({ type: RESET_PASSWORD_SUCCESS }))
+    .catch((error) =>
+      dispatch({ type: RESET_PASSWORD_FAILED, payload: error })
+    );
 };
 
 export const checkUserAuth = () => (dispatch) => {
