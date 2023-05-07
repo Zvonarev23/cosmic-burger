@@ -10,7 +10,6 @@ export const fetchWithRefresh = async (endpoint, options) => {
     const res = await fetch(`${API_URL}${endpoint}`, options);
     return await checkResponse(res);
   } catch (err) {
-    console.log(err.message);
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
@@ -44,10 +43,11 @@ export const getIngredients = () => {
 };
 
 export const sendOrder = (order) => {
-  return request("/orders", {
+  return fetchWithRefresh("/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
     },
     body: JSON.stringify(order),
   });

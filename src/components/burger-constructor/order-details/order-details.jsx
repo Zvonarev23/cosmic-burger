@@ -4,11 +4,16 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { orderRequest } from "../../../services/actions/order-details";
+import { useNavigate } from "react-router-dom";
 
 export const OrderDetails = ({ setIsOpenOrderDetails }) => {
   const { isError, isLoading, orderNumber } = useSelector(
     (state) => state.orderDetails
   );
+
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.user);
 
   const orderState = useSelector((state) => state.burgerConstructor);
 
@@ -21,8 +26,12 @@ export const OrderDetails = ({ setIsOpenOrderDetails }) => {
   const order = { ingredients: [bunId, ...ingredientsId, bunId] };
 
   useEffect(() => {
-    dispatch(orderRequest(order));
-    setIsOpenOrderDetails(true);
+    if (!user) {
+      navigate("/login");
+    } else {
+      dispatch(orderRequest(order));
+      setIsOpenOrderDetails(true);
+    }
   }, []);
 
   return (

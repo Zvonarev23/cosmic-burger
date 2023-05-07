@@ -1,8 +1,9 @@
 import {
+  SET_BUNS,
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
-  SET_BUNS,
   SORT_INGREDIENTS,
+  CLEAR_INGREDIENTS,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -33,6 +34,11 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [...action.payload],
+      };
+
+    case CLEAR_INGREDIENTS:
+      return {
+        ...initialState,
       };
 
     default:

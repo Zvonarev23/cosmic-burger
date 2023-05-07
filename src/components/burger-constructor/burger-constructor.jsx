@@ -11,6 +11,7 @@ import { OrderDetails } from "./order-details/order-details.jsx";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
+  clearIngredients,
   setBuns,
 } from "../../services/actions/burger-constructor";
 import { BurgerConstructorItem } from "./burger-constructor/burger-constructor-item";
@@ -36,6 +37,7 @@ export const BurgerConstructor = () => {
   };
 
   const closeOrderDetails = () => {
+    dispatch(clearIngredients());
     setIsOpenOrderDetails(false);
   };
 
