@@ -1,4 +1,10 @@
-import { getUser, signIn, signUp } from "../../utils/request-to-api";
+import {
+  getUser,
+  signIn,
+  signOut,
+  signUp,
+  updateUser,
+} from "../../utils/request-to-api";
 
 export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
@@ -8,9 +14,17 @@ export const SIGN_IN_REQUEST = "SIGN_IN_REQUEST";
 export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
 export const SIGN_IN_FAILED = "SIGN_IN_FAILED";
 
+export const SIGN_OUT_REQUEST = "SIGN_OUT_REQUEST";
+export const SIGN_OUT_SUCCESS = "SIGN_OUT_SUCCESS";
+export const SIGN_OUT_FAILED = "SIGN_OUT_FAILED";
+
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILED = "GET_USER_FAILED";
+
+export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
 
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 
@@ -70,6 +84,27 @@ export const requestSignIn = (form) => (dispatch) => {
     });
 };
 
+export const requestSignOut = () => (dispatch) => {
+  dispatch({
+    type: SIGN_OUT_REQUEST,
+  });
+
+  return signOut()
+    .then(() => {
+      dispatch({
+        type: SIGN_OUT_SUCCESS,
+      });
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    })
+    .catch((error) => {
+      dispatch({
+        type: SIGN_IN_FAILED,
+        payload: error,
+      });
+    });
+};
+
 export const requestGetUser = () => (dispatch) => {
   dispatch({
     type: GET_USER_REQUEST,
@@ -85,6 +120,26 @@ export const requestGetUser = () => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_USER_FAILED,
+        payload: error,
+      });
+    });
+};
+
+export const requestUpdateUser = (name, email) => (dispatch) => {
+  dispatch({
+    type: UPDATE_USER_REQUEST,
+  });
+
+  return updateUser(name, email)
+    .then((res) => {
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: res.user,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: UPDATE_USER_FAILED,
         payload: error,
       });
     });

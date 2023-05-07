@@ -8,7 +8,6 @@ const request = (endpoint, options) => {
 export const fetchWithRefresh = async (endpoint, options) => {
   try {
     const res = await fetch(`${API_URL}${endpoint}`, options);
-    console.log(res);
     return await checkResponse(res);
   } catch (err) {
     console.log(err.message);
@@ -74,6 +73,18 @@ export const signIn = ({ email, password }) => {
   });
 };
 
+export const signOut = () => {
+  return request("/auth/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  });
+};
+
 export const getUser = () => {
   return fetchWithRefresh("/auth/user", {
     method: "GET",
@@ -81,5 +92,16 @@ export const getUser = () => {
       "Content-Type": "application/json",
       authorization: localStorage.getItem("accessToken"),
     },
+  });
+};
+
+export const updateUser = (name, email) => {
+  return fetchWithRefresh("/auth/user", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: localStorage.getItem("accessToken"),
+    },
+    body: JSON.stringify({ name, email }),
   });
 };

@@ -8,9 +8,9 @@ import {
 import { NavLink, useMatch } from "react-router-dom";
 
 export const AppHeader = () => {
-  const isProfilePage = useMatch("/profile");
   const isHomePage = useMatch("/");
   const isOrderFeed = useMatch("/order-feed");
+  const isProfilePage = useMatch({ path: "/profile", end: false });
 
   return (
     <header
@@ -23,7 +23,7 @@ export const AppHeader = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  isActive ? `${styles.link_active}` : `${styles.link}`
+                  isActive ? styles.link_active : styles.link
                 }
               >
                 <BurgerIcon type={isHomePage ? "primary" : "secondary"} />
@@ -35,7 +35,7 @@ export const AppHeader = () => {
               <NavLink
                 to="/order-feed"
                 className={({ isActive }) =>
-                  isActive ? `${styles.link_active}` : `${styles.link}`
+                  isActive ? styles.link_active : styles.link
                 }
               >
                 <ListIcon type={isOrderFeed ? "primary" : "secondary"} />
@@ -52,7 +52,7 @@ export const AppHeader = () => {
         <NavLink
           to="/profile"
           className={({ isActive }) =>
-            isActive ? `${styles.link_active}` : `${styles.link}`
+            isActive ? styles.link_active : styles.link
           }
         >
           <ProfileIcon type={isProfilePage ? "primary" : "secondary"} />

@@ -1,29 +1,43 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import styles from "./profile.module.css";
+import { requestSignOut } from "../../services/actions/user";
+import { useDispatch } from "react-redux";
 
 export const ProfilePage = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(requestSignOut());
+  };
+
   return (
     <div className={styles.layout}>
       <div className={styles.menu_container}>
         <ul className={styles.menu}>
           <li className={styles.item}>
-            <Link
+            <NavLink
               to="/profile"
-              className="text text_type_main-medium text_color_inactive"
+              end
+              className={({ isActive }) =>
+                isActive ? `${styles.link_active}` : `${styles.link}`
+              }
             >
               Профиль
-            </Link>
+            </NavLink>
           </li>
           <li className={styles.item}>
-            <Link
+            <NavLink
               to="orders"
-              className="text text_type_main-medium text_color_inactive"
+              className={({ isActive }) =>
+                isActive ? `${styles.link_active}` : `${styles.link}`
+              }
             >
               История заказов
-            </Link>
+            </NavLink>
           </li>
           <li className={styles.item}>
             <button
+              onClick={handleClick}
               className={`${styles.button} text text_type_main-medium text_color_inactive`}
             >
               Выход
