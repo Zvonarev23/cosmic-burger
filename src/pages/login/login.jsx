@@ -60,7 +60,7 @@ export const LoginPage = () => {
           Забыли пароль?
         </span>
         <Link
-          to="/reset-password"
+          to="/forgot-password"
           className="text_type_main-default text_color_accent"
         >
           Восстановить пароль

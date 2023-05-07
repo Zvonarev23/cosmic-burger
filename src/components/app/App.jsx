@@ -1,9 +1,9 @@
-import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password.jsx";
+import { ResetPasswordPage } from "../../pages/reset-password/reset-password.jsx";
 import { HomePage } from "../../pages/home/home.jsx";
 import { LoginPage } from "../../pages/login/login.jsx";
 import { ProfilePage } from "../../pages/profile/profile.jsx";
 import { RegisterPage } from "../../pages/register/register.jsx";
-import { ResetPasswordPage } from "../../pages/reset-password/reset-password.jsx";
+import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password.jsx";
 import { OrderFeedPage } from "../../pages/order-feed/order-feed.jsx";
 import { AppHeader } from "../app-header/app-header.jsx";
 import { Routes, Route, useLocation } from "react-router-dom";

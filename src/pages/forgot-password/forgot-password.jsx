@@ -1,6 +1,5 @@
 import {
-  Input,
-  PasswordInput,
+  EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
@@ -10,15 +9,10 @@ import { FormContent } from "../../components/form/form-content/form-content.jsx
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
 
 export const ForgotPasswordPage = () => {
-  const [nameInputValue, setNameInputValue] = useState("");
-  const [passwordInputValue, setPasswordInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const handleNameInputValue = (e) => {
-    setNameInputValue(e.target.value);
-  };
-
-  const handlePasswordInputValue = (e) => {
-    setPasswordInputValue(e.target.value);
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   return (
@@ -26,20 +20,10 @@ export const ForgotPasswordPage = () => {
       <FormContent>
         <h2 className="text_type_main-medium">Восстановление пароля</h2>
 
-        <PasswordInput
-          onChange={handlePasswordInputValue}
-          value={passwordInputValue}
-          placeholder={"Введите новый пароль"}
-        />
-
-        <Input
-          onChange={handleNameInputValue}
-          value={nameInputValue}
-          placeholder={"Введите код из письма"}
-        />
+        <EmailInput onChange={handleChange} value={inputValue} />
 
         <Button type="primary" htmlType="button">
-          Сохранить
+          Восстановить
         </Button>
       </FormContent>
 
