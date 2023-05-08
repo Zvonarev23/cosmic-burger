@@ -97,7 +97,7 @@ export const userReducer = (state = initialState, action) => {
         signInRequest: false,
       };
 
-    // выход в систему
+    // выход из системы
 
     case SIGN_OUT_REQUEST:
       return {

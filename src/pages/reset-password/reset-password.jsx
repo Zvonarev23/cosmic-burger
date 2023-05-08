@@ -22,7 +22,7 @@ export const ResetPasswordPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestResetPassword(form)).then(navigate("/login"));
+    dispatch(requestResetPassword(form)).then(() => navigate("/login"));
   };
 
   return (

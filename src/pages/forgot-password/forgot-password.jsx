@@ -12,9 +12,6 @@ import { requestForgotPassword } from "../../services/actions/user.js";
 
 export const ForgotPasswordPage = () => {
   const [inputValue, setInputValue] = useState("");
-  // const { forgotPasswordSuccess } = useSelector(
-  //   (state) => state.user.forgotPasswordSuccess
-  // );
 
   const navigate = useNavigate();
 

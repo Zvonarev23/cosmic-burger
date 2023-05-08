@@ -56,8 +56,8 @@ function App() {
           path="/profile"
           element={<OnlyAuth component={<ProfilePage />} />}
         >
-          <Route index element={<UserProfile />} />
-          <Route path="orders" element={<Orders />} />
+          <Route index element={<OnlyAuth component={<UserProfile />} />} />
+          <Route path="orders" element={<OnlyAuth component={<Orders />} />} />
         </Route>
         <Route
           path="/ingredient/:_id"
