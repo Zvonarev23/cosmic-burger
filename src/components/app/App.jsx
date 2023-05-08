@@ -11,21 +11,22 @@ import { UserProfile } from "../user-profile/user-profile.jsx";
 import { Orders } from "../orders/orders.jsx";
 import { NotFoundPage } from "../../pages/not-found/not-found.jsx";
 import { Modal } from "../modal/modal.jsx";
-import { IngredientDetailsView } from "../burger-ingredients/ingredient-details-view/ingredient-details-view.jsx";
-import { IngredientDetailsPage } from "../../pages/ingredient-details/ingredient-details-page.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../../services/actions/user.js";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route.jsx";
+import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details.jsx";
+import { loadIngredients } from "../../services/actions/burger-ingredients.js";
 
 function App() {
-  let location = useLocation();
+  const location = useLocation();
 
   const dispatch = useDispatch();
 
-  let state = location.state;
+  const state = location.state;
 
   useEffect(() => {
+    dispatch(loadIngredients());
     dispatch(checkUserAuth());
   }, []);
 
@@ -58,7 +59,14 @@ function App() {
           <Route index element={<UserProfile />} />
           <Route path="orders" element={<Orders />} />
         </Route>
-        <Route path="/ingredient/:_id" element={<IngredientDetailsPage />} />
+        <Route
+          path="/ingredient/:_id"
+          element={
+            <div className="pt-20">
+              <IngredientDetails heading="center" />
+            </div>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
@@ -68,7 +76,7 @@ function App() {
             path="/ingredient/:_id"
             element={
               <Modal>
-                <IngredientDetailsView />
+                <IngredientDetails heading="start" />
               </Modal>
             }
           />
