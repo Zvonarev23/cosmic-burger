@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 120px 100px;
   width: 718px;
+  min-height: 720px;
 }
 
 .heading_wrapper {

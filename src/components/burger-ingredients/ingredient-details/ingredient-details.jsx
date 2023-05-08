@@ -2,6 +2,7 @@ import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Preloader } from "../../preloader/preloader.jsx";
 
 export const IngredientDetails = ({ heading }) => {
   const { ingredients, isError, isLoading } = useSelector(
@@ -16,7 +17,7 @@ export const IngredientDetails = ({ heading }) => {
 
   return (
     <div className={styles.container}>
-      {isLoading && <h2 className="text text_type_main-medium">Загрузка...</h2>}
+      {isLoading && <Preloader />}
 
       {!isLoading && isError && (
         <h2 className="text text_type_main-medium">Ошибка...</h2>
