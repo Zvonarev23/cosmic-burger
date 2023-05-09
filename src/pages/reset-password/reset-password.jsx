@@ -4,7 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
@@ -15,6 +15,9 @@ export const ResetPasswordPage = () => {
   const [form, setValue] = useState({ password: "", token: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const fromForgotPassword = location?.state?.forgotPassword;
 
   const handleChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
@@ -24,6 +27,10 @@ export const ResetPasswordPage = () => {
     e.preventDefault();
     dispatch(requestResetPassword(form)).then(() => navigate("/login"));
   };
+
+  if (!fromForgotPassword) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <Form handleSubmit={handleSubmit}>
