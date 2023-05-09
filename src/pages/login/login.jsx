@@ -3,26 +3,22 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
 import { requestSignIn } from "../../services/actions/user.js";
 import { useDispatch } from "react-redux";
+import { useForm } from "../../hooks/useForm.js";
 
 export const LoginPage = () => {
-  const [form, setValue] = useState({ email: "", password: "" });
+  const { values, handleChange } = useForm({ email: "", password: "" });
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestSignIn(form));
-  };
-
-  const handleChange = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+    dispatch(requestSignIn(values));
   };
 
   return (
@@ -30,11 +26,11 @@ export const LoginPage = () => {
       <FormContent>
         <h2 className="text_type_main-medium">Вход</h2>
 
-        <EmailInput onChange={handleChange} value={form.email} name="email" />
+        <EmailInput onChange={handleChange} value={values.email} name="email" />
 
         <PasswordInput
           onChange={handleChange}
-          value={form.password}
+          value={values.password}
           name="password"
         />
 

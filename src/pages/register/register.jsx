@@ -4,26 +4,26 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form.jsx";
 import { FormContent } from "../../components/form/form-content/form-content.jsx";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
 import { requestSignUp } from "../../services/actions/user.js";
 import { useDispatch } from "react-redux";
+import { useForm } from "../../hooks/useForm.js";
 
 export const RegisterPage = () => {
-  const [form, setValue] = useState({ name: "", email: "", password: "" });
-
-  const handleChange = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const { values, handleChange } = useForm({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestSignUp(form));
+    dispatch(requestSignUp(values));
   };
 
   return (
@@ -33,16 +33,16 @@ export const RegisterPage = () => {
 
         <Input
           onChange={handleChange}
-          value={form.name}
+          value={values.name}
           placeholder="Имя"
           name="name"
         />
 
-        <EmailInput onChange={handleChange} value={form.email} name="email" />
+        <EmailInput onChange={handleChange} value={values.email} name="email" />
 
         <PasswordInput
           onChange={handleChange}
-          value={form.password}
+          value={values.password}
           name="password"
         />
 
