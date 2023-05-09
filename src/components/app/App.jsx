@@ -17,6 +17,7 @@ import { checkUserAuth } from "../../services/actions/user.js";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route.jsx";
 import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details.jsx";
 import { loadIngredients } from "../../services/actions/burger-ingredients.js";
+import { ROUTES } from "../../utils/constant.js";
 
 function App() {
   const location = useLocation();
@@ -34,33 +35,36 @@ function App() {
     <>
       <AppHeader />
       <Routes location={state?.backgroundLocation || location}>
-        <Route path="/" element={<HomePage />} />
+        <Route path={ROUTES.HOME} element={<HomePage />} />
         <Route
-          path="/login"
+          path={ROUTES.LOGIN}
           element={<OnlyUnAuth component={<LoginPage />} />}
         />
         <Route
-          path="/register"
+          path={ROUTES.REGISTER}
           element={<OnlyUnAuth component={<RegisterPage />} />}
         />
         <Route
-          path="/forgot-password"
+          path={ROUTES.FORGOT_PASSWORD}
           element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
         />
         <Route
-          path="/reset-password"
+          path={ROUTES.RESET_PASSWORD}
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
-        <Route path="/order-feed" element={<OrderFeedPage />} />
+        <Route path={ROUTES.ORDER_FEED} element={<OrderFeedPage />} />
         <Route
-          path="/profile"
+          path={ROUTES.PROFILE}
           element={<OnlyAuth component={<ProfilePage />} />}
         >
           <Route index element={<OnlyAuth component={<UserProfile />} />} />
-          <Route path="orders" element={<OnlyAuth component={<Orders />} />} />
+          <Route
+            path={ROUTES.ORDERS}
+            element={<OnlyAuth component={<Orders />} />}
+          />
         </Route>
         <Route
-          path="/ingredient/:_id"
+          path={ROUTES.INGREDIENT}
           element={
             <div className="pt-20">
               <IngredientDetails heading="center" />
@@ -73,7 +77,7 @@ function App() {
       {state?.backgroundLocation && (
         <Routes>
           <Route
-            path="/ingredient/:_id"
+            path={ROUTES.INGREDIENT}
             element={
               <Modal>
                 <IngredientDetails heading="start" />
