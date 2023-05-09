@@ -52,7 +52,9 @@ export const UserProfile = () => {
           icon="EditIcon"
           name="password"
         />
-        {(form.name !== name || form.email !== email) && (
+        {(form.name !== name ||
+          form.email !== email ||
+          form.password !== "") && (
           <div className={styles.action}>
             <Button onClick={handleCancel} htmlType="button" type="secondary">
               Отмена
