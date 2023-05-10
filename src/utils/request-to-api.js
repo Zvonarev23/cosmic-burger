@@ -95,14 +95,14 @@ export const getUser = () => {
   });
 };
 
-export const updateUser = (name, email) => {
+export const updateUser = ({ email, password, name }) => {
   return fetchWithRefresh("/auth/user", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: localStorage.getItem("accessToken"),
     },
-    body: JSON.stringify({ name, email }),
+    body: JSON.stringify({ email, password, name }),
   });
 };
 

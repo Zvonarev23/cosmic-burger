@@ -135,12 +135,12 @@ export const requestGetUser = () => (dispatch) => {
     });
 };
 
-export const requestUpdateUser = (name, email) => (dispatch) => {
+export const requestUpdateUser = (form) => (dispatch) => {
   dispatch({
     type: UPDATE_USER_REQUEST,
   });
 
-  return updateUser(name, email)
+  return updateUser(form)
     .then((res) => {
       dispatch({
         type: UPDATE_USER_SUCCESS,

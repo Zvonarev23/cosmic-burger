@@ -23,7 +23,7 @@ export const UserProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestUpdateUser(values.name, values.email));
+    dispatch(requestUpdateUser(values));
   };
 
   const handleCancel = () => {
