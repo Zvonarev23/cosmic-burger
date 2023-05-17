@@ -1,9 +1,12 @@
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  margin: 0 auto;
   padding: 60px 40px;
   width: 718px;
+  min-height: 538px;
 }
 
 .figure {
@@ -12,8 +15,14 @@
   align-items: center;
 }
 
-.heading {
+.heading_start {
   align-self: start;
+  composes: text_type_main-large from global;
+}
+
+.heading_center {
+  align-self: center;
+  composes: text_type_main-large from global;
 }
 
 .image {

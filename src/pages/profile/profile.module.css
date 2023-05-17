@@ -1,0 +1,39 @@
+.layout {
+  max-width: 1200px;
+  padding-top: 120px;
+  margin: 0 auto;
+  display: flex;
+  gap: 60px;
+}
+
+.menu_container {
+  max-width: 320px;
+}
+
+.menu {
+  margin-bottom: 80px;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 45px;
+}
+
+.link {
+  composes: text_type_main-medium text_color_inactive from global;
+}
+
+.link_active {
+  color: #f2f2f3;
+  composes: text_type_main-medium from global;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.description {
+  opacity: 0.4;
+}

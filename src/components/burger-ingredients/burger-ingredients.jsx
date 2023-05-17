@@ -1,27 +1,15 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useRef, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
-import { Modal } from "../modal/modal.jsx";
-import { IngredientDetails } from "./ingredient-details/ingredient-details.jsx";
-import { loadIngredients } from "../../services/actions/burger-ingredients";
-import { resetIngredientDetails } from "../../services/actions/ingredient-details";
 
 export const BurgerIngredients = () => {
   const { isLoading, isError, ingredients } = useSelector(
     (state) => state.ingredients
   );
-  const ingredientDetailsData = useSelector(
-    (state) => state.ingredientDetails.ingredient
-  );
+
   const [current, setCurrent] = useState("bun");
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
 
   const rootRef = useRef(null);
   const tabBunRef = useRef(null);
@@ -69,10 +57,6 @@ export const BurgerIngredients = () => {
         tabMainRef.current.scrollIntoView({ behavior: "smooth" });
         break;
     }
-  };
-
-  const closeIngredientDetails = () => {
-    dispatch(resetIngredientDetails());
   };
 
   const [buns, sauces, mains] = useMemo(() => {
@@ -131,11 +115,6 @@ export const BurgerIngredients = () => {
           </li>
         </ul>
       </div>
-      {ingredientDetailsData && (
-        <Modal onClose={closeIngredientDetails}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </div>
   );
 };

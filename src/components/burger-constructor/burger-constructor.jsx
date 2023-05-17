@@ -11,16 +11,21 @@ import { OrderDetails } from "./order-details/order-details.jsx";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
+  clearIngredients,
   setBuns,
 } from "../../services/actions/burger-constructor";
 import { BurgerConstructorItem } from "./burger-constructor/burger-constructor-item";
+import { useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+  const user = useSelector((state) => state.user.user);
 
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const [, dropIngredientsRef] = useDrop({
     accept: "ingredients",
@@ -32,10 +37,15 @@ export const BurgerConstructor = () => {
   });
 
   const createOrder = () => {
-    setIsOpenOrderDetails(true);
+    if (user) {
+      setIsOpenOrderDetails(true);
+    } else {
+      navigate("/login");
+    }
   };
 
   const closeOrderDetails = () => {
+    dispatch(clearIngredients());
     setIsOpenOrderDetails(false);
   };
 
@@ -131,7 +141,7 @@ export const BurgerConstructor = () => {
         </Button>
       </div>
       {isOpenOrderDetails && (
-        <Modal onClose={closeOrderDetails}>
+        <Modal onCloseModal={closeOrderDetails}>
           <OrderDetails setIsOpenOrderDetails={setIsOpenOrderDetails} />
         </Modal>
       )}
