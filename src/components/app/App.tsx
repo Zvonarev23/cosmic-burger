@@ -5,7 +5,7 @@ import { ProfilePage } from "../../pages/profile/profile.jsx";
 import { RegisterPage } from "../../pages/register/register.jsx";
 import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password.jsx";
 import { OrderFeedPage } from "../../pages/order-feed/order-feed.jsx";
-import { AppHeader } from "../app-header/app-header.jsx";
+import { AppHeader } from "../app-header/app-header";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { UserProfile } from "../user-profile/user-profile.jsx";
 import { Orders } from "../orders/orders.jsx";
@@ -27,7 +27,9 @@ function App() {
   const state = location.state;
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(loadIngredients());
+    //@ts-ignore
     dispatch(checkUserAuth());
   }, []);
 
