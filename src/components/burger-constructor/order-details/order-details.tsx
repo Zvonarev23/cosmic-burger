@@ -1,27 +1,35 @@
 import orderCreatedImage from "../../../images/order-created.svg";
 import styles from "./order-details.module.css";
 import { useEffect } from "react";
-import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { orderRequest } from "../../../services/actions/order-details";
 import { Preloader } from "../../preloader/preloader.jsx";
+import { TIngredient } from "../../../utils/types";
 
-export const OrderDetails = ({ setIsOpenOrderDetails }) => {
+type TOrderDetails = {
+  setIsOpenOrderDetails: (value: React.SetStateAction<boolean>) => void;
+};
+
+export const OrderDetails = ({
+  setIsOpenOrderDetails,
+}: TOrderDetails): JSX.Element => {
   const { isError, isLoading, orderNumber } = useSelector(
+    //@ts-ignore
     (state) => state.orderDetails
   );
-
+  //@ts-ignore
   const orderState = useSelector((state) => state.burgerConstructor);
 
   const dispatch = useDispatch();
 
   const bunId = orderState.bun._id;
   const ingredientsId = orderState.ingredients.map(
-    (ingredient) => ingredient._id
+    (ingredient: TIngredient) => ingredient._id
   );
   const order = { ingredients: [bunId, ...ingredientsId, bunId] };
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(orderRequest(order));
     setIsOpenOrderDetails(true);
   }, []);
@@ -65,8 +73,4 @@ export const OrderDetails = ({ setIsOpenOrderDetails }) => {
       )}
     </div>
   );
-};
-
-OrderDetails.propTypes = {
-  setIsOpenOrderDetails: PropTypes.func.isRequired,
 };

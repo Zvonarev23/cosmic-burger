@@ -12,3 +12,5 @@ export type TIngredient = {
   image_large: string;
   __v: number;
 };
+
+export type TBurgerConstructorItem = TIngredient & { id: string };
