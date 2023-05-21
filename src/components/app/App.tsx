@@ -17,7 +17,7 @@ import { checkUserAuth } from "../../services/actions/user.js";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route.jsx";
 import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details";
 import { loadIngredients } from "../../services/actions/burger-ingredients.js";
-import { ROUTES } from "../../utils/constant.js";
+import { ROUTES } from "../../utils/constant";
 
 function App() {
   const location = useLocation();

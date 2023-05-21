@@ -1,4 +1,14 @@
-export const ROUTES = {
+export const ROUTES: {
+  HOME: string,
+  LOGIN: string,
+  REGISTER: string,
+  FORGOT_PASSWORD: string,
+  RESET_PASSWORD: string,
+  ORDER_FEED: string,
+  PROFILE: string,
+  ORDERS: string,
+  INGREDIENT: string,
+} = {
   HOME: "/",
   LOGIN: "/login",
   REGISTER: "/register",

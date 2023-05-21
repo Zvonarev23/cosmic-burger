@@ -14,3 +14,34 @@ export type TIngredient = {
 };
 
 export type TBurgerConstructorItem = TIngredient & { id: string };
+
+export type TSendOrder = {
+  name: string;
+  number: number;
+};
+
+export type TAuthResult = {
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type TMessage = {
+  success: boolean;
+  message: string;
+};
+
+export type TUser = {
+  name: string;
+  email: string;
+  password: string;
+  token: string;
+};
+
+export type TOrder = {
+  ingredients: string[];
+};
