@@ -4,9 +4,9 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { Form } from "../../components/form/form.jsx";
-import { FormContent } from "../../components/form/form-content/form-content.jsx";
-import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
+import { Form } from "../../components/form/form";
+import { FormContent } from "../../components/form/form-content/form-content";
+import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
 import { useDispatch } from "react-redux";
 import { requestResetPassword } from "../../services/actions/user.js";
 import { useForm } from "../../hooks/useForm.js";

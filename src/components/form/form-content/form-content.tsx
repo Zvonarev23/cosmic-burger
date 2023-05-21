@@ -1,7 +1,11 @@
 import styles from "./form-content.module.css";
 import PropTypes from "prop-types";
 
-export const FormContent = ({ children }) => {
+type FormContent = {
+  children: JSX.Element;
+};
+
+export const FormContent = ({ children }: FormContent): JSX.Element => {
   return <div className={styles.content}>{children}</div>;
 };
 

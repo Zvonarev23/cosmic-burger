@@ -4,7 +4,7 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FormContent } from "../form/form-content/form-content.jsx";
+import { FormContent } from "../form/form-content/form-content";
 import styles from "./user-profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { requestUpdateUser } from "../../services/actions/user.js";
