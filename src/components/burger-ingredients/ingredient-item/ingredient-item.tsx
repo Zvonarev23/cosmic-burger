@@ -1,6 +1,8 @@
-import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { useMemo } from "react";
@@ -12,7 +14,7 @@ type TIngredientItem = {
   key: string;
 };
 
-export const IngredientItem = ({ item }: TIngredientItem) => {
+export const IngredientItem = ({ item }: TIngredientItem): JSX.Element => {
   const constructorIngredients = useSelector(
     //@ts-ignore
     (state) => state.burgerConstructor
@@ -45,7 +47,7 @@ export const IngredientItem = ({ item }: TIngredientItem) => {
     );
 
     return counter;
-  }, [constructorIngredients]);
+  }, [constructorIngredients, item._id]);
 
   return (
     <>

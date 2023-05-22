@@ -5,7 +5,7 @@ import styles from "./burger-ingredients.module.css";
 import { IngrediensGroup } from "./ingredients-group/ingredients-group";
 import { TIngredient } from "../../utils/types";
 
-export const BurgerIngredients = () => {
+export const BurgerIngredients = (): JSX.Element => {
   const { isLoading, isError, ingredients } = useSelector(
     //@ts-ignore
     (state) => state.ingredients

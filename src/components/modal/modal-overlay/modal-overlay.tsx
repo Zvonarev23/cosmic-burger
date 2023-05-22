@@ -1,8 +1,11 @@
 import styles from "./modal-overlay.module.css";
-import PropTypes from "prop-types";
 
-export const ModalOverlay = ({ onClose }) => {
-  const handleModalOverlay = (e) => {
+type TModalOverlay = {
+  onClose: () => void;
+};
+
+export const ModalOverlay = ({ onClose }: TModalOverlay): JSX.Element => {
+  const handleModalOverlay = (e: React.KeyboardEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -17,8 +20,4 @@ export const ModalOverlay = ({ onClose }) => {
       className={styles.overlay}
     />
   );
-};
-
-ModalOverlay.propTypes = {
-  onClose: PropTypes.func.isRequired,
 };

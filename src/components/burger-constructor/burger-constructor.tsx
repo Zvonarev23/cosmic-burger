@@ -6,7 +6,7 @@ import {
 import styles from "./burger-constructor.module.css";
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "../modal/modal.jsx";
+import { Modal } from "../modal/modal";
 import { OrderDetails } from "./order-details/order-details";
 import { useDrop } from "react-dnd";
 import {

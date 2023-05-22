@@ -3,7 +3,7 @@ import styles from "./order-details.module.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { orderRequest } from "../../../services/actions/order-details";
-import { Preloader } from "../../preloader/preloader.jsx";
+import { Preloader } from "../../preloader/preloader";
 import { TIngredient } from "../../../utils/types";
 
 type TOrderDetails = {
