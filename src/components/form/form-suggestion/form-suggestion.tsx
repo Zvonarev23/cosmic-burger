@@ -1,8 +1,8 @@
 import styles from "./form-suggestion.module.css";
 
 type TFormSuggestion = {
-  children: JSX.Element;
-  style: string;
+  children: JSX.Element | JSX.Element[];
+  style?: string;
 };
 
 export const FormSuggestion = ({

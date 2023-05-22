@@ -1,8 +1,8 @@
 import styles from "./form.module.css";
 
 type TForm = {
-  handleSubmit: () => void;
-  children: JSX.Element;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  children: JSX.Element | JSX.Element[];
 };
 
 export const Form = ({ children, handleSubmit }: TForm): JSX.Element => {

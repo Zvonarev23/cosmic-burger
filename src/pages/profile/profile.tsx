@@ -7,6 +7,7 @@ export const ProfilePage = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
+    //@ts-ignore
     dispatch(requestSignOut());
   };
 

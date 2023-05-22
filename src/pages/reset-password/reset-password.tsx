@@ -19,8 +19,9 @@ export const ResetPasswordPage = () => {
 
   const fromForgotPassword = location?.state?.forgotPassword;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(requestResetPassword(values)).then(() => navigate("/login"));
   };
 

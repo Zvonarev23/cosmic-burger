@@ -16,12 +16,13 @@ export const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(requestForgotPassword(inputValue)).then(() =>
       navigate("/reset-password", { state: { forgotPassword: location } })
     );
