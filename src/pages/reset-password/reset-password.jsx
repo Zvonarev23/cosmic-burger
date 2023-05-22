@@ -9,7 +9,7 @@ import { FormContent } from "../../components/form/form-content/form-content";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
 import { useDispatch } from "react-redux";
 import { requestResetPassword } from "../../services/actions/user.js";
-import { useForm } from "../../hooks/useForm.js";
+import { useForm } from "../../hooks/useForm";
 
 export const ResetPasswordPage = () => {
   const { values, handleChange } = useForm({ password: "", token: "" });

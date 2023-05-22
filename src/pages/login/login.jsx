@@ -9,7 +9,7 @@ import { FormContent } from "../../components/form/form-content/form-content";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
 import { requestSignIn } from "../../services/actions/user.js";
 import { useDispatch } from "react-redux";
-import { useForm } from "../../hooks/useForm.js";
+import { useForm } from "../../hooks/useForm";
 
 export const LoginPage = () => {
   const { values, handleChange } = useForm({ email: "", password: "" });

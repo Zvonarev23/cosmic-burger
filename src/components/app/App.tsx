@@ -7,14 +7,14 @@ import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password.
 import { OrderFeedPage } from "../../pages/order-feed/order-feed.jsx";
 import { AppHeader } from "../app-header/app-header";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { UserProfile } from "../user-profile/user-profile.jsx";
+import { UserProfile } from "../user-profile/user-profile";
 import { Orders } from "../orders/orders";
 import { NotFoundPage } from "../../pages/not-found/not-found.jsx";
 import { Modal } from "../modal/modal";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../../services/actions/user.js";
-import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route.jsx";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details";
 import { loadIngredients } from "../../services/actions/burger-ingredients.js";
 import { ROUTES } from "../../utils/constant";
