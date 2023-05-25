@@ -4,13 +4,14 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FormContent } from "../form/form-content/form-content.jsx";
+import { FormContent } from "../form/form-content/form-content";
 import styles from "./user-profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { requestUpdateUser } from "../../services/actions/user.js";
-import { useForm } from "../../hooks/useForm.js";
+import { useForm } from "../../hooks/useForm";
 
 export const UserProfile = () => {
+  //@ts-ignore
   const { name, email } = useSelector((state) => state.user.user);
 
   const { values, handleChange, setValues } = useForm({
@@ -21,8 +22,9 @@ export const UserProfile = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(requestUpdateUser(values));
   };
 
@@ -44,7 +46,7 @@ export const UserProfile = () => {
           onChange={handleChange}
           value={values.email}
           placeholder="Логин"
-          icon="EditIcon"
+          isIcon={true}
           name="email"
         />
         <PasswordInput
@@ -53,18 +55,20 @@ export const UserProfile = () => {
           icon="EditIcon"
           name="password"
         />
-        {(values.name !== name ||
-          values.email !== email ||
-          values.password !== "") && (
-          <div className={styles.action}>
-            <Button onClick={handleCancel} htmlType="button" type="secondary">
-              Отмена
-            </Button>
-            <Button htmlType="submit" type="primary">
-              Сохранить
-            </Button>
-          </div>
-        )}
+        <>
+          {(values.name !== name ||
+            values.email !== email ||
+            values.password !== "") && (
+            <div className={styles.action}>
+              <Button onClick={handleCancel} htmlType="button" type="secondary">
+                Отмена
+              </Button>
+              <Button htmlType="submit" type="primary">
+                Сохранить
+              </Button>
+            </div>
+          )}
+        </>
       </FormContent>
     </form>
   );

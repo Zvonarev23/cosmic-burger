@@ -5,12 +5,12 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { Form } from "../../components/form/form.jsx";
-import { FormContent } from "../../components/form/form-content/form-content.jsx";
-import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion.jsx";
+import { Form } from "../../components/form/form";
+import { FormContent } from "../../components/form/form-content/form-content";
+import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
 import { requestSignUp } from "../../services/actions/user.js";
 import { useDispatch } from "react-redux";
-import { useForm } from "../../hooks/useForm.js";
+import { useForm } from "../../hooks/useForm";
 
 export const RegisterPage = () => {
   const { values, handleChange } = useForm({
@@ -21,8 +21,9 @@ export const RegisterPage = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(requestSignUp(values));
   };
 

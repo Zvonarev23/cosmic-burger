@@ -2,29 +2,42 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
-import { IngrediensGroup } from "./ingredients-group/ingredients-group.jsx";
+import { IngrediensGroup } from "./ingredients-group/ingredients-group";
+import { TIngredient } from "../../utils/types";
 
-export const BurgerIngredients = () => {
+export const BurgerIngredients = (): JSX.Element => {
   const { isLoading, isError, ingredients } = useSelector(
+    //@ts-ignore
     (state) => state.ingredients
   );
 
   const [current, setCurrent] = useState("bun");
 
-  const rootRef = useRef(null);
-  const tabBunRef = useRef(null);
-  const tabSauceRef = useRef(null);
-  const tabMainRef = useRef(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const tabBunRef = useRef<HTMLLIElement>(null);
+  const tabSauceRef = useRef<HTMLLIElement>(null);
+  const tabMainRef = useRef<HTMLLIElement>(null);
 
   const handleScroll = () => {
+    if (
+      !rootRef.current ||
+      !tabBunRef.current ||
+      !tabSauceRef.current ||
+      !tabMainRef.current
+    ) {
+      return;
+    }
+
     const bunsLocation = Math.abs(
       rootRef.current.getBoundingClientRect().top -
         tabBunRef.current.getBoundingClientRect().top
     );
+
     const saucesLocation = Math.abs(
       rootRef.current.getBoundingClientRect().top -
         tabSauceRef.current.getBoundingClientRect().top
     );
+
     const mainsLocation = Math.abs(
       rootRef.current.getBoundingClientRect().top -
         tabMainRef.current.getBoundingClientRect().top
@@ -43,26 +56,30 @@ export const BurgerIngredients = () => {
       : setCurrent("main");
   };
 
-  const selectCategory = (category) => {
+  const selectCategory = (category: string) => {
     setCurrent(category);
 
     switch (category) {
       case "bun":
-        tabBunRef.current.scrollIntoView({ behavior: "smooth" });
+        tabBunRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
       case "sauce":
-        tabSauceRef.current.scrollIntoView({ behavior: "smooth" });
+        tabSauceRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
       case "main":
-        tabMainRef.current.scrollIntoView({ behavior: "smooth" });
+        tabMainRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
     }
   };
 
   const [buns, sauces, mains] = useMemo(() => {
-    const buns = ingredients.filter((item) => item.type === "bun");
-    const mains = ingredients.filter((item) => item.type === "main");
-    const sauces = ingredients.filter((item) => item.type === "sauce");
+    const buns = ingredients.filter((item: TIngredient) => item.type === "bun");
+    const mains = ingredients.filter(
+      (item: TIngredient) => item.type === "main"
+    );
+    const sauces = ingredients.filter(
+      (item: TIngredient) => item.type === "sauce"
+    );
 
     return [buns, sauces, mains];
   }, [ingredients]);

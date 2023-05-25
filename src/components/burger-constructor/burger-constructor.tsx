@@ -6,22 +6,25 @@ import {
 import styles from "./burger-constructor.module.css";
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "../modal/modal.jsx";
-import { OrderDetails } from "./order-details/order-details.jsx";
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "./order-details/order-details";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
   clearIngredients,
   setBuns,
 } from "../../services/actions/burger-constructor";
-import { BurgerConstructorItem } from "./burger-constructor/burger-constructor-item";
+import { BurgerConstructorItem } from "./burger-constructor-item/burger-constructor-item";
 import { useNavigate } from "react-router-dom";
+import { TBurgerConstructorItem, TIngredient } from "../../utils/types";
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor = (): JSX.Element => {
+  //@ts-ignore
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+  //@ts-ignore
   const user = useSelector((state) => state.user.user);
 
-  const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
+  const [isOpenOrderDetails, setIsOpenOrderDetails] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -29,7 +32,7 @@ export const BurgerConstructor = () => {
 
   const [, dropIngredientsRef] = useDrop({
     accept: "ingredients",
-    drop(item) {
+    drop(item: TIngredient) {
       item.type === "bun"
         ? dispatch(setBuns(item))
         : dispatch(addIngredient(item));
@@ -53,7 +56,7 @@ export const BurgerConstructor = () => {
     const costOfBuns = bun ? bun.price * 2 : 0;
 
     return ingredients.reduce(
-      (sum, ingredient) => sum + ingredient.price,
+      (sum: number, ingredient: TIngredient) => sum + ingredient.price,
       costOfBuns
     );
   }, [bun, ingredients]);
@@ -85,7 +88,7 @@ export const BurgerConstructor = () => {
           }
         >
           {ingredients.length !== 0 ? (
-            ingredients.map((item, index) => {
+            ingredients.map((item: TBurgerConstructorItem, index: number) => {
               return (
                 <BurgerConstructorItem
                   key={item.id}
@@ -127,7 +130,7 @@ export const BurgerConstructor = () => {
           <span className="text text_type_digits-medium total mr-2">
             {totalCost}
           </span>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </div>
 
         <Button

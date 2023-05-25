@@ -1,23 +1,23 @@
-import { ResetPasswordPage } from "../../pages/reset-password/reset-password.jsx";
-import { HomePage } from "../../pages/home/home.jsx";
-import { LoginPage } from "../../pages/login/login.jsx";
-import { ProfilePage } from "../../pages/profile/profile.jsx";
-import { RegisterPage } from "../../pages/register/register.jsx";
-import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password.jsx";
-import { OrderFeedPage } from "../../pages/order-feed/order-feed.jsx";
-import { AppHeader } from "../app-header/app-header.jsx";
+import { ResetPasswordPage } from "../../pages/reset-password/reset-password";
+import { HomePage } from "../../pages/home/home";
+import { LoginPage } from "../../pages/login/login";
+import { ProfilePage } from "../../pages/profile/profile";
+import { RegisterPage } from "../../pages/register/register";
+import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
+import { OrderFeedPage } from "../../pages/order-feed/order-feed";
+import { AppHeader } from "../app-header/app-header";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { UserProfile } from "../user-profile/user-profile.jsx";
-import { Orders } from "../orders/orders.jsx";
-import { NotFoundPage } from "../../pages/not-found/not-found.jsx";
-import { Modal } from "../modal/modal.jsx";
+import { UserProfile } from "../user-profile/user-profile";
+import { Orders } from "../orders/orders";
+import { NotFoundPage } from "../../pages/not-found/not-found";
+import { Modal } from "../modal/modal";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../../services/actions/user.js";
-import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route.jsx";
-import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details.jsx";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details";
 import { loadIngredients } from "../../services/actions/burger-ingredients.js";
-import { ROUTES } from "../../utils/constant.js";
+import { ROUTES } from "../../utils/constant";
 
 function App() {
   const location = useLocation();
@@ -27,7 +27,9 @@ function App() {
   const state = location.state;
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(loadIngredients());
+    //@ts-ignore
     dispatch(checkUserAuth());
   }, []);
 

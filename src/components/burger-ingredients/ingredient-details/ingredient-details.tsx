@@ -1,18 +1,25 @@
 import styles from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Preloader } from "../../preloader/preloader.jsx";
+import { Preloader } from "../../preloader/preloader";
+import { TIngredient } from "../../../utils/types";
 
-export const IngredientDetails = ({ heading }) => {
+type TIngredientDetails = {
+  heading: string;
+};
+
+export const IngredientDetails = ({
+  heading,
+}: TIngredientDetails): JSX.Element => {
   const { ingredients, isError, isLoading } = useSelector(
+    //@ts-ignore
     (state) => state.ingredients
   );
 
   const { _id } = useParams();
 
   const currentIngredient = ingredients.find(
-    (ingredient) => ingredient._id === _id
+    (ingredient: TIngredient) => ingredient._id === _id
   );
 
   return (
@@ -101,8 +108,4 @@ export const IngredientDetails = ({ heading }) => {
       )}
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  heading: PropTypes.string.isRequired,
 };

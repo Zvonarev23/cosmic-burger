@@ -1,14 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./components/app/App.jsx";
+import App from "./components/app/App";
 import { configureStore } from "./services/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 const store = configureStore();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Не удалось найти корневой элемент");
+}
+
+const root = ReactDOM.createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

@@ -1,14 +1,22 @@
-import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { commonPropTypes } from "../../../utils/common-proptypes";
 import { useSelector } from "react-redux";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredient } from "../../../utils/types";
 
-export const IngredientItem = ({ item }) => {
+type TIngredientItem = {
+  item: TIngredient;
+  key: string;
+};
+
+export const IngredientItem = ({ item }: TIngredientItem): JSX.Element => {
   const constructorIngredients = useSelector(
+    //@ts-ignore
     (state) => state.burgerConstructor
   );
 
@@ -20,7 +28,7 @@ export const IngredientItem = ({ item }) => {
     }),
   });
 
-  let location = useLocation();
+  const location = useLocation();
 
   const counterIngredients = useMemo(() => {
     const { bun, ingredients } = constructorIngredients;
@@ -33,12 +41,13 @@ export const IngredientItem = ({ item }) => {
     }
 
     const counter = allIngredients.reduce(
-      (acc, ingredient) => (ingredient._id === item._id ? acc + 1 : acc),
+      (acc: number, ingredient: TIngredient) =>
+        ingredient._id === item._id ? acc + 1 : acc,
       0
     );
 
     return counter;
-  }, [constructorIngredients]);
+  }, [constructorIngredients, item._id]);
 
   return (
     <>
@@ -57,15 +66,11 @@ export const IngredientItem = ({ item }) => {
             <span className="text text_type_digits-default mr-2">
               {item.price}
             </span>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </div>
           <p className="text text_type_main-default">{item.name}</p>
         </Link>
       </li>
     </>
   );
-};
-
-IngredientItem.propTypes = {
-  item: commonPropTypes.isRequired,
 };
