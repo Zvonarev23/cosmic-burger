@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "./order-details/order-details";
 import { useDrop } from "react-dnd";
@@ -17,11 +17,10 @@ import {
 import { BurgerConstructorItem } from "./burger-constructor-item/burger-constructor-item";
 import { useNavigate } from "react-router-dom";
 import { TBurgerConstructorItem, TIngredient } from "../../utils/types";
+import { useSelector } from "../../hooks/useSelector";
 
 export const BurgerConstructor = (): JSX.Element => {
-  //@ts-ignore
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
-  //@ts-ignore
   const user = useSelector((state) => state.user.user);
 
   const [isOpenOrderDetails, setIsOpenOrderDetails] = useState<boolean>(false);

@@ -1,8 +1,8 @@
 import styles from "./ingredient-details.module.css";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Preloader } from "../../preloader/preloader";
 import { TIngredient } from "../../../utils/types";
+import { useSelector } from "../../../hooks/useSelector";
 
 type TIngredientDetails = {
   heading: string;
@@ -12,7 +12,6 @@ export const IngredientDetails = ({
   heading,
 }: TIngredientDetails): JSX.Element => {
   const { ingredients, isError, isLoading } = useSelector(
-    //@ts-ignore
     (state) => state.ingredients
   );
 

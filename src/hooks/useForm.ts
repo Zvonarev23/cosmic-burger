@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-type TUseForm = {
+export type TUseForm = {
   [name: string]: string;
 };
 

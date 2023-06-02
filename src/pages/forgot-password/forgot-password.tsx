@@ -7,8 +7,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { FormContent } from "../../components/form/form-content/form-content";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
-import { useDispatch } from "react-redux";
-import { requestForgotPassword } from "../../services/actions/user.js";
+import { requestForgotPassword } from "../../services/actions/user";
+import { useDispatch } from "../../hooks/useDispatch";
 
 export const ForgotPasswordPage = () => {
   const [inputValue, setInputValue] = useState("");
@@ -22,7 +22,6 @@ export const ForgotPasswordPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(requestForgotPassword(inputValue)).then(() =>
       navigate("/reset-password", { state: { forgotPassword: location } })
     );

@@ -7,9 +7,9 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { FormContent } from "../../components/form/form-content/form-content";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
-import { useDispatch } from "react-redux";
-import { requestResetPassword } from "../../services/actions/user.js";
+import { requestResetPassword } from "../../services/actions/user";
 import { useForm } from "../../hooks/useForm";
+import { useDispatch } from "../../hooks/useDispatch";
 
 export const ResetPasswordPage = () => {
   const { values, handleChange } = useForm({ password: "", token: "" });
@@ -21,7 +21,7 @@ export const ResetPasswordPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
+    // @ts-ignore
     dispatch(requestResetPassword(values)).then(() => navigate("/login"));
   };
 

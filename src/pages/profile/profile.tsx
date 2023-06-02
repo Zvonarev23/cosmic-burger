@@ -1,13 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./profile.module.css";
 import { requestSignOut } from "../../services/actions/user";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/useDispatch";
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    //@ts-ignore
     dispatch(requestSignOut());
   };
 

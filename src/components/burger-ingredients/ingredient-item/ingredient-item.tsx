@@ -3,20 +3,18 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.css";
-import { useSelector } from "react-redux";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient } from "../../../utils/types";
+import { useSelector } from "../../../hooks/useSelector";
 
 type TIngredientItem = {
   item: TIngredient;
-  key: string;
 };
 
 export const IngredientItem = ({ item }: TIngredientItem): JSX.Element => {
   const constructorIngredients = useSelector(
-    //@ts-ignore
     (state) => state.burgerConstructor
   );
 

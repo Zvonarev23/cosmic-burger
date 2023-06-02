@@ -12,11 +12,11 @@ import { Orders } from "../orders/orders";
 import { NotFoundPage } from "../../pages/not-found/not-found";
 import { Modal } from "../modal/modal";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { checkUserAuth } from "../../services/actions/user.js";
+import { useDispatch } from "../../hooks/useDispatch";
+import { checkUserAuth } from "../../services/actions/user";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details";
-import { loadIngredients } from "../../services/actions/burger-ingredients.js";
+import { loadIngredients } from "../../services/actions/burger-ingredients";
 import { ROUTES } from "../../utils/constant";
 
 function App() {
@@ -27,9 +27,7 @@ function App() {
   const state = location.state;
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(loadIngredients());
-    //@ts-ignore
     dispatch(checkUserAuth());
   }, []);
 

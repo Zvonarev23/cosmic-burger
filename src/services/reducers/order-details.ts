@@ -3,14 +3,24 @@ import {
   SEND_ORDER_SUCCESS,
   SEND_ORDER_REQUEST,
 } from "../actions/order-details";
+import { TOrderDetailsActions } from "../types/order-details";
 
-const initialState = {
+type TOrderDetailsState = {
+  isError: boolean;
+  isLoading: boolean;
+  orderNumber: number;
+};
+
+const initialState: TOrderDetailsState = {
   isError: false,
   isLoading: false,
   orderNumber: 0,
 };
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (
+  state = initialState,
+  action: TOrderDetailsActions
+): TOrderDetailsState => {
   switch (action.type) {
     case SEND_ORDER_REQUEST:
       return {

@@ -1,12 +1,13 @@
 const API_URL = "https://norma.nomoreparties.space/api";
+import { TUseForm } from "../hooks/useForm";
 import { checkResponse } from "./check-response";
 import {
   TAuthResult,
-  TIngredient,
   TOrder,
   TMessage,
   TUser,
-  TSendOrder,
+  TGetIngredientsResponse,
+  TSendOrderResponse,
 } from "./types";
 
 const request = <T>(endpoint: string, options?: RequestInit): Promise<T> => {
@@ -53,11 +54,11 @@ const refreshToken = (): Promise<Omit<TAuthResult, "user">> => {
   });
 };
 
-export const getIngredients = (): Promise<TIngredient[]> => {
+export const getIngredients = (): Promise<TGetIngredientsResponse> => {
   return request("/ingredients");
 };
 
-export const sendOrder = (order: TOrder): Promise<TSendOrder> => {
+export const sendOrder = (order: TOrder): Promise<TSendOrderResponse> => {
   return fetchWithRefresh("/orders", {
     method: "POST",
     headers: {
@@ -72,7 +73,7 @@ export const signUp = ({
   email,
   password,
   name,
-}: Omit<TUser, "token">): Promise<TAuthResult> => {
+}: TUseForm): Promise<TAuthResult> => {
   return request("/auth/register", {
     method: "POST",
     headers: {
@@ -82,10 +83,7 @@ export const signUp = ({
   });
 };
 
-export const signIn = ({
-  email,
-  password,
-}: Omit<TUser, "token" | "name">): Promise<TAuthResult> => {
+export const signIn = ({ email, password }: TUseForm): Promise<TAuthResult> => {
   return request("/auth/login", {
     method: "POST",
     headers: {
@@ -121,7 +119,7 @@ export const updateUser = ({
   email,
   password,
   name,
-}: Omit<TUser, "token">): Promise<Pick<TAuthResult, "success" | "user">> => {
+}: TUseForm): Promise<Pick<TAuthResult, "success" | "user">> => {
   return fetchWithRefresh("/auth/user", {
     method: "PATCH",
     headers: {
@@ -132,9 +130,7 @@ export const updateUser = ({
   });
 };
 
-export const forgotPassword = (
-  email: Pick<TUser, "email">
-): Promise<TMessage> => {
+export const forgotPassword = (email: string): Promise<TMessage> => {
   return request("/password-reset", {
     method: "POST",
     headers: {

@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "../../hooks/useSelector";
 
 type TComponent = {
   onlyUnAuth?: boolean;
@@ -10,9 +10,7 @@ const Protected = ({
   onlyUnAuth = false,
   component,
 }: TComponent): JSX.Element | null => {
-  //@ts-ignore
   const isAuthChecked = useSelector((state) => state.user.isAuthChecked);
-  //@ts-ignore
   const user = useSelector((state) => state.user.user);
   const location = useLocation();
 
