@@ -37,3 +37,7 @@
 .description {
   opacity: 0.4;
 }
+
+.outlet {
+  flex-grow: 1;
+}

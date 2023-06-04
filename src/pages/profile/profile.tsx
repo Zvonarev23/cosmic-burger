@@ -52,7 +52,7 @@ export const ProfilePage = () => {
         </p>
       </div>
 
-      <div>
+      <div className={styles.outlet}>
         <Outlet />
       </div>
     </div>

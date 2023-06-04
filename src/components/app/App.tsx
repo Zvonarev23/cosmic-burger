@@ -4,11 +4,11 @@ import { LoginPage } from "../../pages/login/login";
 import { ProfilePage } from "../../pages/profile/profile";
 import { RegisterPage } from "../../pages/register/register";
 import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
-import { OrderFeedPage } from "../../pages/order-feed/order-feed";
+import { FeedPage } from "../../pages/feed/feed";
 import { AppHeader } from "../app-header/app-header";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { UserProfile } from "../user-profile/user-profile";
-import { Orders } from "../orders/orders";
+import { ProfileUser } from "../../pages/profile/profile-user/profile-user";
+import { ProfileOrders } from "../../pages/profile/profile-orders/profile-orders";
 import { NotFoundPage } from "../../pages/not-found/not-found";
 import { Modal } from "../modal/modal";
 import { useEffect } from "react";
@@ -52,15 +52,15 @@ function App() {
           path={ROUTES.RESET_PASSWORD}
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
-        <Route path={ROUTES.ORDER_FEED} element={<OrderFeedPage />} />
+        <Route path={ROUTES.ORDER_FEED} element={<FeedPage />} />
         <Route
           path={ROUTES.PROFILE}
           element={<OnlyAuth component={<ProfilePage />} />}
         >
-          <Route index element={<OnlyAuth component={<UserProfile />} />} />
+          <Route index element={<OnlyAuth component={<ProfileUser />} />} />
           <Route
             path={ROUTES.ORDERS}
-            element={<OnlyAuth component={<Orders />} />}
+            element={<OnlyAuth component={<ProfileOrders />} />}
           />
         </Route>
         <Route

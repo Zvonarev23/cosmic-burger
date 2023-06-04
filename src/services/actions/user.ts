@@ -140,13 +140,6 @@ export const requestGetUser = (): AppThunk => (dispatch: AppDispatch) => {
         type: GET_USER_FAILED,
         payload: error,
       });
-
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      dispatch(setUser(null));
-    })
-    .finally(() => {
-      dispatch(setAuthChecked(true));
     });
 };
 
@@ -202,7 +195,16 @@ export const requestResetPassword =
 
 export const checkUserAuth = (): AppThunk => (dispatch: AppDispatch) => {
   if (localStorage.getItem("accessToken")) {
-    dispatch(requestGetUser());
+    dispatch(requestGetUser())
+      //@ts-ignore
+      .catch(() => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch(setUser(null));
+      })
+      .finally(() => {
+        dispatch(setAuthChecked(true));
+      });
   } else {
     dispatch(setAuthChecked(true));
   }

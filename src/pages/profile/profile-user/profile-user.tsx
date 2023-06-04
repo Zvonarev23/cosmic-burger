@@ -4,17 +4,15 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FormContent } from "../form/form-content/form-content";
-import styles from "./user-profile.module.css";
-import { requestUpdateUser } from "../../services/actions/user";
-import { useForm } from "../../hooks/useForm";
-import { useDispatch } from "../../hooks/useDispatch";
-import { useSelector } from "../../hooks/useSelector";
-import { TUser } from "../../utils/types";
+import { FormContent } from "../../../components/form/form-content/form-content";
+import styles from "./profile-user.module.css";
+import { requestUpdateUser } from "../../../services/actions/user";
+import { useForm } from "../../../hooks/useForm";
+import { useDispatch } from "../../../hooks/useDispatch";
+import { useSelector } from "../../../hooks/useSelector";
 
-export const UserProfile = () => {
+export const ProfileUser = () => {
   const user = useSelector((state) => state.user.user);
-  // const {name} = useSelector((state) => state.user.user);
 
   const { values, handleChange, setValues } = useForm({
     name: user ? user.name : "",
