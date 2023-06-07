@@ -29,6 +29,9 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
     0
   );
 
+  const numberOfVisibleIngredients =
+    order.ingredients.length > 6 ? 6 : order.ingredients.length;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -39,24 +42,37 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
         />
       </div>
       <p className="text text_type_main-medium mb-2">{order.name}</p>
-      <p className="text text_type_main-default mb-4">{order.status}</p>
+      <p
+        className={
+          order.status === "done" ? styles.status_done : styles.status_default
+        }
+      >
+        {order.status}
+      </p>
       <div className={styles.footer}>
         <ul className={styles.list}>
-          {orderIngredients.map((item, index) => {
-            return (
-              <li
-                style={{ zIndex: Math.abs(index - orderIngredients.length) }}
-                className={styles.item}
-                key={item?._id}
-              >
-                <img
-                  className={styles.image}
-                  alt={item?.name}
-                  src={item?.image}
-                />
-              </li>
-            );
-          })}
+          {orderIngredients
+            .slice(0, numberOfVisibleIngredients)
+            .map((item, index) => {
+              return (
+                <li
+                  style={{ zIndex: Math.abs(index - orderIngredients.length) }}
+                  className={styles.item}
+                  key={index}
+                >
+                  <img
+                    className={styles.image}
+                    alt={item?.name}
+                    src={item?.image}
+                  />
+                </li>
+              );
+            })}
+          {order.ingredients.length > 6 && (
+            <div className={styles.counter}>{`+${
+              order.ingredients.length - 6
+            }`}</div>
+          )}
         </ul>
         <div className={styles.price}>
           <span className="text text_type_digits-default">{orderPrice}</span>

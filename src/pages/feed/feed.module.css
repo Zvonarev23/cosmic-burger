@@ -1,6 +1,35 @@
 .container {
-  padding-top: 200px;
-  max-width: 1200px;
+  padding-top: 40px;
+  max-width: 1240px;
   margin: 0 auto;
-  text-align: center;
+}
+
+.feed_container {
+  display: flex;
+  gap: 56px;
+}
+
+.statistics_container {
+  flex-grow: 1;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: 8px;
+  max-height: 800px;
+  max-width: 608px;
+  overflow-y: scroll;
+  composes: custom-scroll from global;
+}
+
+.order_status {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.total {
+  margin-bottom: 60px;
 }

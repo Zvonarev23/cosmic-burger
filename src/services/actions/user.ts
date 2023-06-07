@@ -8,7 +8,6 @@ import {
   signUp,
   updateUser,
 } from "../../utils/request-to-api";
-import { TMessage } from "../../utils/types";
 import { AppDispatch, AppThunk } from "../types";
 import { ISetAuthChecked, ISetUser } from "../types/user";
 
