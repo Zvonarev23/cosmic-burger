@@ -4,6 +4,7 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { IngredientImage } from "../ingredient-image/ingredient-image";
 
 type Torder = {
   order: {
@@ -41,7 +42,9 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
           date={new Date(order.createdAt)}
         />
       </div>
+
       <p className="text text_type_main-medium mb-2">{order.name}</p>
+
       <p
         className={
           order.status === "done" ? styles.status_done : styles.status_default
@@ -49,6 +52,7 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
       >
         {order.status}
       </p>
+
       <div className={styles.footer}>
         <ul className={styles.list}>
           {orderIngredients
@@ -56,15 +60,15 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
             .map((item, index) => {
               return (
                 <li
-                  style={{ zIndex: Math.abs(index - orderIngredients.length) }}
+                  style={{
+                    zIndex: Math.abs(index - numberOfVisibleIngredients),
+                  }}
                   className={styles.item}
                   key={index}
                 >
-                  <img
-                    className={styles.image}
-                    alt={item?.name}
-                    src={item?.image}
-                  />
+                  {item && (
+                    <IngredientImage name={item.name} image={item.image} />
+                  )}
                 </li>
               );
             })}
@@ -74,8 +78,10 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
             }`}</div>
           )}
         </ul>
+
         <div className={styles.price}>
           <span className="text text_type_digits-default">{orderPrice}</span>
+
           <CurrencyIcon type="primary" />
         </div>
       </div>

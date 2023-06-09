@@ -11,8 +11,8 @@ import { TWSOrders } from "../types/profile-orders";
 type TProfileOrdersState = {
   wsConnected: boolean;
   orders: TWSOrders[];
-  total: number;
-  totalToday: number;
+  // total: number;
+  // totalToday: number;
 
   error?: Event;
 };
@@ -20,8 +20,8 @@ type TProfileOrdersState = {
 const initialState: TProfileOrdersState = {
   wsConnected: false,
   orders: [],
-  total: 0,
-  totalToday: 0,
+  // total: 0,
+  // totalToday: 0,
 };
 
 export const profileOrdersReducer = (
@@ -57,8 +57,8 @@ export const profileOrdersReducer = (
       return {
         ...state,
         orders: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday,
+        // total: action.payload.total,
+        // totalToday: action.payload.totalToday,
       };
 
     default:

@@ -1,37 +1,35 @@
 import { useEffect } from "react";
 import styles from "./feed.module.css";
 import { useDispatch } from "../../hooks/useDispatch";
-import {
-  profileOrdersWsConnectionClosed,
-  profileOrdersWsConnectionStart,
-} from "../../services/actions/profile-orders";
-import { WS_PROFILE_ORDERS_URL } from "../../utils/constant";
+import { WS_ALL_ORDERS_URL } from "../../utils/constant";
 import { useSelector } from "../../hooks/useSelector";
 import { OrderCard } from "../../components/order-card/order-card";
+import {
+  feedWsConnectionClosed,
+  feedWsConnectionStart,
+} from "../../services/actions/feed";
+import { Link, useLocation } from "react-router-dom";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
-  const { orders, total, totalToday } = useSelector(
-    (state) => state.profileOrders
-  );
-
-  const accessToken = localStorage.getItem("accessToken");
-
-  const token = accessToken?.replace("Bearer ", "");
+  const { orders, total, totalToday } = useSelector((state) => state.feed);
+  const location = useLocation();
 
   const completedOrders = orders
     .filter((item) => item.status === "done")
-    .map((item) => item.number);
+    .map((item) => item.number)
+    .slice(0, 20);
 
   const pendingOrders = orders
-    .filter((item) => item.status === "pending")
-    .map((item) => item.number);
+    .filter((item) => item.status === "peinding")
+    .map((item) => item.number)
+    .slice(0, 20);
 
   useEffect(() => {
-    dispatch(profileOrdersWsConnectionStart(WS_PROFILE_ORDERS_URL));
+    dispatch(feedWsConnectionStart(WS_ALL_ORDERS_URL));
 
     return () => {
-      dispatch(profileOrdersWsConnectionClosed());
+      dispatch(feedWsConnectionClosed());
     };
   }, []);
 
@@ -47,29 +45,41 @@ export const FeedPage = () => {
         <div className={styles.feed}>
           <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
 
-          {allOrders.map((order) => {
-            return <OrderCard key={order.number} order={order} />;
-          })}
+          <ul className={styles.list_cards}>
+            {allOrders.map((order) => {
+              return (
+                <li key={order.number}>
+                  <Link
+                    className={styles.link}
+                    to={`/feed/${order.number}`}
+                    state={{ backgroundLocation: location }}
+                  >
+                    <OrderCard order={order} />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
-        <div className={styles.statistics_container}>
+        <div>
           <div className={styles.order_status}>
-            <div className={styles.done}>
+            <div>
               <p className="text text_type_main-medium mb-6">Готовы:</p>
-              <ul className={styles.done_list}>
+              <ul className={styles.list}>
                 {completedOrders.map((status, index) => (
-                  <li className="text text_type_digits-default" key={index}>
+                  <li className={styles.status_done} key={index}>
                     {status}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className={styles.pending}>
+            <div>
               <p className="text text_type_main-medium mb-6">В работе:</p>
-              <ul className={styles.pending_list}>
+              <ul className={styles.list}>
                 {pendingOrders.map((status, index) => (
-                  <li className="text text_type_digits-default" key={index}>
+                  <li className={styles.status_pending} key={index}>
                     {status}
                   </li>
                 ))}
@@ -81,11 +91,11 @@ export const FeedPage = () => {
             <p className="text text_type_main-medium">
               Выполнено за все время:
             </p>
-            <span className="text text_type_digits-large">{total}</span>
+            <span className={styles.digits}>{total}</span>
           </div>
           <div className={styles.today}>
             <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-            <span className="text text_type_digits-large">{totalToday}</span>
+            <span className={styles.digits}>{totalToday}</span>
           </div>
         </div>
       </div>

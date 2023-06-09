@@ -18,6 +18,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details";
 import { loadIngredients } from "../../services/actions/burger-ingredients";
 import { ROUTES } from "../../utils/constant";
+import { OrderInfo } from "../order-info/order-info";
 
 function App() {
   const location = useLocation();
@@ -52,7 +53,8 @@ function App() {
           path={ROUTES.RESET_PASSWORD}
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
-        <Route path={ROUTES.ORDER_FEED} element={<FeedPage />} />
+        <Route path={ROUTES.FEED} element={<FeedPage />} />
+        <Route path={ROUTES.FEED_ORDERS} element={<OrderInfo />} />
         <Route
           path={ROUTES.PROFILE}
           element={<OnlyAuth component={<ProfilePage />} />}
@@ -81,6 +83,14 @@ function App() {
             element={
               <Modal>
                 <IngredientDetails heading="start" />
+              </Modal>
+            }
+          />
+          <Route
+            path={ROUTES.FEED_ORDERS}
+            element={
+              <Modal>
+                <OrderInfo />
               </Modal>
             }
           />

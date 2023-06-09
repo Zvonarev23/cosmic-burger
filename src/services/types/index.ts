@@ -5,6 +5,7 @@ import { TBurgerIngredientsActions } from "../types/burger-ingredients";
 import { TOrderDetailsActions } from "./order-details";
 import { TUserActions } from "./user";
 import { TProfileOrdersActions } from "../actions/profile-orders";
+import { TFeedsActions } from "../actions/feed";
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -13,7 +14,8 @@ export type AppActions =
   | TBurgerIngredientsActions
   | TOrderDetailsActions
   | TUserActions
-  | TProfileOrdersActions;
+  | TProfileOrdersActions
+  | TFeedsActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

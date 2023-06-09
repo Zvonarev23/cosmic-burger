@@ -26,38 +26,6 @@
   position: relative;
 }
 
-.item {
-  position: relative;
-  height: 64px;
-  width: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: -20px;
-  background-color: #1c1c21;
-}
-
-.item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  padding: 2px;
-  background: linear-gradient(90deg, #801ab2, #4c4cff);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.image {
-  height: 60px;
-  width: 60px;
-  object-fit: cover;
-  inset: 0;
-}
-
 .price {
   display: flex;
 }
@@ -75,7 +43,7 @@
 .counter {
   composes: text text_type_main-default from global;
   position: absolute;
-  z-index: 6;
+  z-index: 1;
   height: 60px;
   width: 60px;
   top: 2px;

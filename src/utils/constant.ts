@@ -7,7 +7,8 @@ export const ROUTES: {
   REGISTER: string;
   FORGOT_PASSWORD: string;
   RESET_PASSWORD: string;
-  ORDER_FEED: string;
+  FEED: string;
+  FEED_ORDERS: string;
   PROFILE: string;
   ORDERS: string;
   INGREDIENT: string;
@@ -17,7 +18,8 @@ export const ROUTES: {
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",
-  ORDER_FEED: "/order-feed",
+  FEED: "/feed",
+  FEED_ORDERS: "/feed/:number",
   PROFILE: "/profile",
   ORDERS: "orders",
   INGREDIENT: "/ingredient/:_id",
