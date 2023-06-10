@@ -3,11 +3,11 @@ import { OrderCard } from "../../../components/order-card/order-card";
 import { useDispatch } from "../../../hooks/useDispatch";
 import { useSelector } from "../../../hooks/useSelector";
 import styles from "./profile-order.module.css";
+import { WS_PROFILE_ORDERS_URL } from "../../../utils/constant";
 import {
   profileOrdersWsConnectionClosed,
   profileOrdersWsConnectionStart,
 } from "../../../services/actions/profile-orders";
-import { WS_PROFILE_ORDERS_URL } from "../../../utils/constant";
 
 export const ProfileOrders = (): JSX.Element => {
   const dispatch = useDispatch();

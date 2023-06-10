@@ -1,7 +1,7 @@
 import orderCreatedImage from "../../../images/order-created.svg";
 import styles from "./order-details.module.css";
 import { useEffect } from "react";
-import { orderRequest } from "../../../services/actions/order-details";
+import { sendOrderRequest } from "../../../services/actions/order-details";
 import { Preloader } from "../../preloader/preloader";
 import { TIngredient, TOrder } from "../../../utils/types";
 import { useSelector } from "../../../hooks/useSelector";
@@ -28,7 +28,7 @@ export const OrderDetails = ({
   const order: TOrder = { ingredients: [bunId, ...ingredientsId, bunId] };
 
   useEffect(() => {
-    dispatch(orderRequest(order));
+    dispatch(sendOrderRequest(order));
     setIsOpenOrderDetails(true);
   }, []);
 

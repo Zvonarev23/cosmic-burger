@@ -7,6 +7,7 @@ import {
   PROFILE_ORDER_CONNECTION_ERROR,
   PROFILE_ORDER_CONNECTION_START,
   PROFILE_ORDER_CONNECTION_SUCCESS,
+  PROFILE_ORDER_DISCONNECT,
   PROFILE_ORDER_GET_ORDERS,
 } from "./actions/profile-orders";
 import { socketMiddleware } from "./middleware/socket-middleware";
@@ -15,11 +16,13 @@ import {
   FEED_CONNECTION_ERROR,
   FEED_CONNECTION_START,
   FEED_CONNECTION_SUCCESS,
+  FEED_DISCONNECT,
   FEED_GET_ORDERS,
 } from "./actions/feed";
 
 const wsProfileOrdersActionsTypes = {
   wsInit: PROFILE_ORDER_CONNECTION_START,
+  wsDisconnect: PROFILE_ORDER_DISCONNECT,
   onOpen: PROFILE_ORDER_CONNECTION_SUCCESS,
   onClose: PROFILE_ORDER_CONNECTION_CLOSED,
   onError: PROFILE_ORDER_CONNECTION_ERROR,
@@ -28,6 +31,7 @@ const wsProfileOrdersActionsTypes = {
 
 const wsFeedActionsTypes = {
   wsInit: FEED_CONNECTION_START,
+  wsDisconnect: FEED_DISCONNECT,
   onOpen: FEED_CONNECTION_SUCCESS,
   onClose: FEED_CONNECTION_CLOSED,
   onError: FEED_CONNECTION_ERROR,

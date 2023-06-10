@@ -1,19 +1,33 @@
+import { TGetOrder } from "../../utils/types";
 import {
   SEND_ORDER_FAILED,
   SEND_ORDER_SUCCESS,
   SEND_ORDER_REQUEST,
+  GET_ORDER_FAILED,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_REQUEST,
 } from "../actions/order-details";
 import { TOrderDetailsActions } from "../types/order-details";
 
 type TOrderDetailsState = {
   isError: boolean;
   isLoading: boolean;
+
+  getError: boolean;
+  getRequest: boolean;
+
+  order: null | TGetOrder;
   orderNumber: number;
 };
 
 const initialState: TOrderDetailsState = {
   isError: false,
   isLoading: false,
+
+  getError: false,
+  getRequest: false,
+
+  order: null,
   orderNumber: 0,
 };
 
@@ -38,6 +52,24 @@ export const orderDetailsReducer = (
         ...state,
         isLoading: false,
         isError: true,
+      };
+
+    case GET_ORDER_REQUEST:
+      return {
+        ...state,
+        getRequest: true,
+      };
+    case GET_ORDER_SUCCESS:
+      return {
+        ...state,
+        getRequest: false,
+        order: action.payload,
+      };
+    case GET_ORDER_FAILED:
+      return {
+        ...state,
+        getError: true,
+        getRequest: false,
       };
     default:
       return state;

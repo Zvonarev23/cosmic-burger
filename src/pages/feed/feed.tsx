@@ -8,12 +8,11 @@ import {
   feedWsConnectionClosed,
   feedWsConnectionStart,
 } from "../../services/actions/feed";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelector((state) => state.feed);
-  const location = useLocation();
 
   const completedOrders = orders
     .filter((item) => item.status === "done")
@@ -22,8 +21,7 @@ export const FeedPage = () => {
 
   const pendingOrders = orders
     .filter((item) => item.status === "peinding")
-    .map((item) => item.number)
-    .slice(0, 20);
+    .map((item) => item.number);
 
   useEffect(() => {
     dispatch(feedWsConnectionStart(WS_ALL_ORDERS_URL));
@@ -49,11 +47,7 @@ export const FeedPage = () => {
             {allOrders.map((order) => {
               return (
                 <li key={order.number}>
-                  <Link
-                    className={styles.link}
-                    to={`/feed/${order.number}`}
-                    state={{ backgroundLocation: location }}
-                  >
+                  <Link className={styles.link} to={`/feed/${order.number}`}>
                     <OrderCard order={order} />
                   </Link>
                 </li>

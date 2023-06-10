@@ -5,23 +5,19 @@ import {
   PROFILE_ORDER_CONNECTION_ERROR,
   PROFILE_ORDER_CONNECTION_CLOSED,
   PROFILE_ORDER_GET_ORDERS,
+  PROFILE_ORDER_DISCONNECT,
 } from "../actions/profile-orders";
 import { TWSOrders } from "../types/profile-orders";
 
 type TProfileOrdersState = {
   wsConnected: boolean;
   orders: TWSOrders[];
-  // total: number;
-  // totalToday: number;
-
   error?: Event;
 };
 
 const initialState: TProfileOrdersState = {
   wsConnected: false,
   orders: [],
-  // total: 0,
-  // totalToday: 0,
 };
 
 export const profileOrdersReducer = (
@@ -32,6 +28,12 @@ export const profileOrdersReducer = (
     case PROFILE_ORDER_CONNECTION_START:
       return {
         ...state,
+      };
+
+    case PROFILE_ORDER_DISCONNECT:
+      return {
+        ...state,
+        wsConnected: false,
       };
 
     case PROFILE_ORDER_CONNECTION_SUCCESS:
@@ -57,8 +59,6 @@ export const profileOrdersReducer = (
       return {
         ...state,
         orders: action.payload.orders,
-        // total: action.payload.total,
-        // totalToday: action.payload.totalToday,
       };
 
     default:

@@ -20,6 +20,23 @@ export type TGetIngredientsResponse = {
   data: TIngredient[];
 };
 
+export type TGetOrder = {
+  id: string;
+  ingredients: string[];
+  owner: string;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  __v: string;
+};
+
+export type TGetOrderResponse = {
+  success: boolean;
+  orders: [TGetOrder];
+};
+
 export type TSendOrderResponse = {
   name: string;
   order: {

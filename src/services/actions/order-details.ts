@@ -1,4 +1,4 @@
-import { sendOrder } from "../../utils/request-to-api";
+import { getOrder, sendOrder } from "../../utils/request-to-api";
 import { TOrder } from "../../utils/types";
 import { AppDispatch, AppThunk } from "../types";
 
@@ -6,7 +6,11 @@ export const SEND_ORDER_REQUEST = "SEND_ORDER_REQUEST";
 export const SEND_ORDER_SUCCESS = "SEND_ORDER_SUCCESS";
 export const SEND_ORDER_FAILED = "SEND_ORDER_FAILED";
 
-export const orderRequest =
+export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
+export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
+export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
+
+export const sendOrderRequest =
   (order: TOrder): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch({
@@ -23,6 +27,27 @@ export const orderRequest =
       .catch(() => {
         dispatch({
           type: SEND_ORDER_FAILED,
+        });
+      });
+  };
+
+export const getOrderRequest =
+  (number: string): AppThunk =>
+  (dispatch: AppDispatch) => {
+    dispatch({
+      type: GET_ORDER_REQUEST,
+    });
+
+    return getOrder(number)
+      .then((res) => {
+        dispatch({
+          type: GET_ORDER_SUCCESS,
+          payload: res.orders[0],
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: GET_ORDER_FAILED,
         });
       });
   };

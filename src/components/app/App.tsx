@@ -6,7 +6,12 @@ import { RegisterPage } from "../../pages/register/register";
 import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
 import { FeedPage } from "../../pages/feed/feed";
 import { AppHeader } from "../app-header/app-header";
-import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigationType,
+} from "react-router-dom";
 import { ProfileUser } from "../../pages/profile/profile-user/profile-user";
 import { ProfileOrders } from "../../pages/profile/profile-orders/profile-orders";
 import { NotFoundPage } from "../../pages/not-found/not-found";
@@ -18,13 +23,12 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { IngredientDetails } from "../burger-ingredients/ingredient-details/ingredient-details";
 import { loadIngredients } from "../../services/actions/burger-ingredients";
 import { ROUTES } from "../../utils/constant";
-import { OrderInfo } from "../order-info/order-info";
+import { OrderPage } from "../../pages/order/order";
 
 function App() {
   const location = useLocation();
-
   const dispatch = useDispatch();
-
+  const navigationType = useNavigationType();
   const state = location.state;
 
   useEffect(() => {
@@ -54,7 +58,6 @@ function App() {
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
         <Route path={ROUTES.FEED} element={<FeedPage />} />
-        <Route path={ROUTES.FEED_ORDERS} element={<OrderInfo />} />
         <Route
           path={ROUTES.PROFILE}
           element={<OnlyAuth component={<ProfilePage />} />}
@@ -73,6 +76,18 @@ function App() {
             </div>
           }
         />
+        {navigationType === "PUSH" ? (
+          <Route
+            path={ROUTES.FEED_ORDERS}
+            element={
+              <Modal>
+                <OrderPage />
+              </Modal>
+            }
+          />
+        ) : (
+          <Route path={ROUTES.FEED_ORDERS} element={<OrderPage />} />
+        )}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
@@ -83,14 +98,6 @@ function App() {
             element={
               <Modal>
                 <IngredientDetails heading="start" />
-              </Modal>
-            }
-          />
-          <Route
-            path={ROUTES.FEED_ORDERS}
-            element={
-              <Modal>
-                <OrderInfo />
               </Modal>
             }
           />

@@ -9,7 +9,7 @@ import { NavLink, useMatch } from "react-router-dom";
 
 export const AppHeader = () => {
   const isHomePage = useMatch("/");
-  const isOrderFeed = useMatch("/feed");
+  const isOrderFeed = useMatch({ path: "/feed", end: false });
   const isProfilePage = useMatch({ path: "/profile", end: false });
 
   return (

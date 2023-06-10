@@ -1,6 +1,7 @@
 import {
   TFeedsActions,
   FEED_CONNECTION_START,
+  FEED_DISCONNECT,
   FEED_CONNECTION_SUCCESS,
   FEED_CONNECTION_ERROR,
   FEED_CONNECTION_CLOSED,
@@ -10,6 +11,7 @@ import { TWSOrders } from "../types/profile-orders";
 
 type TFeedState = {
   wsConnected: boolean;
+
   orders: TWSOrders[];
   total: number;
   totalToday: number;
@@ -32,6 +34,12 @@ export const feedReducer = (
     case FEED_CONNECTION_START:
       return {
         ...state,
+      };
+
+    case FEED_DISCONNECT:
+      return {
+        ...state,
+        wsConnected: false,
       };
 
     case FEED_CONNECTION_SUCCESS:

@@ -8,6 +8,7 @@ import {
   TUser,
   TGetIngredientsResponse,
   TSendOrderResponse,
+  TGetOrderResponse,
 } from "./types";
 
 const request = <T>(endpoint: string, options?: RequestInit): Promise<T> => {
@@ -56,6 +57,10 @@ const refreshToken = (): Promise<Omit<TAuthResult, "user">> => {
 
 export const getIngredients = (): Promise<TGetIngredientsResponse> => {
   return request("/ingredients");
+};
+
+export const getOrder = (number: string): Promise<TGetOrderResponse> => {
+  return request(`/orders/${number}`);
 };
 
 export const sendOrder = (order: TOrder): Promise<TSendOrderResponse> => {

@@ -3,6 +3,7 @@ import { RootState } from "../types";
 
 type TWSActions = {
   wsInit: string;
+  wsDisconnect: string;
   onOpen: string;
   onClose: string;
   onError: string;
@@ -17,7 +18,8 @@ export const socketMiddleware = (
 
     return (next) => (action) => {
       const { dispatch } = store;
-      const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsDisconnect, onOpen, onClose, onError, onMessage } =
+        wsActions;
       const { type, payload } = action;
 
       if (type === wsInit) {
@@ -42,6 +44,11 @@ export const socketMiddleware = (
         socket.onclose = (event) => {
           dispatch({ type: onClose });
         };
+      }
+
+      if (type === wsDisconnect) {
+        socket?.close();
+        socket = null;
       }
 
       next(action);
