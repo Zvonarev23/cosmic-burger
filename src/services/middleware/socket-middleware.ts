@@ -8,6 +8,7 @@ type TWSActions = {
   onClose: string;
   onError: string;
   onMessage: string;
+  sendMessage: string;
 };
 
 export const socketMiddleware = (
@@ -18,8 +19,15 @@ export const socketMiddleware = (
 
     return (next) => (action) => {
       const { dispatch } = store;
-      const { wsInit, wsDisconnect, onOpen, onClose, onError, onMessage } =
-        wsActions;
+      const {
+        wsInit,
+        wsDisconnect,
+        onOpen,
+        onClose,
+        onError,
+        onMessage,
+        sendMessage,
+      } = wsActions;
       const { type, payload } = action;
 
       if (type === wsInit) {
@@ -44,11 +52,16 @@ export const socketMiddleware = (
         socket.onclose = (event) => {
           dispatch({ type: onClose });
         };
-      }
 
-      if (type === wsDisconnect) {
-        socket?.close();
-        socket = null;
+        if (type === sendMessage) {
+          const payload = action.payload;
+          socket.send(JSON.stringify(payload));
+        }
+
+        if (type === wsDisconnect) {
+          socket.close();
+          socket = null;
+        }
       }
 
       next(action);

@@ -4,8 +4,8 @@ import { rootReducer } from "../reducers";
 import { TBurgerIngredientsActions } from "../types/burger-ingredients";
 import { TOrderDetailsActions } from "./order-details";
 import { TUserActions } from "./user";
-import { TProfileOrdersActions } from "../actions/profile-orders";
-import { TFeedsActions } from "../actions/feed";
+import { TProfileOrdersActions } from "./profile-orders";
+import { TFeedsActions } from "./feed";
 
 export type RootState = ReturnType<typeof rootReducer>;
 

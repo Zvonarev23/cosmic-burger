@@ -122,25 +122,26 @@ export const requestSignOut = (): AppThunk => (dispatch: AppDispatch) => {
     });
 };
 
-export const requestGetUser = (): AppThunk => (dispatch: AppDispatch) => {
-  dispatch({
-    type: GET_USER_REQUEST,
-  });
-
-  return getUser()
-    .then((res) => {
-      dispatch({
-        type: GET_USER_SUCCESS,
-        payload: res.user,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_USER_FAILED,
-        payload: error,
-      });
+export const requestGetUser =
+  (): AppThunk<Promise<void>> => (dispatch: AppDispatch) => {
+    dispatch({
+      type: GET_USER_REQUEST,
     });
-};
+
+    return getUser()
+      .then((res) => {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: res.user,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_USER_FAILED,
+          payload: error,
+        });
+      });
+  };
 
 export const requestUpdateUser =
   (form: TUseForm): AppThunk =>
@@ -165,7 +166,7 @@ export const requestUpdateUser =
   };
 
 export const requestForgotPassword =
-  (email: string): AppThunk =>
+  (email: string): AppThunk<Promise<void>> =>
   (dispatch: AppDispatch) => {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
@@ -179,7 +180,7 @@ export const requestForgotPassword =
   };
 
 export const requestResetPassword =
-  ({ password, token }: TUseForm): AppThunk =>
+  ({ password, token }: TUseForm): AppThunk<Promise<void>> =>
   (dispatch: AppDispatch) => {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
@@ -192,19 +193,19 @@ export const requestResetPassword =
       );
   };
 
-export const checkUserAuth = (): AppThunk => (dispatch: AppDispatch) => {
-  if (localStorage.getItem("accessToken")) {
-    dispatch(requestGetUser())
-      //@ts-ignore
-      .catch(() => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        dispatch(setUser(null));
-      })
-      .finally(() => {
-        dispatch(setAuthChecked(true));
-      });
-  } else {
-    dispatch(setAuthChecked(true));
-  }
-};
+export const checkUserAuth =
+  (): AppThunk => (dispatch: AppDispatch<Promise<void>>) => {
+    if (localStorage.getItem("accessToken")) {
+      dispatch(requestGetUser())
+        .catch(() => {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          dispatch(setUser(null));
+        })
+        .finally(() => {
+          dispatch(setAuthChecked(true));
+        });
+    } else {
+      dispatch(setAuthChecked(true));
+    }
+  };

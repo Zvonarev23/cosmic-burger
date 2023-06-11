@@ -23,14 +23,6 @@ export const OrderInfo = ({ order }: TOrderInfo): JSX.Element => {
     0
   );
 
-  if (currentOrderIngredients.includes(undefined)) {
-    return (
-      <div className={styles.container}>
-        <h1>Кажется что-то пошло не так</h1>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.container}>
       <>

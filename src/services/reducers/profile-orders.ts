@@ -1,5 +1,4 @@
 import {
-  TProfileOrdersActions,
   PROFILE_ORDER_CONNECTION_START,
   PROFILE_ORDER_CONNECTION_SUCCESS,
   PROFILE_ORDER_CONNECTION_ERROR,
@@ -7,7 +6,7 @@ import {
   PROFILE_ORDER_GET_ORDERS,
   PROFILE_ORDER_DISCONNECT,
 } from "../actions/profile-orders";
-import { TWSOrders } from "../types/profile-orders";
+import { TProfileOrdersActions, TWSOrders } from "../types/profile-orders";
 
 type TProfileOrdersState = {
   wsConnected: boolean;

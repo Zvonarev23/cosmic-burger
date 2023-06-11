@@ -13,7 +13,7 @@ import { useDispatch } from "../../hooks/useDispatch";
 export const ForgotPasswordPage = () => {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Promise<void>>();
   const location = useLocation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,6 @@ export const ForgotPasswordPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(requestForgotPassword(inputValue)).then(() =>
       navigate("/reset-password", { state: { forgotPassword: location } })
     );

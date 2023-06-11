@@ -54,10 +54,10 @@ export const FeedPage = () => {
 
   return (
     <div className={styles.container}>
+      <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
+
       <div className={styles.feed_container}>
         <div className={styles.feed}>
-          <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
-
           <ul className={styles.list_cards}>
             {allOrders.map((order) => {
               return (

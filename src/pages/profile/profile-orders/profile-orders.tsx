@@ -29,7 +29,6 @@ export const ProfileOrders = (): JSX.Element => {
   }, []);
 
   const allOrders = orders.map((item) => item);
-  console.log(orders.length);
 
   if (orders.length === 0 && !wsConnected) {
     return (

@@ -13,7 +13,7 @@ import { useDispatch } from "../../hooks/useDispatch";
 
 export const ResetPasswordPage = () => {
   const { values, handleChange } = useForm({ password: "", token: "" });
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Promise<void>>();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,7 +21,6 @@ export const ResetPasswordPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // @ts-ignore
     dispatch(requestResetPassword(values)).then(() => navigate("/login"));
   };
 

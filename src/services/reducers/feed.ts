@@ -1,5 +1,4 @@
 import {
-  TFeedsActions,
   FEED_CONNECTION_START,
   FEED_DISCONNECT,
   FEED_CONNECTION_SUCCESS,
@@ -7,6 +6,7 @@ import {
   FEED_CONNECTION_CLOSED,
   FEED_GET_ORDERS,
 } from "../actions/feed";
+import { TFeedsActions } from "../types/feed";
 import { TWSOrders } from "../types/profile-orders";
 
 type TFeedState = {
