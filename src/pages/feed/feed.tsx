@@ -9,10 +9,13 @@ import {
   feedWsConnectionStart,
 } from "../../services/actions/feed";
 import { Link } from "react-router-dom";
+import { Preloader } from "../../components/preloader/preloader";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
-  const { orders, total, totalToday } = useSelector((state) => state.feed);
+  const { orders, total, totalToday, wsConnected, error } = useSelector(
+    (state) => state.feed
+  );
 
   const completedOrders = orders
     .filter((item) => item.status === "done")
@@ -20,7 +23,7 @@ export const FeedPage = () => {
     .slice(0, 20);
 
   const pendingOrders = orders
-    .filter((item) => item.status === "peinding")
+    .filter((item) => item.status === "pending")
     .map((item) => item.number);
 
   useEffect(() => {
@@ -33,8 +36,20 @@ export const FeedPage = () => {
 
   const allOrders = orders.map((item) => item);
 
-  if (orders.length === 0) {
-    return <h1>Загрузка</h1>;
+  if (orders.length === 0 && !wsConnected) {
+    return (
+      <div className={styles.loader_container}>
+        <Preloader />
+      </div>
+    );
+  }
+
+  if (orders.length === 0 && error) {
+    return (
+      <div className={styles.loader_container}>
+        <h1>Упс... кажется такого заказа больше нет</h1>
+      </div>
+    );
   }
 
   return (

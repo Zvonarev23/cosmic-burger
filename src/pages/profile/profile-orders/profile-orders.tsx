@@ -8,10 +8,14 @@ import {
   profileOrdersWsConnectionClosed,
   profileOrdersWsConnectionStart,
 } from "../../../services/actions/profile-orders";
+import { Link } from "react-router-dom";
+import { Preloader } from "../../../components/preloader/preloader";
 
 export const ProfileOrders = (): JSX.Element => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.profileOrders.orders);
+  const { orders, wsConnected, error } = useSelector(
+    (state) => state.profileOrders
+  );
   const token = localStorage.getItem("accessToken")?.replace("Bearer ", "");
 
   useEffect(() => {
@@ -25,12 +29,38 @@ export const ProfileOrders = (): JSX.Element => {
   }, []);
 
   const allOrders = orders.map((item) => item);
+  console.log(orders.length);
+
+  if (orders.length === 0 && !wsConnected) {
+    return (
+      <div className={styles.container}>
+        <Preloader />
+      </div>
+    );
+  }
+
+  if (orders.length === 0 && error) {
+    return (
+      <div className={styles.container}>
+        <h1>Упс... кажется такого заказа больше нет</h1>
+      </div>
+    );
+  }
 
   return (
-    <div className={styles.container}>
+    <ul className={styles.list}>
       {allOrders.map((order) => {
-        return <OrderCard key={order.number} order={order} />;
+        return (
+          <li key={order.number}>
+            <Link
+              className={styles.link}
+              to={`/profile/orders/${order.number}`}
+            >
+              <OrderCard order={order} />
+            </Link>
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 };

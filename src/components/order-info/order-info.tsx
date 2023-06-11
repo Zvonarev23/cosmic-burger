@@ -12,7 +12,7 @@ type TOrderInfo = {
 };
 
 export const OrderInfo = ({ order }: TOrderInfo): JSX.Element => {
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const { ingredients } = useSelector((state) => state.ingredients);
 
   const currentOrderIngredients = order.ingredients.map((ingredient) => {
     return ingredients.find((item) => item._id === ingredient);
@@ -23,32 +23,47 @@ export const OrderInfo = ({ order }: TOrderInfo): JSX.Element => {
     0
   );
 
+  if (currentOrderIngredients.includes(undefined)) {
+    return (
+      <div className={styles.container}>
+        <h1>Кажется что-то пошло не так</h1>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <>
-        <h2 className="text text_type_digits-default mb-8">{`#${order?.number}`}</h2>
-        <p className="text text_type_main-medium mb-4">{order?.name}</p>
-        <span className={styles.status}>{order?.status}</span>
+        <h2 className="text text_type_digits-default mb-8">{`#${order.number}`}</h2>
+        <p className="text text_type_main-medium mb-4">{order.name}</p>
+        <span className={styles.status}>{order.status}</span>
 
         <span className="text text_type_main-medium mb-6">Состав:</span>
 
         <ul
           className={
-            currentOrderIngredients!.length > 4
+            currentOrderIngredients.length > 4
               ? styles.content_scroll
               : styles.content
           }
         >
-          {currentOrderIngredients!.map((ingredient, index) => {
+          {currentOrderIngredients.map((ingredient, index) => {
+            if (ingredient === undefined) {
+              return null;
+            }
+
             return (
               <li className={styles.item} key={index}>
                 <IngredientImage
-                  name={ingredient!.name}
-                  image={ingredient!.image}
+                  name={ingredient.name}
+                  image={ingredient.image}
                 />
-                <p className={styles.ingredient_name}>{ingredient!.name}</p>
+
+                <p className={styles.ingredient_name}>{ingredient.name}</p>
+
                 <div className={styles.price}>
-                  <span className="text text_type_digits-default">{`1 x ${ingredient?.price}`}</span>
+                  <span className="text text_type_digits-default">{`1 x ${ingredient.price}`}</span>
+
                   <CurrencyIcon type="primary" />
                 </div>
               </li>

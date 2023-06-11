@@ -88,6 +88,21 @@ function App() {
         ) : (
           <Route path={ROUTES.FEED_ORDERS} element={<OrderPage />} />
         )}
+        {navigationType === "PUSH" ? (
+          <Route
+            path={ROUTES.PROFILE_ORDERS}
+            element={
+              <Modal>
+                <OrderPage />
+              </Modal>
+            }
+          />
+        ) : (
+          <Route
+            path={ROUTES.PROFILE_ORDERS}
+            element={<OnlyAuth component={<OrderPage />} />}
+          />
+        )}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 

@@ -10,6 +10,7 @@ export const ROUTES: {
   FEED: string;
   FEED_ORDERS: string;
   PROFILE: string;
+  PROFILE_ORDERS: string;
   ORDERS: string;
   INGREDIENT: string;
 } = {
@@ -21,6 +22,7 @@ export const ROUTES: {
   FEED: "/feed",
   FEED_ORDERS: "/feed/:number",
   PROFILE: "/profile",
+  PROFILE_ORDERS: "/profile/orders/:number",
   ORDERS: "orders",
   INGREDIENT: "/ingredient/:_id",
 };

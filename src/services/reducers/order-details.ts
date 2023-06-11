@@ -6,6 +6,7 @@ import {
   GET_ORDER_FAILED,
   GET_ORDER_SUCCESS,
   GET_ORDER_REQUEST,
+  CLEAR_ORDER_STATE,
 } from "../actions/order-details";
 import { TOrderDetailsActions } from "../types/order-details";
 
@@ -70,6 +71,11 @@ export const orderDetailsReducer = (
         ...state,
         getError: true,
         getRequest: false,
+      };
+
+    case CLEAR_ORDER_STATE:
+      return {
+        ...initialState,
       };
     default:
       return state;

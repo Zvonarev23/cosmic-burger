@@ -6,6 +6,7 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
+  CLEAR_ORDER_STATE,
 } from "../actions/order-details";
 
 export interface ISendOrderRequestAction {
@@ -34,10 +35,15 @@ export interface IgetOrderFailedAction {
   type: typeof GET_ORDER_FAILED;
 }
 
+export interface IClearOrderStateAction {
+  type: typeof CLEAR_ORDER_STATE;
+}
+
 export type TOrderDetailsActions =
   | ISendOrderRequestAction
   | ISendOrderSuccessAction
   | ISendOrderFailedAction
   | IGetOrderRequestAction
   | IgetOrderSuccessAction
-  | IgetOrderFailedAction;
+  | IgetOrderFailedAction
+  | IClearOrderStateAction;

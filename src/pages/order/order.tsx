@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import { OrderInfo } from "../../components/order-info/order-info";
 import styles from "./order.module.css";
-import { getOrderRequest } from "../../services/actions/order-details";
+import {
+  clearOrderState,
+  getOrderRequest,
+} from "../../services/actions/order-details";
 import { useParams } from "react-router-dom";
 import { useSelector } from "../../hooks/useSelector";
 import { Preloader } from "../../components/preloader/preloader";
 import { useDispatch } from "../../hooks/useDispatch";
 
-export const OrderPage = () => {
+export const OrderPage = (): JSX.Element => {
   const { order, getRequest, getError } = useSelector(
     (state) => state.orderDetails
   );
@@ -16,6 +19,10 @@ export const OrderPage = () => {
 
   useEffect(() => {
     if (number) dispatch(getOrderRequest(number));
+
+    return () => {
+      dispatch(clearOrderState());
+    };
   }, []);
 
   return (
