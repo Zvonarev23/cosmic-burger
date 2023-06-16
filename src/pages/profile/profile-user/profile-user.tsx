@@ -4,19 +4,19 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FormContent } from "../form/form-content/form-content";
-import styles from "./user-profile.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { requestUpdateUser } from "../../services/actions/user.js";
-import { useForm } from "../../hooks/useForm";
+import { FormContent } from "../../../components/form/form-content/form-content";
+import styles from "./profile-user.module.css";
+import { requestUpdateUser } from "../../../services/actions/user";
+import { useForm } from "../../../hooks/useForm";
+import { useDispatch } from "../../../hooks/useDispatch";
+import { useSelector } from "../../../hooks/useSelector";
 
-export const UserProfile = () => {
-  //@ts-ignore
-  const { name, email } = useSelector((state) => state.user.user);
+export const ProfileUser = () => {
+  const user = useSelector((state) => state.user.user);
 
   const { values, handleChange, setValues } = useForm({
-    name: name,
-    email: email,
+    name: user ? user.name : "",
+    email: user ? user.email : "",
     password: "",
   });
 
@@ -24,12 +24,21 @@ export const UserProfile = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(requestUpdateUser(values));
   };
 
   const handleCancel = () => {
-    setValues({ name: name, email: email, password: "" });
+    user
+      ? setValues({
+          name: user.name,
+          email: user.email,
+          password: "",
+        })
+      : setValues({
+          name: "",
+          email: "",
+          password: "",
+        });
   };
 
   return (
@@ -56,8 +65,8 @@ export const UserProfile = () => {
           name="password"
         />
         <>
-          {(values.name !== name ||
-            values.email !== email ||
+          {((user && values.name !== user.name) ||
+            (user && values.email !== user.email) ||
             values.password !== "") && (
             <div className={styles.action}>
               <Button onClick={handleCancel} htmlType="button" type="secondary">

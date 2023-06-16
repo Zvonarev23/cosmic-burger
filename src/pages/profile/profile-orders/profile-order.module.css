@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  min-width: 600px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-right: 8px;
+  max-height: 800px;
+  overflow-y: scroll;
+  composes: custom-scroll from global;
+}
+
+.link {
+  color: #ffffff;
+}

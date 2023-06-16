@@ -15,9 +15,46 @@ export type TIngredient = {
 
 export type TBurgerConstructorItem = TIngredient & { id: string };
 
-export type TSendOrder = {
+export type TGetIngredientsResponse = {
+  success: boolean;
+  data: TIngredient[];
+};
+
+export type TGetOrder = {
+  id: string;
+  ingredients: string[];
+  owner: string;
+  status: string;
   name: string;
+  createdAt: string;
+  updatedAt: string;
   number: number;
+  __v: string;
+};
+
+export type TGetOrderResponse = {
+  success: boolean;
+  orders: [TGetOrder];
+};
+
+export type TSendOrderResponse = {
+  name: string;
+  order: {
+    createdAt: string;
+    ingredients: TIngredient[];
+    name: string;
+    number: number;
+    owner: {
+      name: string;
+      email: string;
+      createdAt: string;
+    };
+    price: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+  };
+  success: boolean;
 };
 
 export type TAuthResult = {

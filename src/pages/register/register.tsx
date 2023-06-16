@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { FormContent } from "../../components/form/form-content/form-content";
 import { FormSuggestion } from "../../components/form/form-suggestion/form-suggestion";
-import { requestSignUp } from "../../services/actions/user.js";
-import { useDispatch } from "react-redux";
+import { requestSignUp } from "../../services/actions/user";
 import { useForm } from "../../hooks/useForm";
+import { useDispatch } from "../../hooks/useDispatch";
 
 export const RegisterPage = () => {
   const { values, handleChange } = useForm({
@@ -23,7 +23,6 @@ export const RegisterPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(requestSignUp(values));
   };
 

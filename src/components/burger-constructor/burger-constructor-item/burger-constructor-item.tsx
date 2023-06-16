@@ -3,7 +3,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor-item.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   deleteIngredient,
   sortIngredients,
@@ -11,6 +11,7 @@ import {
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 import { TBurgerConstructorItem } from "../../../utils/types";
+import { useSelector } from "../../../hooks/useSelector";
 
 type BurgerConstructorItemProps = {
   item: TBurgerConstructorItem;
@@ -31,7 +32,6 @@ export const BurgerConstructorItem = ({
 }: BurgerConstructorItemProps): JSX.Element => {
   const dispatch = useDispatch();
   const constructorIngredients = useSelector(
-    //@ts-ignore
     (state) => state.burgerConstructor.ingredients
   );
 

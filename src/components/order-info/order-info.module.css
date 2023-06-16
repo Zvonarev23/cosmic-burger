@@ -1,0 +1,65 @@
+.container {
+  padding: 60px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 718px;
+  min-height: 538px;
+}
+
+.preloader {
+  align-self: center;
+}
+
+.content {
+  width: 100%;
+  padding-right: 24px;
+  margin-bottom: 48px;
+}
+
+.content_scroll {
+  composes: content;
+  max-height: 320px;
+  overflow-y: scroll;
+  composes: custom-scroll from global;
+}
+
+.status {
+  composes: text text_type_main-default from global;
+  color: var(--colors-interface-success);
+  margin-bottom: 60px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.ingredient_name {
+  composes: text text_type_main-default from global;
+  margin-right: auto;
+  margin-left: 40px;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.total {
+  composes: price;
+}

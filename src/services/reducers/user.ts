@@ -23,8 +23,41 @@ import {
   SET_AUTH_CHECKED,
   SET_USER,
 } from "../actions/user";
+import { TUserActions } from "../types/user";
 
-const initialState = {
+type TUser = {
+  name: string;
+  email: string;
+};
+
+type TUserState = {
+  isAuthChecked: boolean;
+
+  user: null | { name: string; email: string };
+
+  signUpError: null | Error;
+  signUpRequest: boolean;
+
+  signInError: null | Error;
+  signInRequest: boolean;
+
+  signOutError: null | Error;
+  signOutRequest: boolean;
+
+  getUserError: null | Error;
+  getUserRequest: boolean;
+
+  updateUserError: null | Error;
+  updateUserRequest: boolean;
+
+  forgotPasswordError: null | Error;
+  forgotPasswordRequest: boolean;
+
+  resetPasswordError: null | Error;
+  resetPasswordRequest: boolean;
+};
+
+const initialState: TUserState = {
   isAuthChecked: false,
 
   user: null,
@@ -51,7 +84,10 @@ const initialState = {
   resetPasswordRequest: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (
+  state = initialState,
+  action: TUserActions
+): TUserState => {
   switch (action.type) {
     // регистрация
 

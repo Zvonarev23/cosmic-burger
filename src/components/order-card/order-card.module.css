@@ -1,0 +1,56 @@
+.container {
+  padding: 24px;
+  background-color: #1c1c21;
+  border-radius: 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list {
+  display: flex;
+  position: relative;
+}
+
+.price {
+  display: flex;
+}
+
+.status_default {
+  composes: text text_type_main-default from global;
+  margin-bottom: 16px;
+}
+
+.status_done {
+  composes: status_default;
+  color: var(--colors-interface-success);
+}
+
+.counter {
+  composes: text text_type_main-default from global;
+  position: absolute;
+  z-index: 1;
+  height: 60px;
+  width: 60px;
+  top: 2px;
+  right: -18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(28, 28, 33, 0.6);
+}

@@ -6,6 +6,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:react-redux/recommended",
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
@@ -30,12 +31,20 @@
     ],
     "settings": {
         "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
+            "typescript": {}
         }
     },
     "rules": {
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "react-redux/useSelector-prefer-selectors": "off",
+        "@typescript-eslint/ban-types": [
+            "error",
+            {
+                "extendDefaults": true,
+                "types": {
+                "{}": false
+                }
+            }
+        ]
     }
 }

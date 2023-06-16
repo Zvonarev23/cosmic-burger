@@ -9,7 +9,7 @@ import { NavLink, useMatch } from "react-router-dom";
 
 export const AppHeader = () => {
   const isHomePage = useMatch("/");
-  const isOrderFeed = useMatch("/order-feed");
+  const isOrderFeed = useMatch({ path: "/feed", end: false });
   const isProfilePage = useMatch({ path: "/profile", end: false });
 
   return (
@@ -33,7 +33,7 @@ export const AppHeader = () => {
 
             <li>
               <NavLink
-                to="/order-feed"
+                to="/feed"
                 className={({ isActive }) =>
                   isActive ? styles.link_active : styles.link
                 }
