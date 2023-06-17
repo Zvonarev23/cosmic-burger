@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { OrderCard } from "../../../components/order-card/order-card";
+import OrderCard from "../../../components/order-card/order-card";
 import { useDispatch } from "../../../hooks/useDispatch";
 import { useSelector } from "../../../hooks/useSelector";
 import styles from "./profile-order.module.css";

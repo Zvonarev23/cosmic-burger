@@ -3,7 +3,7 @@ import styles from "./feed.module.css";
 import { useDispatch } from "../../hooks/useDispatch";
 import { WS_ALL_ORDERS_URL } from "../../utils/constant";
 import { useSelector } from "../../hooks/useSelector";
-import { OrderCard } from "../../components/order-card/order-card";
+import OrderCard from "../../components/order-card/order-card";
 import {
   feedWsConnectionClosed,
   feedWsConnectionStart,
