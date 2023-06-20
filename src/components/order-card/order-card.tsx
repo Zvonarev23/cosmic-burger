@@ -5,7 +5,6 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientImage } from "../ingredient-image/ingredient-image";
-
 import React from "react";
 
 type Torder = {

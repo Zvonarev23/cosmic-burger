@@ -19,7 +19,7 @@ type TFeedState = {
   error?: Event;
 };
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   wsConnected: false,
   orders: [],
   total: 0,
