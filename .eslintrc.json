@@ -13,7 +13,8 @@
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
         "plugin:import/recommended",
-        "prettier"
+        "prettier",
+        "plugin:cypress/recommended"
     ],
     "overrides": [
         {
@@ -28,7 +29,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "cypress"
     ],
     "settings": {
         "import/resolver": {

@@ -52,6 +52,7 @@ export const IngredientItem = ({ item }: TIngredientItem): JSX.Element => {
       <DragPreviewImage connect={preview} src={item.image} />
       <li style={{ opacity }} ref={dragRef} className={styles.card}>
         <Link
+          data-testid={item.name}
           className={styles.link}
           to={`/ingredient/${item._id}`}
           state={{ backgroundLocation: location }}

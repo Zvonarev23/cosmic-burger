@@ -35,8 +35,12 @@ export const Modal = ({ children, onCloseModal }: Tmodal): JSX.Element => {
 
   return createPortal(
     <>
-      <div className={styles.modal}>
-        <button onClick={onClose} className={styles.close}>
+      <div className={styles.modal} data-testid="modal">
+        <button
+          onClick={onClose}
+          className={styles.close}
+          data-testid="modal_close"
+        >
           <CloseIcon type="primary" />
         </button>
 
