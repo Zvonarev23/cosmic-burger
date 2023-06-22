@@ -2,6 +2,8 @@
 
 Проект Stellar Burgers.
 
+Ссылка на сайт проекта - https://zvonarev23.github.io/cosmic-burger/
+
 Приложение написано на React, Redux, TypeScript, React-Router, React-DnD, CSS Modules, React Hooks. Покрыт тестами на Jest и Cypress.
 
 Товар выбирается методом перетаскивания вправо (иммитация корзины).
