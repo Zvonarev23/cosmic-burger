@@ -5,6 +5,7 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientImage } from "../ingredient-image/ingredient-image";
+import React from "react";
 
 type Torder = {
   order: {
@@ -18,7 +19,7 @@ type Torder = {
   };
 };
 
-export const OrderCard = ({ order }: Torder): JSX.Element => {
+const OrderCard = ({ order }: Torder): JSX.Element => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   const orderIngredients = order.ingredients.map((ingredientId) => {
@@ -88,3 +89,5 @@ export const OrderCard = ({ order }: Torder): JSX.Element => {
     </div>
   );
 };
+
+export default React.memo(OrderCard);

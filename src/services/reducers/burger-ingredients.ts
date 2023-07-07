@@ -12,7 +12,7 @@ export type TBurgerIngredientsState = {
   isError: boolean;
 };
 
-const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
   ingredients: [],
   isLoading: false,
   isError: false,

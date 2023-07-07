@@ -21,7 +21,7 @@ type TOrderDetailsState = {
   orderNumber: number;
 };
 
-const initialState: TOrderDetailsState = {
+export const initialState: TOrderDetailsState = {
   isError: false,
   isLoading: false,
 

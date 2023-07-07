@@ -62,7 +62,11 @@ export const BurgerConstructor = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
-      <div ref={dropIngredientsRef} className={`${styles.order} mb-10`}>
+      <div
+        ref={dropIngredientsRef}
+        className={`${styles.order} mb-10`}
+        data-testid="constructor_container"
+      >
         {bun ? (
           <div className="mb-4 pr-4">
             <ConstructorElement
@@ -85,6 +89,7 @@ export const BurgerConstructor = (): JSX.Element => {
           className={
             ingredients.length > 5 ? styles.wrapper_scroll : styles.wrapper
           }
+          data-testid="ingredients_container"
         >
           {ingredients.length !== 0 ? (
             ingredients.map((item: TBurgerConstructorItem, index: number) => {
@@ -133,6 +138,7 @@ export const BurgerConstructor = (): JSX.Element => {
         </div>
 
         <Button
+          data-testid="create_order"
           disabled={bun ? false : true}
           htmlType="button"
           type="primary"

@@ -13,7 +13,7 @@ type TBurgerConstructorState = {
   ingredients: TBurgerConstructorItem[];
 };
 
-const initialState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
   bun: null,
   ingredients: [],
 };
@@ -34,6 +34,7 @@ export const burgerConstructorReducer = (
         ...state,
         ingredients: [...state.ingredients, action.payload],
       };
+
     case DELETE_INGREDIENT:
       return {
         ...state,
@@ -47,6 +48,7 @@ export const burgerConstructorReducer = (
         ...state,
         ingredients: [...action.payload],
       };
+
     case CLEAR_INGREDIENTS:
       return {
         ...initialState,

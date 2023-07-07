@@ -25,11 +25,6 @@ import {
 } from "../actions/user";
 import { TUserActions } from "../types/user";
 
-type TUser = {
-  name: string;
-  email: string;
-};
-
 type TUserState = {
   isAuthChecked: boolean;
 
@@ -57,7 +52,7 @@ type TUserState = {
   resetPasswordRequest: boolean;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
 
   user: null,

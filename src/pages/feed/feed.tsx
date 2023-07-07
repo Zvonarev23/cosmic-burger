@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import styles from "./feed.module.css";
 import { useDispatch } from "../../hooks/useDispatch";
 import { WS_ALL_ORDERS_URL } from "../../utils/constant";
 import { useSelector } from "../../hooks/useSelector";
-import { OrderCard } from "../../components/order-card/order-card";
+import OrderCard from "../../components/order-card/order-card";
 import {
   feedWsConnectionClosed,
   feedWsConnectionStart,
@@ -17,14 +17,18 @@ export const FeedPage = () => {
     (state) => state.feed
   );
 
-  const completedOrders = orders
-    .filter((item) => item.status === "done")
-    .map((item) => item.number)
-    .slice(0, 20);
+  const [completedOrders, pendingOrders] = useMemo(() => {
+    const completedOrders = orders
+      .filter((item) => item.status === "done")
+      .map((item) => item.number)
+      .slice(0, 20);
 
-  const pendingOrders = orders
-    .filter((item) => item.status === "pending")
-    .map((item) => item.number);
+    const pendingOrders = orders
+      .filter((item) => item.status === "pending")
+      .map((item) => item.number);
+
+    return [completedOrders, pendingOrders];
+  }, [orders]);
 
   useEffect(() => {
     dispatch(feedWsConnectionStart(WS_ALL_ORDERS_URL));

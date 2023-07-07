@@ -14,7 +14,7 @@ type TProfileOrdersState = {
   error?: Event;
 };
 
-const initialState: TProfileOrdersState = {
+export const initialState: TProfileOrdersState = {
   wsConnected: false,
   orders: [],
 };
